@@ -1,0 +1,29 @@
+@startuml
+
+node "DocTide Action" {
+    [Action.yml]
+    [Dockerfile]
+    [entrypoint.sh]
+    [doctide.py]
+}
+
+node "DocTide Test Environment" {
+    [doctide_labs.py]
+    [metrics.py]
+}
+
+folder "helpers" {
+        [code_diff_utils.py]
+    }
+
+[doctide.py] -down-> [code_diff_utils.py]
+[doctide.py] -up-> [langchain_ollama]
+[doctide.py] -up-> [langchain_core]
+[doctide.py] -up-> [gitPython]
+[doctide_labs.py] --> [pyGithub]
+[doctide_labs.py] --> [metrics.py]
+[doctide_labs.py] -up-> [code_diff_utils.py]
+[doctide_labs.py] --> [dotenv]
+[metrics.py] --> [sentence_transformer]
+
+@enduml

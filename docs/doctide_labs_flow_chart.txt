@@ -1,0 +1,90 @@
+@startuml
+participant doctide_labs
+participant test_branch
+participant forked_repo
+participant DocTide_Action
+
+rnote over doctide_labs
+    login to GitHub
+    on forked repo
+    using github PAT
+endrnote
+rnote over doctide_labs
+    make a lists of
+    commits from a set
+    start commits to a
+    set end point
+endrnote
+forked_repo->doctide_labs : list of commits
+doctide_labs->test_branch : creates test branch from oldest commit in commits
+rnote over test_branch : start_commit
+rnote over doctide_labs
+    adds a workflow which invoke our 
+    DocTide action
+endrnote
+doctide_labs->test_branch : test_workflow
+loop for commit in commits
+    rnote over doctide_labs
+        Treats commits in the commit list
+        as incoming commits to the
+        test branch
+    endrnote
+    test_branch->doctide_labs : gets head commit(first run is start_commit)
+    rnote over doctide_labs
+        Takes next commit and gets
+        files it is modifying using 
+        diff_lib
+    endrnote
+    loop for file in diff.files
+        rnote over doctide_labs
+            file now gets cleaned for function level
+            comments, for the function which have
+            been modified in the file, to only give the
+            code changes to the agent.
+        endrnote
+
+        rnote over doctide_labs
+            Since we want the agent to have the content
+            which is accessible to it in a real scenario,
+            we restore the comments from the head_commit 
+            back to the cleaned commit, since it should be
+            considering its own contributions, and only change
+            its comments if necessary.
+        endrnote
+    end
+    rnote over doctide_labs
+        Now the cleaned files is commited
+        to the test branch
+    endrnote
+    doctide_labs->test_branch : cleaned commit
+    rnote over test_branch
+        commit without new comments
+    endrnote
+    rnote over doctide_labs
+        Now the test workflow is invoked
+        which invokes the DocTide action
+    endrnote
+    doctide_labs->test_branch : invoked test_workflow
+    test_branch-> DocTide_Action : test_workflow invokes the DocTide Action
+    rnote over DocTide_Action
+        Does its job, sees "commit without new comments"
+        as the HEAD commit of test branch and start_commit,
+        or its own last contribution as HEAD~1
+    endrnote
+    DocTide_Action->test_branch : commits its generated comments
+    rnote over test_branch
+        updated function level documentation
+    endrnote
+    rnote over doctide_labs
+        creates semantic score between the possible existing
+        comments on the commit (before remove_diff_comments)
+        and thee generated comments by the llm, and saves it
+        to a csv file, for each commit
+    endrnote
+    rnote over doctide_labs
+        collects the success rate, tracked by the agent and
+        append it to a csv file
+    endrnote
+end
+
+@enduml

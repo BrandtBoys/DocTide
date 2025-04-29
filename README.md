@@ -1,4 +1,4 @@
-![DocTide logo]() # DocTide Action
+# <img src="https://github.com/BrandtBoys/DocTide/blob/main/docs/DocTide_logo-min.png?raw=true" width="70" style="vertical-align: middle"/> DocTide Action
 
 DocTide brings LLM-powered, function-level documentation directly to your GitHub Pull Requests — seamlessly, automatically, and at the speed of development.
 

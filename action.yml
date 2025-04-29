@@ -1,5 +1,5 @@
-name: 'DocTide'
-description: 'GitHub workflow that uses an LLM agent to add function-level documentation for new or modified functions in the latest commit, triggered by user-defined pushes'
+name: 'DocTide Action'
+description: 'GitHub Action using an LLM agent to auto-generate function-level docs for new or changed functions on user-defined pushes.'
 inputs:
   testing:
     description: 'A boolean which sets the workflow to run in test-mode: committing directly instead of opening a pull-request'

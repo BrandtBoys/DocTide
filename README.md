@@ -33,9 +33,8 @@ jobs:
         uses: actions/checkout@v3
         with:
             fetch-depth: 0
-      - name: run DocTide action
-        id: doctide
-        uses: BrandtBoys/Bachelor@v20
+      - name: DocTide Action
+        uses: BrandtBoys/DocTide@v1
         with:
           testing: false
 ```

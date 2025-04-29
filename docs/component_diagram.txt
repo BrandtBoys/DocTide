@@ -16,14 +16,15 @@ folder "helpers" {
         [code_diff_utils.py]
     }
 
-[doctide.py] -down-> [code_diff_utils.py]
+[doctide.py] -left-> [code_diff_utils.py]
 [doctide.py] -up-> [langchain_ollama]
 [doctide.py] -up-> [langchain_core]
 [doctide.py] -up-> [gitPython]
 [doctide_labs.py] --> [pyGithub]
 [doctide_labs.py] --> [metrics.py]
-[doctide_labs.py] -up-> [code_diff_utils.py]
+[doctide_labs.py] -right-> [code_diff_utils.py]
 [doctide_labs.py] --> [dotenv]
-[metrics.py] --> [sentence_transformer]
+[metrics.py] -right-> [sentence_transformer]
+[metrics.py] --> [code_diff_utils.py]
 
 @enduml

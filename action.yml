@@ -1,0 +1,13 @@
+name: 'DocTide'
+description: 'GitHub workflow that uses an LLM agent to add function-level documentation for new or modified functions in the latest commit, triggered by user-defined pushes'
+inputs:
+  testing:
+    description: 'A boolean which sets the workflow to run in test-mode: committing directly instead of opening a pull-request'
+    default: false
+    required: false
+    type: boolean
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.testing }}

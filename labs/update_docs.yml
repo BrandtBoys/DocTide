@@ -1,0 +1,17 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  DocTide_job:
+    runs-on: ubuntu-latest
+    name: Run Doctide
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+            fetch-depth: 0
+      - name: run DocTide action
+        id: doctide
+        uses: BrandtBoys/Bachelor@v20
+        with:
+          testing: true

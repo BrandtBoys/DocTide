@@ -12,15 +12,15 @@ endrnote
 rnote over doctide_labs
     make a lists of
     commits from a set
-    start commits to a
-    set end point
+    start commit to a
+    set end commit
 endrnote
 forked_repo->doctide_labs : list of commits
-doctide_labs->test_branch : creates test branch from oldest commit in commits
+doctide_labs->test_branch : creates test branch from start_commit
 rnote over test_branch : start_commit
 rnote over doctide_labs
-    adds a workflow which invoke our 
-    DocTide action
+    Adds a workflow which can invoke 
+    our DocTide action
 endrnote
 doctide_labs->test_branch : test_workflow
 loop for commit in commits
@@ -29,7 +29,7 @@ loop for commit in commits
         as incoming commits to the
         test branch
     endrnote
-    test_branch->doctide_labs : gets head commit(first run is start_commit)
+    test_branch->doctide_labs : gets head commit (first run is start_commit)
     rnote over doctide_labs
         Takes next commit and gets
         files it is modifying using 
@@ -37,19 +37,12 @@ loop for commit in commits
     endrnote
     loop for file in diff.files
         rnote over doctide_labs
-            file now gets cleaned for function level
-            comments, for the function which have
-            been modified in the file, to only give the
-            code changes to the agent.
-        endrnote
-
-        rnote over doctide_labs
-            Since we want the agent to have the content
-            which is accessible to it in a real scenario,
-            we restore the comments from the head_commit 
-            back to the cleaned commit, since it should be
-            considering its own contributions, and only change
-            its comments if necessary.
+            Each file is "cleaned" meaning; in order to simulate
+            a working repository, we take the incoming commit and 
+            apply only its code changes, but not potential changes
+            to function comments. Thereby simulating a developer 
+            committing code, but trust DocTide to create the 
+            function comments.
         endrnote
     end
     rnote over doctide_labs
@@ -68,8 +61,8 @@ loop for commit in commits
     test_branch-> DocTide_Action : test_workflow invokes the DocTide Action
     rnote over DocTide_Action
         Does its job, sees "commit without new comments"
-        as the HEAD commit of test branch and start_commit,
-        or its own last contribution as HEAD~1
+        as the HEAD commit of test branch and start_commit (in
+        the first run), or its own last contribution as HEAD~1
     endrnote
     DocTide_Action->test_branch : commits its generated comments
     rnote over test_branch

@@ -7,12 +7,12 @@ node "DocTide Action" {
     [doctide.py]
 }
 
-node "DocTide Test Environment" {
+node "DocTide Labs Environment" {
     [doctide_labs.py]
     [metrics.py]
 }
 
-folder "helpers" {
+folder "utils" {
         [code_diff_utils.py]
     }
 
@@ -26,5 +26,7 @@ folder "helpers" {
 [doctide_labs.py] --> [dotenv]
 [metrics.py] -right-> [sentence_transformer]
 [metrics.py] --> [code_diff_utils.py]
+[code_diff_utils.py] --> [tree_sitter]
+[code_diff_utils.py] --> [tree_sitter_languages]
 
 @enduml

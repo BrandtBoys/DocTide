@@ -11,3 +11,6 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.testing }}
+branding:
+  icon: "file-text"
+  color: "blue"

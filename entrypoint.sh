@@ -52,6 +52,7 @@ then
     git merge origin/"$BRANCH_NAME"
     # Delete the update-docs branch
     git push -d origin "$BRANCH_NAME"
+    git fetch origin "${GITHUB_REF#refs/heads/}"
     git push origin HEAD
 else
     gh auth setup-git

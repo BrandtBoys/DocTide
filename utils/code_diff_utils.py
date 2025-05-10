@@ -160,7 +160,7 @@ def collect_code_comment_range(func_node, node, content, result_list, nodeIdSet,
         node (tree_sitter.Node): The first node in function block, possibly a comment or string.
         content (str): The full source code text.
         result_list (List[Tuple[str, str, int, int]]): A list to which the tuple
-            (function source code, associated comment, start byte, end byte) will be appended.
+            (function source code, start byte, end byte) will be appended.
 
     Returns:
         None
@@ -243,7 +243,6 @@ def collect_comment_change_lines(node, nodeIdSet, mod_lines, result_list, **kwar
 
 # Helper function
 def get_changed_line_numbers( head_content, commit_content, count_on_head_commit):
-    changed_lines = set()
     """
     Identify changed line numbers between two versions of file content.
 
@@ -259,6 +258,7 @@ def get_changed_line_numbers( head_content, commit_content, count_on_head_commit
     Returns:
         set: A set of integers representing the changed line numbers.
     """
+    changed_lines = set()
     if head_content:
 
         diff = list(difflib.unified_diff(

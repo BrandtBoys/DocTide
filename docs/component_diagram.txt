@@ -28,5 +28,6 @@ folder "utils" {
 [metrics.py] --> [code_diff_utils.py]
 [code_diff_utils.py] --> [tree_sitter]
 [code_diff_utils.py] --> [tree_sitter_languages]
+[code_diff_utils.py] --> [diff_lib]
 
 @enduml

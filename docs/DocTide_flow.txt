@@ -1,0 +1,6 @@
+@startuml
+!include small_logo_sprite.puml
+skinparam actorStyle awesome
+rectangle "<$DocTide_logo>" as DocTide
+:Developer: -> DocTide
+@enduml

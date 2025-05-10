@@ -1,0 +1,33 @@
+@startuml
+title Agent Architecture and Action Boundaries
+
+package "Environment of GitHub Action" {
+    [GitHub Repository]
+    [Operating System]
+}
+
+package "Agent System" {
+    package "🧠 LLM Core" {
+        [Generate doc comments]
+    }
+
+    package "Memory + Planner Modules" {
+        [Track modified files/functions]
+    }
+
+    package "Action Module" {
+        [detect_language()]
+        [extract_data()]
+        [generate_comments()]
+        [validate_response_as_comment()]
+        [git branch/commit/push]
+    }
+}
+
+[Generate doc comments] --> [Track modified files/functions]
+[Track modified files/functions] --> [detect_language()]
+[detect_language()] --> [GitHub Repository]
+[git branch/commit/push] --> [GitHub Repository]
+[git branch/commit/push] --> [Operating System]
+
+@enduml

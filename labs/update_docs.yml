@@ -12,6 +12,6 @@ jobs:
             fetch-depth: 0
       - name: run DocTide action
         id: doctide
-        uses: BrandtBoys/Bachelor@v20
+        uses: BrandtBoys/DocTide@main
         with:
           testing: true

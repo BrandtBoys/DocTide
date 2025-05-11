@@ -227,7 +227,7 @@ def update_file(file_name, content):
         else:
             raise  # Raise other unexpected errors
 
-def extract_success_rate_metric_from_agent ():
+def extract_success_rate_metric_from_agent():
     branch = repo.get_branch(branch_name)
     head_commit_sha = branch.commit.sha
     try:

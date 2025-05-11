@@ -76,6 +76,8 @@ def main(testing):
         repo.index.add(add_files)
 
     # For testing purpose
+    print("testing bool:")
+    print(testing)
     if testing:
         success_rate_file = os.path.join("success_rate.csv")
         success_rate_file_exists = os.path.exists(success_rate_file)

@@ -1,7 +1,10 @@
 # Build in python
 import csv
+import sys
+import os
 
 # External dependencies
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from sentence_transformers import CrossEncoder
 
 # Internal dependencies
@@ -17,7 +20,7 @@ def collect_semantic_score(repo, branch_name, modified_files, commit_sha, result
     comment_pairs = []
     comment_metedata = []
 
-    for filename in modified_files:
+    for filename,_ in modified_files:
         file_language = detect_language(filename) 
         if not file_language:
             continue

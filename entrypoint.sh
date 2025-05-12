@@ -4,7 +4,6 @@
 apt-get update
 apt-get install -y git
 apt-get install -y curl
-apt-get install -y procps
 
 # Tell the action to trust github/workspace - to avoid "dubious ownership"
 git config --global --add safe.directory /github/workspace
@@ -34,49 +33,24 @@ echo "Ollama is ready!"
 # Pull Ollama model
 ollama pull llama3.2 
 
-top -b -d 1 -p $(pgrep -f 'ollama serve') >> /tmp/resource_usage.log &
-TOP_PID=$!
-
 # Run Doctide agent
-python /doctide.py $1 || { echo "doctide.py failed with exit code $?"; exit 1; }
+python /doctide.py $1
 
+# Fetch the BRANCH_NAME env var into the container
+if [ -f "$GITHUB_ENV" ]; then
+    export $(grep BRANCH_NAME "$GITHUB_ENV")
+fi
 
-# Stop monitoring after run
-kill $TOP_PID
-
-# Analyze usage summary if in test mode
+# Test mode:
 if [ "$1" = "true" ]
 then
-    echo "===== Analyzing Ollama CPU & RAM usage ====="
-
-    OLLAMA_PID=$(pgrep -f 'ollama serve')
-
-    grep "$OLLAMA_PID root" /tmp/resource_usage.log | awk '
-    {
-        cpu+=$9;
-        mem+=$10;
-        if ($9>cpu_max) cpu_max=$9;
-        if ($10>mem_max) mem_max=$10;
-        if (cpu_min=="" || $9<cpu_min) cpu_min=$9;
-        if (mem_min=="" || $10<mem_min) mem_min=$10;
-        count++;
-    }
-    END {
-        if (count>0) {
-            printf "\n=== Ollama Usage Summary ===\n";
-            printf "CPU usage:  min: %.1f%%  avg: %.1f%%  max: %.1f%%\n", cpu_min, cpu/count, cpu_max;
-            printf "MEM usage:  min: %.1f%%  avg: %.1f%%  max: %.1f%%\n", mem_min, mem/count, mem_max;
-        } else {
-            print "No usage data found for Ollama process."
-        }
-    }'
-
-    echo "===== Done ====="
-
-    # Proceed with test mode git ops
+    # Checkout back to the caller test-branch
     git checkout "${GITHUB_REF#refs/heads/}"
-    git fetch origin "$BRANCH_NAME"
+    # Fetch the update-docs branch, the agent has just made
+    git fetch origin "$BRANCH_NAME" # An env variable set by the agent script
+    # Merge test-branch and update-docs branch
     git merge origin/"$BRANCH_NAME"
+    # Delete the update-docs branch
     git push -d origin "$BRANCH_NAME"
     git fetch origin "${GITHUB_REF#refs/heads/}"
     git push origin HEAD

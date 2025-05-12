@@ -16,7 +16,15 @@ rnote over doctide_labs
     set end commit
 endrnote
 forked_repo->doctide_labs : list of commits
-doctide_labs->test_branch : creates test branch from start_commit
+rnote over doctide_labs
+    The start_commit gets cleaned 
+    for all existing comments, 
+    leaving a black "canvas" for 
+    the DocTide Action to work on
+    without getting influenced by
+    existing comments. 
+endrnote
+doctide_labs->test_branch : creates test branch from  "cleaned" start_commit
 rnote over test_branch : start_commit
 rnote over doctide_labs
     Adds a workflow which can invoke 

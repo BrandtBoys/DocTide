@@ -37,8 +37,8 @@ repo = g.get_repo(f"{GITHUB_OWNER}/{REPO_NAME}")
 print("repo")
 
 # Commits to compare (replace or allow user input)
-start = 34   # what index of commit the test should start from, have to be higher than "end"
-end = 25  # what index of commit the test should end at
+start = 39   # what index of commit the test should start from, have to be higher than "end"
+end = 34  # what index of commit the test should end at
 
 #set of files which have been modified during the test
 modified_filepaths = set()
@@ -98,17 +98,17 @@ def main():
     
     extract_success_rate_metric_from_agent()
     
-    # create a box plot for all the semantic scores 
-    create_semantic_score_box_plot(semantic_score_result_file,timestamp)
+    # # create a box plot for all the semantic scores 
+    # create_semantic_score_box_plot(semantic_score_result_file,timestamp)
 
-    df = pd.read_csv(success_rate_result_file)
-    total_successful_runs = df["Successful runs"].sum()
-    total_attempts = df["Total runs"].sum()
+    # df = pd.read_csv(success_rate_result_file)
+    # total_successful_runs = df["Successful runs"].sum()
+    # total_attempts = df["Total runs"].sum()
 
-    overall_ratio = total_successful_runs / total_attempts if total_attempts != 0 else 0
+    # overall_ratio = total_successful_runs / total_attempts if total_attempts != 0 else 0
 
-    with open(success_ratio_file, 'w') as f:
-        f.write(f"Overall success ratio: {overall_ratio:.4f}\n")
+    # with open(success_ratio_file, 'w') as f:
+    #     f.write(f"Overall success ratio: {overall_ratio:.4f}\n")
     
 
 def add_commit_run_agent(commit_sha):

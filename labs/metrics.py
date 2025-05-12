@@ -2,6 +2,8 @@
 import csv
 import sys
 import os
+import pandas as pd
+import matplotlib.pyplot as plt
 
 # External dependencies
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -10,7 +12,7 @@ from sentence_transformers import CrossEncoder
 # Internal dependencies
 from utils.code_diff_utils import extract_data, collect_code_comment_pairs, detect_language, get_agent_diff_content
 
-def collect_semantic_score(repo, branch_name, modified_files, commit_sha, result_file):
+def collect_semantic_score(repo, branch_name, modified_files, commit_sha, result_file, timestamp):
     #fetch the latest changes to the test branch
     branch = repo.get_branch(branch_name)
     #fetch the HEAD commit of test branch
@@ -50,6 +52,16 @@ def collect_semantic_score(repo, branch_name, modified_files, commit_sha, result
     with open(result_file, mode="a", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerows(result_rows)
+
+def create_semantic_score_box_plot(result_file,timestamp):    
+    #create a box-plot figure
+    df = pd.read_csv(result_file)
+    count = df["Semantic-Score"].count()
+    plt.figure(figsize=(8, 6))
+    df["Semantic-Score"].plot.box()
+    plt.title("Bot plot of semantic score")
+    plt.text(1.05, df['your_column'].median(), f'n = {count}', ha='left', va='center')
+    plt.savefig(f"results/{timestamp}/semantic_score_box_plot.png")
 
 def calculate_semantic_scores(commentPairs):
     model = CrossEncoder("cross-encoder/stsb-roberta-base")

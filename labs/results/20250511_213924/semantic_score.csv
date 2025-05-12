@@ -1,0 +1,1754 @@
+Semantic-Score,Code,Original-Comment,Agent-Comment,Filename,Agent-Commit
+0.7504098,def make_response,"""""""Sometimes it is necessary to set additional headers in a view.  Because
+    views do not have to return response objects but can return a value that
+    is converted into a response object by Flask itself, it becomes tricky to
+    add headers to it.  This function can be called instead of using a return
+    and you will get a response object which you can use to attach headers.
+
+    If view looked like this and you want to add a new header::
+
+        def index():
+            return render_template('index.html', foo=42)
+
+    You can now do something like this::
+
+        def index():
+            response = make_response(render_template('index.html', foo=42))
+            response.headers['X-Parachutes'] = 'parachutes are cool'
+            return response
+
+    This function accepts the very same arguments you can return from a
+    view function.  This for example creates a response with a 404 error
+    code::
+
+        response = make_response(render_template('not_found.html'), 404)
+
+    The other use case of this function is to force the return value of a
+    view function into a response which is helpful with view
+    decorators::
+
+        response = make_response(view_function())
+        response.headers['X-Parachutes'] = 'parachutes are cool'
+
+    Internally this function does the following things:
+
+    -   if no arguments are passed, it creates a new response argument
+    -   if one argument is passed, :meth:`flask.Flask.make_response`
+        is invoked with it.
+    -   if more than one argument is passed, the arguments are passed
+        to the :meth:`flask.Flask.make_response` function as tuple.
+
+    .. versionadded:: 0.6
+    """"""","""""""
+Creates a response object that can be used to attach additional headers.
+
+This function is useful when you want to add headers to a view's return value,
+but the view doesn't have to return a response object. It accepts the same
+arguments as returning from a view function, and returns a response object
+that can be used to set headers.
+
+Example usage:
+
+    def index():
+        return render_template('index.html', foo=42)
+
+    def index():
+        response = make_response(render_template('index.html', foo=42))
+        response.headers['X-Parachutes'] = 'parachutes are cool'
+        return response
+
+    response = make_response(render_template('not_found.html'), 404)
+    response.headers['X-Parachutes'] = 'parachutes are cool'
+
+    response = make_response(view_function())
+    response.headers['X-Parachutes'] = 'parachutes are cool'
+
+Internally, this function checks the number of arguments passed and calls
+:meth:`flask.Flask.make_response` accordingly.
+
+.. versionadded:: 0.6
+""""""",src/flask/helpers.py,8a272c690e8806362db910e9a8739b3560b1c06c
+0.6150069,def _validate_key,"""""""The ``--key`` option must be specified when ``--cert`` is a file.
+    Modifies the ``cert`` param to be a ``(cert, key)`` pair if needed.
+    """"""","""""""
+Validate the key parameter for the --key option.
+
+This function checks if the --key option is required when --cert is a file.
+It also verifies that the --cert option is not used with an SSLContext object or adhoc certificate.
+
+Args:
+    ctx (click.Context): The click context object.
+    param (click.Parameter): The parameter being validated.
+    value: The value of the key parameter.
+
+Raises:
+    click.BadParameter: If the validation fails.
+
+Returns:
+    value: The validated key value if successful, otherwise raises an error.
+""""""",src/flask/cli.py,1561d60cacb150d0331f88c5980b3bc7860c263e
+0.7139569,def loads,"""""""Load data from a JSON string and deserialized any tagged objects.""""""","""""""
+Loads data from a JSON string and deserializes any tagged objects.
+
+Args:
+    value (str): The JSON string to load data from.
+
+Returns:
+    t.Any: The loaded data, potentially with tagged objects deserialized.
+""""""",src/flask/json/tag.py,346be25ed98c30b54c5eedb2b1af701e481a3d90
+0.736309,def raise_routing_exception,"""""""Intercept routing exceptions and possibly do something else.
+
+        In debug mode, intercept a routing redirect and replace it with
+        an error if the body will be discarded.
+
+        With modern Werkzeug this shouldn't occur, since it now uses a
+        308 status which tells the browser to resend the method and
+        body.
+
+        .. versionchanged:: 2.1
+            Don't intercept 307 and 308 redirects.
+
+        :meta private:
+        :internal:
+        """"""","""""""
+Raises a routing exception if it's not a redirect and the debug mode is enabled.
+
+Intercepts routing exceptions and possibly does something else. In debug mode,
+intercepts a routing redirect and replaces it with an error if the body will be discarded.
+With modern Werkzeug this shouldn't occur, since it now uses a 308 status which tells
+the browser to resend the method and body.
+
+This function is private and internal, meaning it should not be used directly by users of the class.
+It's intended for internal use only.
+
+.. versionchanged:: 2.1
+    Don't intercept 307 and 308 redirects.
+
+:meta private:
+:internal:
+""""""",src/flask/app.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.77797276,def update_template_context,"""""""Update the template context with some commonly used variables.
+        This injects request, session, config and g into the template
+        context as well as everything template context processors want
+        to inject.  Note that the as of Flask 0.6, the original values
+        in the context will not be overridden if a context processor
+        decides to return a value with the same key.
+
+        :param context: the context as a dictionary that is updated in place
+                        to add extra variables.
+        """"""","""""""
+Updates the template context with commonly used variables.
+
+This function injects `request`, `session`, `config` and `g` into the
+template context as well as everything template context processors want
+to inject.  Note that as of Flask 0.6, the original values in the
+context will not be overridden if a context processor decides to return
+a value with the same key.
+
+Args:
+    context (dict[str, t.Any]): The context as a dictionary that is updated
+        in place to add extra variables.
+
+Returns:
+    None
+""""""",src/flask/app.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.6420899,def dispatch_request,"""""""Does the request dispatching.  Matches the URL and returns the
+        return value of the view or error handler.  This does not have to
+        be a response object.  In order to convert the return value to a
+        proper response object, call :func:`make_response`.
+
+        .. versionchanged:: 0.7
+           This no longer does the exception handling, this code was
+           moved to the new :meth:`full_dispatch_request`.
+        """"""","""""""
+Dispatches a request to the corresponding view or error handler.
+
+This function matches the URL and returns the return value of the view
+or error handler. It does not have to be a response object. To convert
+the return value to a proper response object, call :func:`make_response`.
+
+Since version 0.7, this function no longer handles exceptions. Instead,
+exception handling has been moved to the new :meth:`full_dispatch_request` method.
+
+Args:
+    None
+
+Returns:
+    ft.ResponseReturnValue: The return value of the view or error handler.
+
+Raises:
+    None
+""""""",src/flask/app.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.8676797,def ensure_sync,"""""""Ensure that the function is synchronous for WSGI workers.
+        Plain ``def`` functions are returned as-is. ``async def``
+        functions are wrapped to run and wait for the response.
+
+        Override this method to change how the app runs async views.
+
+        .. versionadded:: 2.0
+        """"""","""""""
+Ensures that a provided function is synchronous for WSGI workers.
+Plain ``def`` functions are returned as-is. ``async def`` functions are wrapped to run and wait for the response.
+
+Override this method to change how the app runs async views.
+
+.. versionadded:: 2.0
+""""""",src/flask/app.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.6815536,def async_to_sync,"""""""Return a sync function that will run the coroutine function.
+
+        .. code-block:: python
+
+            result = app.async_to_sync(func)(*args, **kwargs)
+
+        Override this method to change how the app converts async code
+        to be synchronously callable.
+
+        .. versionadded:: 2.0
+        """"""","""""""
+Converts an asynchronous function to a synchronous one.
+
+This function takes an asynchronous function as input and returns a new
+function that, when called, will run the original asynchronous function.
+The returned function can be used in synchronous contexts without having to
+wait for the asynchronous operation to complete.
+
+By default, this method uses `asgiref.sync.async_to_sync` to perform the conversion.
+However, you can override this method to change how the app converts async code
+to be synchronously callable.
+
+Example:
+    result = app.async_to_sync(func)(*args, **kwargs)
+
+Note: This function requires Flask with the 'async' extra installed. If not,
+a RuntimeError will be raised.
+
+Version Added: 2.0
+
+Raises:
+    RuntimeError: If Flask is not installed with the 'async' extra.
+""""""",src/flask/app.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.6204404,def preprocess_request,"""""""Called before the request is dispatched. Calls
+        :attr:`url_value_preprocessors` registered with the app and the
+        current blueprint (if any). Then calls :attr:`before_request_funcs`
+        registered with the app and the blueprint.
+
+        If any :meth:`before_request` handler returns a non-None value, the
+        value is handled as if it was the return value from the view, and
+        further request handling is stopped.
+        """"""","""""""
+Preprocesses the request by calling registered URL value preprocessors and 
+before request functions.
+
+Args:
+    None
+
+Returns:
+    ft.ResponseReturnValue | None: The result of the before request handlers, or None if no handler returns a non-None value.
+""""""",src/flask/app.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.8495025,def request_context,"""""""Create a :class:`~flask.ctx.RequestContext` representing a
+        WSGI environment. Use a ``with`` block to push the context,
+        which will make :data:`request` point at this request.
+
+        See :doc:`/reqcontext`.
+
+        Typically you should not call this from your own code. A request
+        context is automatically pushed by the :meth:`wsgi_app` when
+        handling a request. Use :meth:`test_request_context` to create
+        an environment and context instead of this method.
+
+        :param environ: a WSGI environment
+        """"""","""""""
+Creates a :class:`~flask.ctx.RequestContext` representing a WSGI environment.
+Use a ``with`` block to push the context, which will make :data:`request` point at this request.
+
+See :doc:`/reqcontext`.
+
+Typically you should not call this from your own code. A request
+context is automatically pushed by the :meth:`wsgi_app` when handling a request.
+Use :meth:`test_request_context` to create an environment and context instead of this method.
+
+:param environ: a WSGI environment
+:return: a :class:`~flask.ctx.RequestContext`
+""""""",src/flask/app.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.74938256,def wsgi_app,"""""""The actual WSGI application. This is not implemented in
+        :meth:`__call__` so that middlewares can be applied without
+        losing a reference to the app object. Instead of doing this::
+
+            app = MyMiddleware(app)
+
+        It's a better idea to do this instead::
+
+            app.wsgi_app = MyMiddleware(app.wsgi_app)
+
+        Then you still have the original application object around and
+        can continue to call methods on it.
+
+        .. versionchanged:: 0.7
+            Teardown events for the request and app contexts are called
+            even if an unhandled error occurs. Other events may not be
+            called depending on when an error occurs during dispatch.
+            See :ref:`callbacks-and-errors`.
+
+        :param environ: A WSGI environment.
+        :param start_response: A callable accepting a status code,
+            a list of headers, and an optional exception context to
+            start the response.
+        """"""","""""""
+WSGI Application Function.
+
+The actual WSGI application. This is not implemented in
+:meth:`__call__` so that middlewares can be applied without
+losing a reference to the app object. Instead of doing this::
+
+    app = MyMiddleware(app)
+
+It's a better idea to do this instead::
+
+    app.wsgi_app = MyMiddleware(app.wsgi_app)
+
+Then you still have the original application object around and
+can continue to call methods on it.
+
+.. versionchanged:: 0.7
+    Teardown events for the request and app contexts are called
+    even if an unhandled error occurs. Other events may not be
+    called depending on when an error occurs during dispatch.
+    See :ref:`callbacks-and-errors`.
+
+:param environ: A WSGI environment.
+:param start_response: A callable accepting a status code,
+    a list of headers, and an optional exception context to
+    start the response.
+
+:returns: An iterable of bytes representing the response.
+""""""",src/flask/app.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.77435374,def __call__,"""""""The WSGI server calls the Flask application object as the
+        WSGI application. This calls :meth:`wsgi_app`, which can be
+        wrapped to apply middleware.
+        """"""","""""""
+Call the WSGI server with the provided environment and start response.
+
+This method is called by the WSGI server when it needs to execute the Flask application.
+It calls :meth:`wsgi_app` which can be wrapped to apply middleware.
+
+Args:
+    environ (WSGIEnvironment): The environment in which the application will run.
+    start_response (StartResponse): A callable that takes a status code and
+        response headers as arguments, returning a tuple containing the
+        status code and response headers.
+
+Returns:
+    cabc.Iterable[bytes]: An iterable of bytes representing the response body.
+""""""",src/flask/app.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.7941718,def find_best_app,"""""""Given a module instance this tries to find the best possible
+    application in the module or raises an exception.
+    """"""","""""""
+Find the best possible Flask application within a given module.
+
+Given a module instance, this function attempts to find the most suitable
+Flask application. If multiple applications are found, it raises an exception.
+If no factory functions are available, it also raises an exception.
+
+Parameters:
+module (ModuleType): The module to search for the Flask application.
+
+Returns:
+Flask: The best possible Flask application in the module.
+
+Raises:
+NoAppException: If no suitable Flask application or factory function is found.
+""""""",src/flask/cli.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.8810569,def _called_with_wrong_args,"""""""Check whether calling a function raised a ``TypeError`` because
+    the call failed or because something in the factory raised the
+    error.
+
+    :param f: The function that was called.
+    :return: ``True`` if the call failed.
+    """"""","""""""
+Checks whether calling a function raised a ``TypeError`` because the call failed or because something in the factory raised the error.
+
+:param f: The function that was called.
+:return: ``True`` if the call failed, ``False`` otherwise.
+""""""",src/flask/cli.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.70688194,def find_app_by_string,"""""""Check if the given string is a variable name or a function. Call
+    a function to get the app instance, or return the variable directly.
+    """"""","""""""
+Find an application instance by name in a given module.
+
+This function attempts to parse the provided string as either a variable
+name or a function call. If successful, it retrieves the corresponding
+application instance and returns it. If not, it raises a `NoAppException`.
+
+Parameters:
+    module (ModuleType): The module containing the application.
+    app_name (str): The name of the application to find.
+
+Returns:
+    Flask: The found application instance.
+
+Raises:
+    NoAppException: If the provided string cannot be parsed as an attribute
+        name or function call, or if the retrieved attribute is not a valid
+        Flask application.
+""""""",src/flask/cli.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.8759856,def prepare_import,"""""""Given a filename this will try to calculate the python path, add it
+    to the search path and return the actual module name that is expected.
+    """"""","""""""
+Calculates the Python module name from a given filename.
+
+Given a filename, this function attempts to calculate the Python path,
+adds it to the search path and returns the actual module name that is expected.
+
+Args:
+    path (str): The filename to calculate the Python path for.
+
+Returns:
+    str: The calculated Python module name.
+""""""",src/flask/cli.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.7781278,def load_app,"""""""Loads the Flask app (if not yet loaded) and returns it.  Calling
+        this multiple times will just result in the already loaded app to
+        be returned.
+        """"""","""""""
+Loads the Flask app (if not yet loaded) and returns it.  Calling this multiple times will just result in the already loaded app to be returned.
+
+If an application is found, its debug flag is updated based on the `set_debug_flag` descriptor value.
+If no application can be located, a `NoAppException` is raised with instructions for resolving the issue.
+
+Parameters:
+    None
+
+Returns:
+    Flask: The loaded Flask app instance
+Raises:
+    NoAppException: If no Flask application can be found
+""""""",src/flask/cli.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.88055307,def with_appcontext,"""""""Wraps a callback so that it's guaranteed to be executed with the
+    script's application context.
+
+    Custom commands (and their options) registered under ``app.cli`` or
+    ``blueprint.cli`` will always have an app context available, this
+    decorator is not required in that case.
+
+    .. versionchanged:: 2.2
+        The app context is active for subcommands as well as the
+        decorated callback. The app context is always available to
+        ``app.cli`` command and parameter callbacks.
+    """"""","""""""
+Wraps a callback so that it's guaranteed to be executed with the
+script's application context.
+
+Custom commands (and their options) registered under ``app.cli`` or
+``blueprint.cli`` will always have an app context available, this
+decorator is not required in that case.
+
+.. versionchanged:: 2.2
+    The app context is active for subcommands as well as the
+    decorated callback. The app context is always available to
+    ``app.cli`` command and parameter callbacks.
+""""""",src/flask/cli.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.690453,def command,"""""""This works exactly like the method of the same name on a regular
+        :class:`click.Group` but it wraps callbacks in :func:`with_appcontext`
+        unless it's disabled by passing ``with_appcontext=False``.
+        """"""","""""""
+    command
+    -------
+    
+    A function that wraps a click Command method in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument.
+
+    Parameters:
+    ----------
+    self : object
+        The instance of the class this method belongs to.
+    *args : t.Any
+        Variable length argument list.
+    **kwargs : t.Any
+        Arbitrary keyword arguments.
+
+    Returns:
+    -------
+    click.Command
+        A decorated click Command method.
+
+    Notes:
+    -----
+    This function is used to wrap callbacks in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument. It's similar to the 
+    method of the same name on a regular :class:`click.Group`, but it provides an 
+    additional option to disable this behavior.
+""""""",src/flask/cli.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.668683,def _path_is_ancestor,"""""""Take ``other`` and remove the length of ``path`` from it. Then join it
+    to ``path``. If it is the original value, ``path`` is an ancestor of
+    ``other``.""""""","""""""
+Returns True if `path` is an ancestor of `other`, False otherwise.
+
+This function works by removing the length of `path` from `other` and then joining it to `path`. If the resulting string is equal to `other`, then `path` is an ancestor of `other`.
+
+Parameters:
+    path (str): The potential ancestor path.
+    other (str): The path to check against.
+
+Returns:
+    bool: Whether `path` is an ancestor of `other`.
+""""""",src/flask/cli.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.70733285,def show_server_banner,"""""""Show extra startup messages the first time the server is run,
+    ignoring the reloader.
+    """"""","""""""
+Show extra startup messages the first time the server is run,
+ignoring the reloader.
+
+Args:
+    - `debug`: A boolean indicating whether to enable debug mode.
+    - `app_import_path`: The path to the Flask app, or None for default behavior.
+
+Returns:
+    None
+""""""",src/flask/cli.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.7629841,def run_command,"""""""Run a local development server.
+
+    This server is for development purposes only. It does not provide
+    the stability, security, or performance of production WSGI servers.
+
+    The reloader and debugger are enabled by default with the '--debug'
+    option.
+    """"""","""""""
+Run a local development server.
+
+This server is for development purposes only. It does not provide
+the stability, security, or performance of production WSGI servers.
+
+The reloader and debugger are enabled by default with the '--debug'
+option.
+
+Args:
+    info (ScriptInfo): Script information.
+    host (str): Host to bind to.
+    port (int): Port to bind to.
+    reload (bool): Whether to enable reloader. Defaults to `debug`.
+    debugger (bool): Whether to enable debugger. Defaults to `debug`.
+    with_threads (bool): Whether to run in threads. Defaults to False.
+    cert (ssl.SSLContext | tuple[str, str | None] | t.Literal[""adhoc""] | None):
+        SSL context or certificate information.
+    extra_files (list[str] | None): Extra files to serve.
+    exclude_patterns (list[str] | None): Patterns to exclude from serving.
+
+Returns:
+    None
+""""""",src/flask/cli.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.76567423,def shell_command,"""""""Run an interactive Python shell in the context of a given
+    Flask application.  The application will populate the default
+    namespace of this shell according to its configuration.
+
+    This is useful for executing small snippets of management code
+    without having to manually configure the application.
+    """"""","""""""
+Run an interactive Python shell in the context of a given Flask application.
+
+This function is useful for executing small snippets of management code
+without having to manually configure the application. It populates the default
+namespace of the shell according to the application's configuration.
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    None
+
+See Also:
+    https://flask.palletsprojects.com/en/2.0.x/api/#flask.Flask.make_shell_context
+""""""",src/flask/cli.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.73400354,def from_pyfile,"""""""Updates the values in the config from a Python file.  This function
+        behaves as if the file was imported as module with the
+        :meth:`from_object` function.
+
+        :param filename: the filename of the config.  This can either be an
+                         absolute filename or a filename relative to the
+                         root path.
+        :param silent: set to ``True`` if you want silent failure for missing
+                       files.
+        :return: ``True`` if the file was loaded successfully.
+
+        .. versionadded:: 0.7
+           `silent` parameter.
+        """"""","""""""
+Updates the values in the config from a Python file.
+
+This function behaves as if the file was imported as module with the :meth:`from_object` function.
+
+Parameters:
+    filename (str | os.PathLike[str]): The filename of the config. This can either be an absolute filename or a filename relative to the root path.
+    silent (bool): Set to True if you want silent failure for missing files. Defaults to False.
+
+Returns:
+    bool: True if the file was loaded successfully.
+
+.. versionadded:: 0.7
+   silent parameter.
+""""""",src/flask/config.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.7271025,def from_file,"""""""Update the values in the config from a file that is loaded
+        using the ``load`` parameter. The loaded data is passed to the
+        :meth:`from_mapping` method.
+
+        .. code-block:: python
+
+            import json
+            app.config.from_file(""config.json"", load=json.load)
+
+            import tomllib
+            app.config.from_file(""config.toml"", load=tomllib.load, text=False)
+
+        :param filename: The path to the data file. This can be an
+            absolute path or relative to the config root path.
+        :param load: A callable that takes a file handle and returns a
+            mapping of loaded data from the file.
+        :type load: ``Callable[[Reader], Mapping]`` where ``Reader``
+            implements a ``read`` method.
+        :param silent: Ignore the file if it doesn't exist.
+        :param text: Open the file in text or binary mode.
+        :return: ``True`` if the file was loaded successfully.
+
+        .. versionchanged:: 2.3
+            The ``text`` parameter was added.
+
+        .. versionadded:: 2.0
+        """"""","""""""
+Update the values in the config from a file that is loaded
+using the ``load`` parameter. The loaded data is passed to the
+:meth:`from_mapping` method.
+
+.. code-block:: python
+
+    import json
+    app.config.from_file(""config.json"", load=json.load)
+
+    import tomllib
+    app.config.from_file(""config.toml"", load=tomllib.load, text=False)
+
+:param filename: The path to the data file. This can be an
+    absolute path or relative to the config root path.
+:type load: ``Callable[[Reader], Mapping]`` where ``Reader``
+    implements a ``read`` method.
+
+:param silent: Ignore the file if it doesn't exist.
+:param text: Open the file in text or binary mode.
+:return: ``True`` if the file was loaded successfully.
+
+.. versionchanged:: 2.3
+    The ``text`` parameter was added.
+
+.. versionadded:: 2.0
+""""""",src/flask/config.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.8797243,def attach_enctype_error_multidict,"""""""Patch ``request.files.__getitem__`` to raise a descriptive error
+    about ``enctype=multipart/form-data``.
+
+    :param request: The request to patch.
+    :meta private:
+    """"""","""""""
+Patch `request.files.__getitem__` to raise a descriptive error about `enctype=multipart/form-data`.
+
+:param request: The request to patch.
+:meta private:
+""""""",src/flask/debughelpers.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.73423874,def send_from_directory,"""""""Send a file from within a directory using :func:`send_file`.
+
+    .. code-block:: python
+
+        @app.route(""/uploads/<path:name>"")
+        def download_file(name):
+            return send_from_directory(
+                app.config['UPLOAD_FOLDER'], name, as_attachment=True
+            )
+
+    This is a secure way to serve files from a folder, such as static
+    files or uploads. Uses :func:`~werkzeug.security.safe_join` to
+    ensure the path coming from the client is not maliciously crafted to
+    point outside the specified directory.
+
+    If the final path does not point to an existing regular file,
+    raises a 404 :exc:`~werkzeug.exceptions.NotFound` error.
+
+    :param directory: The directory that ``path`` must be located under,
+        relative to the current application's root path.
+    :param path: The path to the file to send, relative to
+        ``directory``.
+    :param kwargs: Arguments to pass to :func:`send_file`.
+
+    .. versionchanged:: 2.0
+        ``path`` replaces the ``filename`` parameter.
+
+    .. versionadded:: 2.0
+        Moved the implementation to Werkzeug. This is now a wrapper to
+        pass some Flask-specific arguments.
+
+    .. versionadded:: 0.5
+    """"""","""""""
+Sends a file from within a directory using the `send_file` function.
+
+This is a secure way to serve files from a folder, such as static
+files or uploads. It uses `safe_join` to ensure the path coming from
+the client is not maliciously crafted to point outside the specified
+directory.
+
+If the final path does not point to an existing regular file,
+raises a 404 `NotFound` error.
+
+Parameters:
+    directory (str): The directory that ``path`` must be located under,
+        relative to the current application's root path.
+    path (str): The path to the file to send, relative to
+        ``directory``.
+    **kwargs: Arguments to pass to `send_file`.
+
+Returns:
+    Response: The response object containing the sent file.
+
+Raises:
+    NotFound: If the final path does not point to an existing regular file.
+
+Version History:
+    2.0: Replaced ``filename`` parameter with ``path``.
+    0.5: Moved implementation to Werkzeug, now a wrapper to pass
+        some Flask-specific arguments.
+""""""",src/flask/helpers.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.69277906,def get_root_path,"""""""Find the root path of a package, or the path that contains a
+    module. If it cannot be found, returns the current working
+    directory.
+
+    Not to be confused with the value returned by :func:`find_package`.
+
+    :meta private:
+    """"""","""""""
+Find the root path of a package, or the path that contains a
+module. If it cannot be found, returns the current working directory.
+
+Not to be confused with the value returned by :func:`find_package`.
+
+:meta private:
+
+Parameters:
+    import_name (str): The name of the module to find the root path for.
+
+Returns:
+    str: The root path of the package or module.
+
+Raises:
+    ValueError: If the module cannot be found.
+    RuntimeError: If the module is a namespace package and no file path can be found.
+""""""",src/flask/helpers.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.764645,def tag,"""""""Convert the value to a valid JSON type and add the tag structure
+        around it.""""""","""""""
+Converts the input value to a valid JSON type and wraps it with a tag structure.
+
+Args:
+    value (t.Any): The value to be converted and tagged.
+
+Returns:
+    dict[str, t.Any]: A dictionary containing the converted value wrapped in a tag structure.
+""""""",src/flask/json/tag.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.6617519,def tag,"""""""Convert a value to a tagged representation if necessary.""""""","""""""
+Converts the input value to a valid JSON type and wraps it with a tag structure.
+
+Args:
+    value (t.Any): The value to be converted and tagged.
+
+Returns:
+    dict[str, t.Any]: A dictionary containing the converted value wrapped in a tag structure.
+""""""",src/flask/json/tag.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.7058121,def register,"""""""Register a new tag with this serializer.
+
+        :param tag_class: tag class to register. Will be instantiated with this
+            serializer instance.
+        :param force: overwrite an existing tag. If false (default), a
+            :exc:`KeyError` is raised.
+        :param index: index to insert the new tag in the tag order. Useful when
+            the new tag is a special case of an existing tag. If ``None``
+            (default), the tag is appended to the end of the order.
+
+        :raise KeyError: if the tag key is already registered and ``force`` is
+            not true.
+        """"""","""""""
+Registers a new tag with this serializer.
+
+Parameters
+----------
+tag_class : type[JSONTag]
+    Tag class to register. Will be instantiated with this serializer instance.
+force : bool, optional
+    Overwrite an existing tag. If false (default), a KeyError is raised.
+index : int | None, optional
+    Index to insert the new tag in the tag order. Useful when the new tag is
+    a special case of an existing tag. If None (default), the tag is appended to
+    the end of the order.
+
+Raises
+------
+KeyError
+    If the tag key is already registered and force is not true.
+""""""",src/flask/json/tag.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.59076095,def tag,"""""""Convert the value to a valid JSON type and add the tag structure
+        around it.""""""","""""""
+Converts a value to a tagged representation if it matches any of the tags defined in `self.order`.
+
+Args:
+    value (t.Any): The value to be converted.
+
+Returns:
+    t.Any: The tagged representation of the value if found, otherwise the original value.
+""""""",src/flask/json/tag.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.64917165,def tag,"""""""Convert a value to a tagged representation if necessary.""""""","""""""
+Converts a value to a tagged representation if it matches any of the tags defined in `self.order`.
+
+Args:
+    value (t.Any): The value to be converted.
+
+Returns:
+    t.Any: The tagged representation of the value if found, otherwise the original value.
+""""""",src/flask/json/tag.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.63443214,def wsgi_errors_stream,"""""""Find the most appropriate error stream for the application. If a request
+    is active, log to ``wsgi.errors``, otherwise use ``sys.stderr``.
+
+    If you configure your own :class:`logging.StreamHandler`, you may want to
+    use this for the stream. If you are using file or dict configuration and
+    can't import this directly, you can refer to it as
+    ``ext://flask.logging.wsgi_errors_stream``.
+    """"""","""""""
+Find the most appropriate error stream for the application.
+
+If a request is active, log to `wsgi.errors`, otherwise use `sys.stderr`.
+
+Returns:
+    The chosen error stream.
+
+Raises:
+    None
+
+See Also:
+    :class:`logging.StreamHandler`
+    ext://flask.logging.wsgi_errors_stream
+""""""",src/flask/logging.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.85223526,def name,"""""""The name of the application.  This is usually the import name
+        with the difference that it's guessed from the run file if the
+        import name is main.  This name is used as a display name when
+        Flask needs the name of the application.  It can be set and overridden
+        to change the value.
+
+        .. versionadded:: 0.8
+        """"""","""""""
+Returns the name of the application. This name is usually the import name,
+with the difference that it's guessed from the run file if the import name is main.
+This name is used as a display name when Flask needs the name of the application.
+It can be set and overridden to change the value.
+
+.. versionadded:: 0.8
+""""""",src/flask/sansio/app.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.8696962,def debug,"""""""Whether debug mode is enabled. When using ``flask run`` to start the
+        development server, an interactive debugger will be shown for unhandled
+        exceptions, and the server will be reloaded when code changes. This maps to the
+        :data:`DEBUG` config key. It may not behave as expected if set late.
+
+        **Do not enable debug mode when deploying in production.**
+
+        Default: ``False``
+        """"""","""""""
+    Returns whether debug mode is enabled based on the configuration.
+    
+    When using `flask run` to start the development server, an interactive debugger
+    will be shown for unhandled exceptions, and the server will be reloaded when code changes.
+    This maps to the :data:`DEBUG` config key. It may not behave as expected if set late.
+
+    **Do not enable debug mode when deploying in production.**
+
+    Default: ``False``
+""""""",src/flask/sansio/app.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.8933632,def inject_url_defaults,"""""""Injects the URL defaults for the given endpoint directly into
+        the values dictionary passed.  This is used internally and
+        automatically called on URL building.
+
+        .. versionadded:: 0.7
+        """"""","""""""
+Injects the URL defaults for the given endpoint directly into
+the values dictionary passed. This is used internally and
+automatically called on URL building.
+
+.. versionadded:: 0.7
+""""""",src/flask/sansio/app.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.6181059,def add_url_rule,"""""""A helper method to register a rule (and optionally a view function)
+        to the application.  The endpoint is automatically prefixed with the
+        blueprint's name.
+        """"""","""""""
+Adds a URL rule to the application.
+
+This method registers a new route with the given `rule` and optional
+`endpoint`. The `view_func` is used to determine the endpoint if not provided.
+The `options` dictionary can be used to pass additional configuration options.
+
+If `self.url_prefix` is set, it will be prepended to the rule. If no rule is
+provided, only the prefix will be used.
+
+Note that this method modifies the application's URL routing configuration.
+
+Args:
+    rule (str): The URL rule to register.
+    endpoint (str | None): The endpoint for the route. Defaults to None.
+    view_func (ft.RouteCallable | None): The view function for the route. Defaults to None.
+    **options: t.Any: Additional options to pass to the `add_url_rule` method.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.63922954,def add_url_rule,"""""""Register a URL rule with the blueprint. See :meth:`.Flask.add_url_rule` for
+        full documentation.
+
+        The URL rule is prefixed with the blueprint's URL prefix. The endpoint name,
+        used with :func:`url_for`, is prefixed with the blueprint's name.
+        """"""","""""""
+Adds a URL rule to the application.
+
+This method registers a new route with the given `rule` and optional
+`endpoint`. The `view_func` is used to determine the endpoint if not provided.
+The `options` dictionary can be used to pass additional configuration options.
+
+If `self.url_prefix` is set, it will be prepended to the rule. If no rule is
+provided, only the prefix will be used.
+
+Note that this method modifies the application's URL routing configuration.
+
+Args:
+    rule (str): The URL rule to register.
+    endpoint (str | None): The endpoint for the route. Defaults to None.
+    view_func (ft.RouteCallable | None): The view function for the route. Defaults to None.
+    **options: t.Any: Additional options to pass to the `add_url_rule` method.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.7290728,def record,"""""""Registers a function that is called when the blueprint is
+        registered on the application.  This function is called with the
+        state as argument as returned by the :meth:`make_setup_state`
+        method.
+        """"""","""""""
+Records a deferred setup function to be executed upon blueprint registration.
+
+This function is part of the setup process and will be called when the blueprint
+is registered on the application. It takes the state as an argument, which is
+returned by the :meth:`make_setup_state` method.
+
+Args:
+    func (DeferredSetupFunction): The deferred setup function to record.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.6924829,def record_once,"""""""Works like :meth:`record` but wraps the function in another
+        function that will ensure the function is only called once.  If the
+        blueprint is registered a second time on the application, the
+        function passed is not called.
+        """"""","""""""
+Records a function to be called only once during blueprint setup.
+
+This method works similarly to :meth:`record` but wraps the provided
+function in another function that ensures it is only called once. If the
+blueprint is registered a second time on the application, the function
+passed will not be called.
+
+Args:
+    func (DeferredSetupFunction): The function to be recorded and called once.
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.71376985,def app_errorhandler,"""""""Like :meth:`errorhandler`, but for every request, not only those handled by
+        the blueprint. Equivalent to :meth:`.Flask.errorhandler`.
+        """"""","""""""
+Appends an error handler to the application's error handling mechanism.
+
+This function is equivalent to Flask's `errorhandler` method, but it applies to every request,
+not just those handled by a specific blueprint. It takes an exception code or integer as input,
+and returns a decorator that can be used to register an error handler function.
+
+The returned decorator takes another function as an argument, which will be executed when an
+exception occurs with the specified code. The `from_blueprint` method is called on the application's
+error handling state, passing the decorated function and the blueprint setup state.
+
+Args:
+    code (type[Exception] | int): The exception code or integer to use for error handling.
+Returns:
+    T_error_handler: A decorator that can be used to register an error handler function.
+""""""",src/flask/sansio/blueprints.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.6088417,def static_folder,"""""""The absolute path to the configured static folder. ``None``
+        if no static folder is set.
+        """"""","""""""
+Sets the static folder path.
+
+This method sets the path to the static folder. If a path is provided, it will be normalized and stripped of trailing slashes.
+
+Args:
+    value (str | os.PathLike[str] | None): The path to the static folder. Can be an absolute or relative path, or `None` for no static folder.
+
+Returns:
+    None
+""""""",src/flask/sansio/scaffold.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.6755346,def _find_package_path,"""""""Find the path that contains the package or module.""""""","""""""
+Find the path that contains the package or module.
+
+This function takes an import name as input and returns the path where the package or module is located. It uses the `importlib.util.find_spec` method to find the specification of the module, and then determines whether it's a package or a module based on its search locations.
+
+If the module is not found, it raises a ValueError with an appropriate error message. If the module is found, it returns the path where the module is located.
+
+Note that this function only works for Python 3.4 and later versions, as it uses the `submodule_search_locations` attribute of the module specification, which was introduced in Python 3.4.
+
+Args:
+    import_name (str): The name of the module to find.
+
+Returns:
+    str: The path where the package or module is located.
+Raises:
+    ValueError: If the module is not found.
+""""""",src/flask/sansio/scaffold.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.631571,def get_cookie_name,"""""""The name of the session cookie. Uses``app.config[""SESSION_COOKIE_NAME""]``.""""""","""""""
+Gets the name of the session cookie from a given Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str: The name of the session cookie.
+""""""",src/flask/sessions.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.72225046,def get_cookie_domain,"""""""The value of the ``Domain`` parameter on the session cookie. If not set,
+        browsers will only send the cookie to the exact domain it was set from.
+        Otherwise, they will send it to any subdomain of the given value as well.
+
+        Uses the :data:`SESSION_COOKIE_DOMAIN` config.
+
+        .. versionchanged:: 2.3
+            Not set by default, does not fall back to ``SERVER_NAME``.
+        """"""","""""""
+Returns the domain for which cookies are sent with this session cookie.
+
+If not set, browsers will only send the cookie to the exact domain it was set from.
+Otherwise, they will send it to any subdomain of the given value as well.
+
+Uses the :data:`SESSION_COOKIE_DOMAIN` config.
+
+.. versionchanged:: 2.3
+    Not set by default, does not fall back to ``SERVER_NAME``.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str | None: The domain for which cookies are sent with this session cookie, or None if not set.
+""""""",src/flask/sessions.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.7779549,def get_cookie_path,"""""""Returns the path for which the cookie should be valid.  The
+        default implementation uses the value from the ``SESSION_COOKIE_PATH``
+        config var if it's set, and falls back to ``APPLICATION_ROOT`` or
+        uses ``/`` if it's ``None``.
+        """"""","""""""
+Returns the path for which the cookie should be valid.
+
+The default implementation uses the value from the `SESSION_COOKIE_PATH` config var if it's set, 
+and falls back to `APPLICATION_ROOT` or uses `/` if it's `None`.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str: The path for which the cookie should be valid.
+""""""",src/flask/sessions.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.7779892,def get_cookie_httponly,"""""""Returns True if the session cookie should be httponly.  This
+        currently just returns the value of the ``SESSION_COOKIE_HTTPONLY``
+        config var.
+        """"""","""""""
+Returns whether the session cookie should be marked as httponly.
+
+This function simply returns the value of the `SESSION_COOKIE_HTTPONLY` 
+config variable, which determines whether the session cookie is set to
+be transmitted only through HTTPS connections (i.e., marked as httponly).
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    bool: True if the session cookie should be httponly, False otherwise.
+""""""",src/flask/sessions.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.71005553,def get_cookie_secure,"""""""Returns True if the cookie should be secure.  This currently
+        just returns the value of the ``SESSION_COOKIE_SECURE`` setting.
+        """"""","""""""
+Returns True if the cookie should be secure.
+
+This function simply returns the value of the `SESSION_COOKIE_SECURE` setting
+from the Flask application configuration. It does not perform any additional checks
+or validation on this setting.
+
+Args:
+    app (Flask): The Flask application instance to retrieve the configuration from.
+
+Returns:
+    bool: True if the cookie should be secure, False otherwise.
+""""""",src/flask/sessions.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.67332995,def get_cookie_samesite,"""""""Return ``'Strict'`` or ``'Lax'`` if the cookie should use the
+        ``SameSite`` attribute. This currently just returns the value of
+        the :data:`SESSION_COOKIE_SAMESITE` setting.
+        """"""","""""""
+Returns the 'Strict' or 'Lax' value for the SameSite attribute of a cookie,
+based on the value of the SESSION_COOKIE_SAMESITE setting in the Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str | None: The 'Strict' or 'Lax' value, or None if not set.
+""""""",src/flask/sessions.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.73689395,def session_transaction,"""""""When used in combination with a ``with`` statement this opens a
+        session transaction.  This can be used to modify the session that
+        the test client uses.  Once the ``with`` block is left the session is
+        stored back.
+
+        ::
+
+            with client.session_transaction() as session:
+                session['value'] = 42
+
+        Internally this is implemented by going through a temporary test
+        request context and since session handling could depend on
+        request variables this function accepts the same arguments as
+        :meth:`~flask.Flask.test_request_context` which are directly
+        passed through.
+        """"""","""""""
+Opens a session transaction.
+
+When used in combination with a ``with`` statement this opens a
+session transaction.  This can be used to modify the session that
+the test client uses.  Once the ``with`` block is left the session is
+stored back.
+
+Internally this is implemented by going through a temporary test
+request context and since session handling could depend on
+request variables this function accepts the same arguments as
+:meth:`~flask.Flask.test_request_context` which are directly
+passed through.
+
+Args:
+    *args (t.Any): Variable length argument list.
+    **kwargs (t.Any): Arbitrary keyword arguments.
+
+Returns:
+    t.Iterator[SessionMixin]: An iterator over a session transaction.
+
+Raises:
+    TypeError: If cookies are disabled and not created with 'use_cookies=True'.
+    RuntimeError: If the session backend did not open a session.
+""""""",src/flask/testing.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.78688043,def invoke,"""""""Invokes a CLI command in an isolated environment. See
+        :meth:`CliRunner.invoke <click.testing.CliRunner.invoke>` for
+        full method documentation. See :ref:`testing-cli` for examples.
+
+        If the ``obj`` argument is not given, passes an instance of
+        :class:`~flask.cli.ScriptInfo` that knows how to load the Flask
+        app being tested.
+
+        :param cli: Command object to invoke. Default is the app's
+            :attr:`~flask.app.Flask.cli` group.
+        :param args: List of strings to invoke the command with.
+
+        :return: a :class:`~click.testing.Result` object.
+        """"""","""""""
+Invokes a CLI command in an isolated environment.
+
+See :meth:`CliRunner.invoke <click.testing.CliRunner.invoke>` for full method documentation.
+See :ref:`testing-cli` for examples.
+
+If the ``obj`` argument is not given, passes an instance of
+:class:`~flask.cli.ScriptInfo` that knows how to load the Flask
+app being tested.
+
+Parameters:
+    cli (Command object): Command object to invoke. Default is the app's
+        :attr:`~flask.app.Flask.cli` group.
+    args (List of strings): List of strings to invoke the command with.
+    **kwargs: Additional keyword arguments.
+
+Returns:
+    a :class:`~click.testing.Result` object.
+""""""",src/flask/testing.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.56055015,def max_content_length,"""""""Read-only view of the ``MAX_CONTENT_LENGTH`` config key.""""""","""""""
+Returns the maximum allowed content length as configured in the application.
+
+If `current_app` is available, it returns the value of the ``MAX_CONTENT_LENGTH`` config key.
+Otherwise, it returns `None`.
+
+Args:
+    None
+
+Returns:
+    int | None: The maximum allowed content length or `None` if not configured.
+""""""",src/flask/wrappers.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.6017876,def max_cookie_size,"""""""Read-only view of the :data:`MAX_COOKIE_SIZE` config key.
+
+        See :attr:`~werkzeug.wrappers.Response.max_cookie_size` in
+        Werkzeug's docs.
+        """"""","""""""
+Reads the maximum cookie size from either the application configuration or 
+Werkzeug's default value, depending on whether a current application context is available.
+
+Returns:
+    int: The maximum allowed cookie size.
+""""""",src/flask/wrappers.py,764bd97eef7587fcebfeaf912e6f26df83f9dadb
+0.69045305,def command,"""""""This works exactly like the method of the same name on a regular
+        :class:`click.Group` but it wraps callbacks in :func:`with_appcontext`
+        unless it's disabled by passing ``with_appcontext=False``.
+        """"""","""""""
+    command
+    -------
+    
+    A function that wraps a click Command method in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument.
+
+    Parameters:
+    ----------
+    self : object
+        The instance of the class this method belongs to.
+    *args : t.Any
+        Variable length argument list.
+    **kwargs : t.Any
+        Arbitrary keyword arguments.
+
+    Returns:
+    -------
+    click.Command
+        A decorated click Command method.
+
+    Notes:
+    -----
+    This function is used to wrap callbacks in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument. It's similar to the 
+    method of the same name on a regular :class:`click.Group`, but it provides an 
+    additional option to disable this behavior.
+""""""",src/flask/cli.py,94c71d0bb428a56081c99ed17e1edae745bff625
+0.7629841,def run_command,"""""""Run a local development server.
+
+    This server is for development purposes only. It does not provide
+    the stability, security, or performance of production WSGI servers.
+
+    The reloader and debugger are enabled by default with the '--debug'
+    option.
+    """"""","""""""
+Run a local development server.
+
+This server is for development purposes only. It does not provide
+the stability, security, or performance of production WSGI servers.
+
+The reloader and debugger are enabled by default with the '--debug'
+option.
+
+Args:
+    info (ScriptInfo): Script information.
+    host (str): Host to bind to.
+    port (int): Port to bind to.
+    reload (bool): Whether to enable reloader. Defaults to `debug`.
+    debugger (bool): Whether to enable debugger. Defaults to `debug`.
+    with_threads (bool): Whether to run in threads. Defaults to False.
+    cert (ssl.SSLContext | tuple[str, str | None] | t.Literal[""adhoc""] | None):
+        SSL context or certificate information.
+    extra_files (list[str] | None): Extra files to serve.
+    exclude_patterns (list[str] | None): Patterns to exclude from serving.
+
+Returns:
+    None
+""""""",src/flask/cli.py,94c71d0bb428a56081c99ed17e1edae745bff625
+0.6981328,def app_errorhandler,"""""""Like :meth:`errorhandler`, but for every request, not only those handled by
+        the blueprint. Equivalent to :meth:`.Flask.errorhandler`.
+        """"""","""""""
+Appends an error handler to the application's error handling mechanism.
+
+This function is equivalent to Flask's `errorhandler` method, but it applies to every request,
+not just those handled by a specific blueprint. It takes an exception code or integer as input,
+and returns a decorator that can be used to register an error handler function.
+
+The returned decorator takes another function as an argument, which will be executed when an
+exception occurs with the specified code. The `from_blueprint` method is called on the application's
+error handling state, passing the decorated function and the blueprint setup state.
+
+Args:
+    code (type[Exception] | int): The exception code or integer to use for error handling.
+Returns:
+    T_error_handler: A decorator that can be used to register an error handler function.
+
+Raises:
+    Exception: If an error occurs during error handling.
+""""""",src/flask/sansio/blueprints.py,94c71d0bb428a56081c99ed17e1edae745bff625
+0.6088417,def static_folder,"""""""The absolute path to the configured static folder. ``None``
+        if no static folder is set.
+        """"""","""""""
+Sets the static folder path.
+
+This method sets the path to the static folder. If a path is provided, it will be normalized and stripped of trailing slashes.
+
+Args:
+    value (str | os.PathLike[str] | None): The path to the static folder. Can be an absolute or relative path, or `None` for no static folder.
+
+Returns:
+    None
+""""""",src/flask/sansio/scaffold.py,94c71d0bb428a56081c99ed17e1edae745bff625
+0.7246674,def get_cookie_domain,"""""""The value of the ``Domain`` parameter on the session cookie. If not set,
+        browsers will only send the cookie to the exact domain it was set from.
+        Otherwise, they will send it to any subdomain of the given value as well.
+
+        Uses the :data:`SESSION_COOKIE_DOMAIN` config.
+
+        .. versionchanged:: 2.3
+            Not set by default, does not fall back to ``SERVER_NAME``.
+        """"""","""""""
+Returns the domain for which cookies are sent with this session cookie.
+
+If not set, browsers will only send the cookie to the exact domain it was set from.
+Otherwise, they will send it to any subdomain of the given value as well.
+
+Uses the :data:`SESSION_COOKIE_DOMAIN` config.
+
+.. versionchanged:: 2.3
+    Not set by default, does not fall back to ``SERVER_NAME``.
+
+Args:
+    app (Flask): The Flask application instance.
+    **kwargs: Additional keyword arguments.
+
+Returns:
+    str | None: The domain for which cookies are sent with this session cookie, or None if not set.
+""""""",src/flask/sessions.py,94c71d0bb428a56081c99ed17e1edae745bff625
+0.690453,def command,"""""""This works exactly like the method of the same name on a regular
+        :class:`click.Group` but it wraps callbacks in :func:`with_appcontext`
+        unless it's disabled by passing ``with_appcontext=False``.
+        """"""","""""""
+    command
+    -------
+    
+    A function that wraps a click Command method in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument.
+
+    Parameters:
+    ----------
+    self : object
+        The instance of the class this method belongs to.
+    *args : t.Any
+        Variable length argument list.
+    **kwargs : t.Any
+        Arbitrary keyword arguments.
+
+    Returns:
+    -------
+    click.Command
+        A decorated click Command method.
+
+    Notes:
+    -----
+    This function is used to wrap callbacks in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument. It's similar to the 
+    method of the same name on a regular :class:`click.Group`, but it provides an 
+    additional option to disable this behavior.
+""""""",src/flask/cli.py,8f63c6d02923b58b8735b652cd2abb6323099096
+0.76298404,def run_command,"""""""Run a local development server.
+
+    This server is for development purposes only. It does not provide
+    the stability, security, or performance of production WSGI servers.
+
+    The reloader and debugger are enabled by default with the '--debug'
+    option.
+    """"""","""""""
+Run a local development server.
+
+This server is for development purposes only. It does not provide
+the stability, security, or performance of production WSGI servers.
+
+The reloader and debugger are enabled by default with the '--debug'
+option.
+
+Args:
+    info (ScriptInfo): Script information.
+    host (str): Host to bind to.
+    port (int): Port to bind to.
+    reload (bool): Whether to enable reloader. Defaults to `debug`.
+    debugger (bool): Whether to enable debugger. Defaults to `debug`.
+    with_threads (bool): Whether to run in threads. Defaults to False.
+    cert (ssl.SSLContext | tuple[str, str | None] | t.Literal[""adhoc""] | None):
+        SSL context or certificate information.
+    extra_files (list[str] | None): Extra files to serve.
+    exclude_patterns (list[str] | None): Patterns to exclude from serving.
+
+Returns:
+    None
+""""""",src/flask/cli.py,8f63c6d02923b58b8735b652cd2abb6323099096
+0.690453,def command,"""""""This works exactly like the method of the same name on a regular
+        :class:`click.Group` but it wraps callbacks in :func:`with_appcontext`
+        unless it's disabled by passing ``with_appcontext=False``.
+        """"""","""""""
+    command
+    -------
+    
+    A function that wraps a click Command method in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument.
+
+    Parameters:
+    ----------
+    self : object
+        The instance of the class this method belongs to.
+    *args : t.Any
+        Variable length argument list.
+    **kwargs : t.Any
+        Arbitrary keyword arguments.
+
+    Returns:
+    -------
+    click.Command
+        A decorated click Command method.
+
+    Notes:
+    -----
+    This function is used to wrap callbacks in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument. It's similar to the 
+    method of the same name on a regular :class:`click.Group`, but it provides an 
+    additional option to disable this behavior.
+""""""",src/flask/cli.py,b1f9ef817ea2d16e264dbe12b81f226f308da930
+0.76298404,def run_command,"""""""Run a local development server.
+
+    This server is for development purposes only. It does not provide
+    the stability, security, or performance of production WSGI servers.
+
+    The reloader and debugger are enabled by default with the '--debug'
+    option.
+    """"""","""""""
+Run a local development server.
+
+This server is for development purposes only. It does not provide
+the stability, security, or performance of production WSGI servers.
+
+The reloader and debugger are enabled by default with the '--debug'
+option.
+
+Args:
+    info (ScriptInfo): Script information.
+    host (str): Host to bind to.
+    port (int): Port to bind to.
+    reload (bool): Whether to enable reloader. Defaults to `debug`.
+    debugger (bool): Whether to enable debugger. Defaults to `debug`.
+    with_threads (bool): Whether to run in threads. Defaults to False.
+    cert (ssl.SSLContext | tuple[str, str | None] | t.Literal[""adhoc""] | None):
+        SSL context or certificate information.
+    extra_files (list[str] | None): Extra files to serve.
+    exclude_patterns (list[str] | None): Patterns to exclude from serving.
+
+Returns:
+    None
+""""""",src/flask/cli.py,b1f9ef817ea2d16e264dbe12b81f226f308da930
+0.690453,def command,"""""""This works exactly like the method of the same name on a regular
+        :class:`click.Group` but it wraps callbacks in :func:`with_appcontext`
+        unless it's disabled by passing ``with_appcontext=False``.
+        """"""","""""""
+    command
+    -------
+    
+    A function that wraps a click Command method in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument.
+
+    Parameters:
+    ----------
+    self : object
+        The instance of the class this method belongs to.
+    *args : t.Any
+        Variable length argument list.
+    **kwargs : t.Any
+        Arbitrary keyword arguments.
+
+    Returns:
+    -------
+    click.Command
+        A decorated click Command method.
+
+    Notes:
+    -----
+    This function is used to wrap callbacks in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument. It's similar to the 
+    method of the same name on a regular :class:`click.Group`, but it provides an 
+    additional option to disable this behavior.
+""""""",src/flask/cli.py,d8ade1eee0ad1b22322759446e58c8e9c58a0e9d
+0.76298404,def run_command,"""""""Run a local development server.
+
+    This server is for development purposes only. It does not provide
+    the stability, security, or performance of production WSGI servers.
+
+    The reloader and debugger are enabled by default with the '--debug'
+    option.
+    """"""","""""""
+Run a local development server.
+
+This server is for development purposes only. It does not provide
+the stability, security, or performance of production WSGI servers.
+
+The reloader and debugger are enabled by default with the '--debug'
+option.
+
+Args:
+    info (ScriptInfo): Script information.
+    host (str): Host to bind to.
+    port (int): Port to bind to.
+    reload (bool): Whether to enable reloader. Defaults to `debug`.
+    debugger (bool): Whether to enable debugger. Defaults to `debug`.
+    with_threads (bool): Whether to run in threads. Defaults to False.
+    cert (ssl.SSLContext | tuple[str, str | None] | t.Literal[""adhoc""] | None):
+        SSL context or certificate information.
+    extra_files (list[str] | None): Extra files to serve.
+    exclude_patterns (list[str] | None): Patterns to exclude from serving.
+
+Returns:
+    None
+""""""",src/flask/cli.py,d8ade1eee0ad1b22322759446e58c8e9c58a0e9d
+0.690453,def command,"""""""This works exactly like the method of the same name on a regular
+        :class:`click.Group` but it wraps callbacks in :func:`with_appcontext`
+        unless it's disabled by passing ``with_appcontext=False``.
+        """"""","""""""
+    command
+    -------
+    
+    A function that wraps a click Command method in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument.
+
+    Parameters:
+    ----------
+    self : object
+        The instance of the class this method belongs to.
+    *args : t.Any
+        Variable length argument list.
+    **kwargs : t.Any
+        Arbitrary keyword arguments.
+
+    Returns:
+    -------
+    click.Command
+        A decorated click Command method.
+
+    Notes:
+    -----
+    This function is used to wrap callbacks in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument. It's similar to the 
+    method of the same name on a regular :class:`click.Group`, but it provides an 
+    additional option to disable this behavior.
+""""""",src/flask/cli.py,06b4df966749951c2d838fbd4860db3a906804be
+0.76298404,def run_command,"""""""Run a local development server.
+
+    This server is for development purposes only. It does not provide
+    the stability, security, or performance of production WSGI servers.
+
+    The reloader and debugger are enabled by default with the '--debug'
+    option.
+    """"""","""""""
+Run a local development server.
+
+This server is for development purposes only. It does not provide
+the stability, security, or performance of production WSGI servers.
+
+The reloader and debugger are enabled by default with the '--debug'
+option.
+
+Args:
+    info (ScriptInfo): Script information.
+    host (str): Host to bind to.
+    port (int): Port to bind to.
+    reload (bool): Whether to enable reloader. Defaults to `debug`.
+    debugger (bool): Whether to enable debugger. Defaults to `debug`.
+    with_threads (bool): Whether to run in threads. Defaults to False.
+    cert (ssl.SSLContext | tuple[str, str | None] | t.Literal[""adhoc""] | None):
+        SSL context or certificate information.
+    extra_files (list[str] | None): Extra files to serve.
+    exclude_patterns (list[str] | None): Patterns to exclude from serving.
+
+Returns:
+    None
+""""""",src/flask/cli.py,06b4df966749951c2d838fbd4860db3a906804be
+0.690453,def command,"""""""This works exactly like the method of the same name on a regular
+        :class:`click.Group` but it wraps callbacks in :func:`with_appcontext`
+        unless it's disabled by passing ``with_appcontext=False``.
+        """"""","""""""
+    command
+    -------
+    
+    A function that wraps a click Command method in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument.
+
+    Parameters:
+    ----------
+    self : object
+        The instance of the class this method belongs to.
+    *args : t.Any
+        Variable length argument list.
+    **kwargs : t.Any
+        Arbitrary keyword arguments.
+
+    Returns:
+    -------
+    click.Command
+        A decorated click Command method.
+
+    Notes:
+    -----
+    This function is used to wrap callbacks in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument. It's similar to the 
+    method of the same name on a regular :class:`click.Group`, but it provides an 
+    additional option to disable this behavior.
+""""""",src/flask/cli.py,2be682c5b53e5608224310f02a9323018d5b14c7
+0.76298404,def run_command,"""""""Run a local development server.
+
+    This server is for development purposes only. It does not provide
+    the stability, security, or performance of production WSGI servers.
+
+    The reloader and debugger are enabled by default with the '--debug'
+    option.
+    """"""","""""""
+Run a local development server.
+
+This server is for development purposes only. It does not provide
+the stability, security, or performance of production WSGI servers.
+
+The reloader and debugger are enabled by default with the '--debug'
+option.
+
+Args:
+    info (ScriptInfo): Script information.
+    host (str): Host to bind to.
+    port (int): Port to bind to.
+    reload (bool): Whether to enable reloader. Defaults to `debug`.
+    debugger (bool): Whether to enable debugger. Defaults to `debug`.
+    with_threads (bool): Whether to run in threads. Defaults to False.
+    cert (ssl.SSLContext | tuple[str, str | None] | t.Literal[""adhoc""] | None):
+        SSL context or certificate information.
+    extra_files (list[str] | None): Extra files to serve.
+    exclude_patterns (list[str] | None): Patterns to exclude from serving.
+
+Returns:
+    None
+""""""",src/flask/cli.py,2be682c5b53e5608224310f02a9323018d5b14c7
+0.690453,def command,"""""""This works exactly like the method of the same name on a regular
+        :class:`click.Group` but it wraps callbacks in :func:`with_appcontext`
+        unless it's disabled by passing ``with_appcontext=False``.
+        """"""","""""""
+    command
+    -------
+    
+    A function that wraps a click Command method in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument.
+
+    Parameters:
+    ----------
+    self : object
+        The instance of the class this method belongs to.
+    *args : t.Any
+        Variable length argument list.
+    **kwargs : t.Any
+        Arbitrary keyword arguments.
+
+    Returns:
+    -------
+    click.Command
+        A decorated click Command method.
+
+    Notes:
+    -----
+    This function is used to wrap callbacks in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument. It's similar to the 
+    method of the same name on a regular :class:`click.Group`, but it provides an 
+    additional option to disable this behavior.
+""""""",src/flask/cli.py,d761a845c17f7e09b96ebd4ad17bf9e5e6de3de0
+0.76298404,def run_command,"""""""Run a local development server.
+
+    This server is for development purposes only. It does not provide
+    the stability, security, or performance of production WSGI servers.
+
+    The reloader and debugger are enabled by default with the '--debug'
+    option.
+    """"""","""""""
+Run a local development server.
+
+This server is for development purposes only. It does not provide
+the stability, security, or performance of production WSGI servers.
+
+The reloader and debugger are enabled by default with the '--debug'
+option.
+
+Args:
+    info (ScriptInfo): Script information.
+    host (str): Host to bind to.
+    port (int): Port to bind to.
+    reload (bool): Whether to enable reloader. Defaults to `debug`.
+    debugger (bool): Whether to enable debugger. Defaults to `debug`.
+    with_threads (bool): Whether to run in threads. Defaults to False.
+    cert (ssl.SSLContext | tuple[str, str | None] | t.Literal[""adhoc""] | None):
+        SSL context or certificate information.
+    extra_files (list[str] | None): Extra files to serve.
+    exclude_patterns (list[str] | None): Patterns to exclude from serving.
+
+Returns:
+    None
+""""""",src/flask/cli.py,d761a845c17f7e09b96ebd4ad17bf9e5e6de3de0
+0.690453,def command,"""""""This works exactly like the method of the same name on a regular
+        :class:`click.Group` but it wraps callbacks in :func:`with_appcontext`
+        unless it's disabled by passing ``with_appcontext=False``.
+        """"""","""""""
+    command
+    -------
+    
+    A function that wraps a click Command method in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument.
+
+    Parameters:
+    ----------
+    self : object
+        The instance of the class this method belongs to.
+    *args : t.Any
+        Variable length argument list.
+    **kwargs : t.Any
+        Arbitrary keyword arguments.
+
+    Returns:
+    -------
+    click.Command
+        A decorated click Command method.
+
+    Notes:
+    -----
+    This function is used to wrap callbacks in :func:`with_appcontext` unless 
+    ``with_appcontext=False`` is passed as a keyword argument. It's similar to the 
+    method of the same name on a regular :class:`click.Group`, but it provides an 
+    additional option to disable this behavior.
+""""""",src/flask/cli.py,33b82fcf05877b30f43ed073dd0b44d9f3d17276
+0.76298404,def run_command,"""""""Run a local development server.
+
+    This server is for development purposes only. It does not provide
+    the stability, security, or performance of production WSGI servers.
+
+    The reloader and debugger are enabled by default with the '--debug'
+    option.
+    """"""","""""""
+Run a local development server.
+
+This server is for development purposes only. It does not provide
+the stability, security, or performance of production WSGI servers.
+
+The reloader and debugger are enabled by default with the '--debug'
+option.
+
+Args:
+    info (ScriptInfo): Script information.
+    host (str): Host to bind to.
+    port (int): Port to bind to.
+    reload (bool): Whether to enable reloader. Defaults to `debug`.
+    debugger (bool): Whether to enable debugger. Defaults to `debug`.
+    with_threads (bool): Whether to run in threads. Defaults to False.
+    cert (ssl.SSLContext | tuple[str, str | None] | t.Literal[""adhoc""] | None):
+        SSL context or certificate information.
+    extra_files (list[str] | None): Extra files to serve.
+    exclude_patterns (list[str] | None): Patterns to exclude from serving.
+
+Returns:
+    None
+""""""",src/flask/cli.py,33b82fcf05877b30f43ed073dd0b44d9f3d17276

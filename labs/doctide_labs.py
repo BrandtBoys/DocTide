@@ -10,9 +10,10 @@ from datetime import datetime
 # external dependencies
 import github #pyGithub
 from github.InputGitTreeElement import InputGitTreeElement
+import pandas as pd
 
 # internal dependencies
-from metrics import collect_semantic_score
+from metrics import collect_semantic_score, create_semantic_score_box_plot
 from utils.code_diff_utils import remove_diff_comments, edit_diff_restore_comments, detect_language
 
 
@@ -35,8 +36,8 @@ repo = g.get_repo(f"{GITHUB_OWNER}/{REPO_NAME}")
 print("repo")
 
 # Commits to compare (replace or allow user input)
-start = 184   # what index of commit the test should start from, have to be higher than "end"
-end = 180  # what index of commit the test should end at
+start = 200   # what index of commit the test should start from, have to be higher than "end"
+end = 0  # what index of commit the test should end at
 
 #set of files which have been modified during the test
 modified_filepaths = set()
@@ -53,14 +54,18 @@ branch = repo.get_branch(branch_name)
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
 # Define the base results directory
-os.makedirs("results/semantic_score", exist_ok=True)
-os.makedirs("results/success_rate", exist_ok=True)
-semantic_score_result_file = os.path.join("results/semantic_score", f"{timestamp}.csv")
-success_rate_result_file = os.path.join("results/success_rate", f"{timestamp}.csv")
+os.makedirs(f"results/{timestamp}", exist_ok=True)
+semantic_score_result_file = os.path.join(f"results/{timestamp}", "semantic_score.csv")
 with open(semantic_score_result_file, mode="w", newline="", encoding="utf-8") as f:
     header = ["Semantic-Score", "Code", "Original-Comment","Agent-Comment", "Filename", "Agent-Commit"]
     writer = csv.writer(f)
     writer.writerow(header)
+success_rate_result_file = os.path.join(f"results/{timestamp}", "success_rate.csv")
+with open(success_rate_result_file, mode="w", newline="", encoding="utf-8") as f:
+    header = ["Successful runs", "Total runs"]
+    writer = csv.writer(f)
+    writer.writerow(header)
+success_ratio_file = os.path.join(f"results/{timestamp}", "success_ration.txt")
 
 def main():
 
@@ -74,6 +79,11 @@ def main():
     for commit in reversed(commits):
         print(commit)
         add_commit_run_agent(commit.sha)
+    
+    # create a box plot for all the semantic scores 
+    create_semantic_score_box_plot(semantic_score_result_file,timestamp)
+
+    df = pd.read_csv(success_rate_result_file)
     
 
 def add_commit_run_agent(commit_sha):
@@ -124,7 +134,7 @@ def add_commit_run_agent(commit_sha):
             time.sleep(5)  # Wait and check again
             run = workflow.get_runs()[0]  # Refresh latest run
 
-    collect_semantic_score(repo, branch_name, modified_files, commit_sha, semantic_score_result_file)
+    collect_semantic_score(repo, branch_name, modified_files, commit_sha, semantic_score_result_file, timestamp)
     extract_success_rate_metric_from_agent()
 
     
@@ -232,9 +242,8 @@ def extract_success_rate_metric_from_agent():
     head_commit_sha = branch.commit.sha
     try:
         success_rate_content = repo.get_contents("success_rate.csv",ref=head_commit_sha).decoded_content.decode("utf-8")
-        print(success_rate_content)
-        with open(success_rate_result_file, mode="a", encoding="utf-8") as f:
-            f.write(success_rate_content)
+        df = pd.read_csv(success_rate_content)
+        df.to_csv(success_rate_result_file, index=False, header=False)
     except:
         print("No success_rate file found")
 

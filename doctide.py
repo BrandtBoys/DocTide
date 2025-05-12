@@ -14,8 +14,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from utils.code_diff_utils import extract_data, collect_code_comment_range, tree_sitter_parser_init, detect_language
 
 # Global vars to keep track of success rate
-generation_attempts = 0
-successful_generation_attempts = 0
+generation_attempts = []
 
 def main(testing):
 
@@ -82,8 +81,8 @@ def main(testing):
         with open(success_rate_file, mode="a", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             if not success_rate_file_exists:
-                writer.writerow(["Successful runs", "Total runs"])
-            writer.writerow([successful_generation_attempts, generation_attempts])
+                writer.writerow(["Success", "Comment"])
+            writer.writerows([generation_attempts])
 
     repo.index.add(success_rate_file)
 
@@ -185,7 +184,7 @@ def generate_comments(file_language: str, prev_content: str, source_code: str, g
         None
     """
     # Testing variables
-    global generation_attempts, successful_generation_attempts
+    global generation_attempts
     
     # Extract all functions which is in the diff
     functions = extract_data(True, file_language, prev_content, source_code, collect_code_comment_range)
@@ -194,9 +193,11 @@ def generate_comments(file_language: str, prev_content: str, source_code: str, g
     for function_code, start_byte, end_byte in functions:
         generation_attempts += 1
         llm_response = generate_llm_response(file_language, function_code)
+        llm_bool = False
         if validate_response_as_comment(file_language, llm_response.content):
-            successful_generation_attempts += 1
+            llm_bool = True
             generatedComments.append(GeneratedComment(comment=llm_response.content, start_byte=start_byte, end_byte=end_byte))
+        generation_attempts.append((llm_bool, llm_response.content))
 
 
 if __name__ == "__main__":

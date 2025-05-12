@@ -37,8 +37,8 @@ repo = g.get_repo(f"{GITHUB_OWNER}/{REPO_NAME}")
 print("repo")
 
 # Commits to compare (replace or allow user input)
-start = 200   # what index of commit the test should start from, have to be higher than "end"
-end = 0  # what index of commit the test should end at
+start = 34   # what index of commit the test should start from, have to be higher than "end"
+end = 25  # what index of commit the test should end at
 
 #set of files which have been modified during the test
 modified_filepaths = set()
@@ -63,7 +63,7 @@ with open(semantic_score_result_file, mode="w", newline="", encoding="utf-8") as
     writer.writerow(header)
 success_rate_result_file = os.path.join(f"results/{timestamp}", "success_rate.csv")
 with open(success_rate_result_file, mode="w", newline="", encoding="utf-8") as f:
-    header = ["Successful runs", "Total runs"]
+    header = ["Success", "Comment"]
     writer = csv.writer(f)
     writer.writerow(header)
 success_ratio_file = os.path.join(f"results/{timestamp}", "success_ratio.txt")

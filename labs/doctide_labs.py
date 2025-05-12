@@ -37,7 +37,7 @@ repo = g.get_repo(f"{GITHUB_OWNER}/{REPO_NAME}")
 print("repo")
 
 # Commits to compare (replace or allow user input)
-start = 500   # what index of commit the test should start from, have to be higher than "end"
+start = 200   # what index of commit the test should start from, have to be higher than "end"
 end = 0  # what index of commit the test should end at
 
 #set of files which have been modified during the test
@@ -95,6 +95,8 @@ def main():
     for commit in reversed(commits):
         print(commit)
         add_commit_run_agent(commit.sha)
+    
+    extract_success_rate_metric_from_agent()
     
     # create a box plot for all the semantic scores 
     create_semantic_score_box_plot(semantic_score_result_file,timestamp)
@@ -163,7 +165,6 @@ def add_commit_run_agent(commit_sha):
             run = workflow.get_runs()[0]  # Refresh latest run
 
     collect_semantic_score(repo, branch_name, modified_files, commit_sha, semantic_score_result_file, timestamp)
-    extract_success_rate_metric_from_agent()
 
     
 
@@ -276,7 +277,7 @@ def extract_success_rate_metric_from_agent():
 
         with open(success_rate_result_file, mode="a", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
-            writer.writerows(rows[1:])
+            writer.writerows(rows)
     except Exception as e:
         print(f"No success_rate file found. Exception: {e}")
 

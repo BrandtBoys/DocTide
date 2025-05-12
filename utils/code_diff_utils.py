@@ -439,7 +439,7 @@ def remove_diff_comments(file_language, head_content, commit_content):
 def remove_comments(file_language, commit_content):
   
     # Extract comment lines
-    diff_comment_lines = set(extract_data(False, file_language, commit_content, collect_comment_lines))
+    diff_comment_lines = set(extract_data(use_diff=False, file_language=file_language, head_content="", commit_content=commit_content, handler_fn=collect_comment_lines))
     
     content = commit_content.splitlines(keepends=True)
     cleaned_content = []

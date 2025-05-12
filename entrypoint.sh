@@ -38,7 +38,7 @@ ollama pull llama3.2
 # Test mode resource monitoring:
 if [ "$1" = "true" ]; then
     echo "Starting resource usage monitor for test mode..."
-    top -b -d 1 -n 0 -p $(pgrep -f 'ollama serve') > /tmp/resource_usage.log &
+    top -b -d 1 -p $(pgrep -f 'ollama serve') >> /tmp/resource_usage.log &
     MONITOR_PID=$!
 fi
 # -----------------------------------------------

@@ -4,6 +4,7 @@
 apt-get update
 apt-get install -y git
 apt-get install -y curl
+apt-get install -y procps
 
 # Tell the action to trust github/workspace - to avoid "dubious ownership"
 git config --global --add safe.directory /github/workspace

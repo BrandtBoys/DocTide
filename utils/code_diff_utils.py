@@ -185,7 +185,7 @@ def collect_code_comment_range(func_node, node, content, result_list, nodeIdSet,
     comment_node = identify_comment_node(node, nodeIdSet)
     if comment_node:
         end_byte = comment_node.end_byte
-    result_list.append((function_code, start_byte, end_byte))
+    result_list.append((function_code, start_byte, end_byte, start_col))
 
 # Handler function to extrat data
 # Used in semantic

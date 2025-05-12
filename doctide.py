@@ -64,8 +64,9 @@ def main(testing):
         # Init commented_code with original content from file
         commented_code = bytearray(source_code.encode("utf-8"))
         # Insert generated comments
-        for comment, start_byte, end_byte in reversed(generatedComment_lst):
-            commented_code[start_byte:end_byte] = (comment+"\n").encode()
+        for comment, start_byte, end_byte, start_col in reversed(generatedComment_lst):
+            indentation = b" " * start_col
+            commented_code[start_byte:end_byte] = (comment.encode()+b"\n"+indentation)
 
         # Write back to file
         with open(source_path, "w") as f:
@@ -166,6 +167,7 @@ class GeneratedComment(NamedTuple):
     comment: str
     start_byte: int
     end_byte: int
+    start_col: int
     
 
 def generate_comments(file_language: str, prev_content: str, source_code: str, generatedComments: list[GeneratedComment]):

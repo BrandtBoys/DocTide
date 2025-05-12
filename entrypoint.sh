@@ -42,7 +42,7 @@ if [ -f "$GITHUB_ENV" ]; then
 fi
 
 # Test mode:
-if [ $1 ]
+if [ "$1" = "true" ]
 then
     # Checkout back to the caller test-branch
     git checkout "${GITHUB_REF#refs/heads/}"

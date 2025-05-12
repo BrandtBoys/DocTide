@@ -193,7 +193,6 @@ def generate_comments(file_language: str, prev_content: str, source_code: str, g
 
     # Generate new comments for modified functions
     for function_code, start_byte, end_byte, start_col in functions:
-        generation_attempts += 1
         llm_response = generate_llm_response(file_language, function_code)
         llm_bool = False
         if validate_response_as_comment(file_language, llm_response.content):

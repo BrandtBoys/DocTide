@@ -2,5 +2,15 @@
 !include small_logo_sprite.puml
 skinparam actorStyle awesome
 rectangle "<$DocTide_logo>" as DocTide
-:Developer: -> DocTide
+
+rectangle GitHub{
+    (invokes CI workflow) as CI
+    (creates Pull Request) as PR
+    (Modifies or accepts PR) as APR
+}
+:Developer: --> CI : Commits changes to code 
+CI --> DocTide : using DocTide Action
+DocTide --> PR : commits generated function-level documentation
+:Developer: --> APR 
+
 @enduml

@@ -1,0 +1,488 @@
+Semantic-Score,Code,Original-Comment,Agent-Comment,Filename,Agent-Commit
+0.62776965,def gravatar_url,"""""""Return the gravatar image for the given email address""""""","""""""
+Generate a Gravatar URL for a given email address.
+
+Parameters:
+    email (str): The email address to generate the Gravatar URL for.
+    size (int, optional): The desired image size. Defaults to 80.
+
+Returns:
+    str: The generated Gravatar URL.
+
+Note:
+    This function uses the MD5 hash of the email address's MD5 hash to ensure uniqueness and
+    is case-insensitive due to the use of `lower()` on the input string.
+""""""",examples/minitwit/minitwit.py,db393b8cd5d0f59debcde6f4c2944be69e1fc687
+0.64051205,def render_template,"""""""Renders a template from the template folder with the given
+    context.
+    """"""","""""""
+Render a template with the given context.
+
+Args:
+    template_name (str): The name of the template to be rendered.
+    **context: A dictionary containing variables to be passed to the template.
+
+Returns:
+    str: The rendered HTML content of the template.
+
+Raises:
+    None
+""""""",flask.py,e145736a31ef450ce1b014fe80e10600d6acfa1f
+0.7513246,def render_template_string,"""""""Renders a template from the given template source string
+    with the given context.
+    """"""","""""""
+Render a Jinja template string with given context.
+
+This function takes a source template string and a dictionary of context variables.
+It updates the application's template context with the provided variables,
+and then renders the template using the `Jinja` environment from the current application.
+
+Args:
+    source (str): The Jinja template string to render.
+    **context: A dictionary of variables to pass to the template.
+
+Returns:
+    str: The rendered template string.
+
+Raises:
+    None
+""""""",flask.py,e145736a31ef450ce1b014fe80e10600d6acfa1f
+0.6605738,def update_template_context,"""""""Update the template context with some commonly used variables.
+        This injects request, session and g into the template context.
+        """"""","""""""
+Updates the template context with information from the request and session.
+
+Args:
+    context (dict): The dictionary to update with the new context values.
+    
+Returns:
+    None
+    
+Raises:
+    AttributeError: If _request_ctx_stack is not available or top is not a Request object.
+""""""",flask.py,e145736a31ef450ce1b014fe80e10600d6acfa1f
+0.5451851,def wsgi_app,"""""""The actual WSGI application.  This is not implemented in
+        `__call__` so that middlewares can be applied:
+
+            app.wsgi_app = MyMiddleware(app.wsgi_app)
+        """"""","""""""
+WSGI Application Function
+
+This function serves as the entry point for a WSGI-compliant web application.
+It processes incoming requests and returns a response to be sent back to the client.
+
+Parameters:
+    environ (dict): The environment dictionary containing information about the request.
+    start_response (str): A callable that takes the status code and headers as arguments.
+
+Returns:
+    response: An object representing the response to be sent back to the client.
+
+Notes:
+    This function uses a request context manager to ensure proper cleanup of resources.
+    It preprocesses the request, dispatches it if necessary, makes a response, processes it,
+    and finally returns the response to the WSGI server.
+""""""",flask.py,e145736a31ef450ce1b014fe80e10600d6acfa1f
+0.60316426,def test_request_context,"""""""Creates a WSGI environment from the given values (see
+        :func:`werkzeug.create_environ` for more information).
+        """"""","""""""
+Tests the request context by creating a mock environment and passing it to the `request_context` method.
+
+Args:
+    *args: Variable length argument list of arguments to be passed to `create_environ`.
+    **kwargs: Arbitrary keyword arguments to be passed to `create_environ`.
+
+Returns:
+    The result of calling `self.request_context` with the created mock environment.
+""""""",flask.py,e145736a31ef450ce1b014fe80e10600d6acfa1f
+0.64051205,def render_template,"""""""Renders a template from the template folder with the given
+    context.
+    """"""","""""""
+Render a template with the given context.
+
+Args:
+    template_name (str): The name of the template to be rendered.
+    **context: A dictionary containing variables to be passed to the template.
+
+Returns:
+    str: The rendered HTML content of the template.
+
+Raises:
+    None
+""""""",flask.py,d1cb91ce8298c5c35deef0ddc082f3c1a4654d7d
+0.7513246,def render_template_string,"""""""Renders a template from the given template source string
+    with the given context.
+    """"""","""""""
+Render a Jinja template string with given context.
+
+This function takes a source template string and a dictionary of context variables.
+It updates the application's template context with the provided variables,
+and then renders the template using the `Jinja` environment from the current application.
+
+Args:
+    source (str): The Jinja template string to render.
+    **context: A dictionary of variables to pass to the template.
+
+Returns:
+    str: The rendered template string.
+
+Raises:
+    None
+""""""",flask.py,d1cb91ce8298c5c35deef0ddc082f3c1a4654d7d
+0.66057384,def update_template_context,"""""""Update the template context with some commonly used variables.
+        This injects request, session and g into the template context.
+        """"""","""""""
+Updates the template context with information from the request and session.
+
+Args:
+    context (dict): The dictionary to update with the new context values.
+    
+Returns:
+    None
+    
+Raises:
+    AttributeError: If _request_ctx_stack is not available or top is not a Request object.
+""""""",flask.py,d1cb91ce8298c5c35deef0ddc082f3c1a4654d7d
+0.60316426,def test_request_context,"""""""Creates a WSGI environment from the given values (see
+        :func:`werkzeug.create_environ` for more information).
+        """"""","""""""
+Tests the request context by creating a mock environment and passing it to the `request_context` method.
+
+Args:
+    *args: Variable length argument list of arguments to be passed to `create_environ`.
+    **kwargs: Arbitrary keyword arguments to be passed to `create_environ`.
+
+Returns:
+    The result of calling `self.request_context` with the created mock environment.
+""""""",flask.py,d1cb91ce8298c5c35deef0ddc082f3c1a4654d7d
+0.52204144,def before_request,"""""""Make sure we are connected to the database each request and look
+    up the current user so that we know he's there.
+    """"""","""""""
+Returns a database connection and retrieves the current user's information.
+
+- Connects to the database using `connect_db()`.
+- Checks if a 'user_id' is present in the session. If it exists, retrieves the corresponding user data from the database.
+- Stores the retrieved user data in the `g.user` variable for later use.
+""""""",examples/minitwit/minitwit.py,6551655f4ff544e93eefba259fe026075dd9e81d
+0.493295,def before_request,"""""""Make sure we are connected to the database each request and look
+    up the current user so that we know he's there.
+    """"""","""""""
+Returns a database connection and retrieves the current user's information.
+
+- Connects to the database using `connect_db()`.
+- Checks if a 'user_id' is present in the session. If it exists, retrieves the corresponding user data from the database.
+- Stores the retrieved user data in the `g.user` variable for later use.
+
+Args:
+    None
+
+Returns:
+    A dictionary containing the database connection and the current user's information.
+
+Raises:
+    Exception: If an error occurs while connecting to the database or retrieving user data.
+""""""",examples/minitwit/minitwit.py,8e0813486bcdd4f2e8efecc977aa382dc2c3ced2
+0.6846431,def route,"""""""A decorator that is used to register a view function for a
+        given URL rule.  Example::
+
+            @app.route('/')
+            def index():
+                return 'Hello World'
+
+        Variables parts in the route can be specified with angular
+        brackets (``/user/<username>``).  By default a variable part
+        in the URL accepts any string without a slash however a differnt
+        converter can be specified as well by using ``<converter:name>``.
+
+        Variable parts are passed to the view function as keyword
+        arguments.
+
+        The following converters are possible:
+
+        =========== ===========================================
+        `int`       accepts integers
+        `float`     like `int` but for floating point values
+        `path`      like the default but also accepts slashes
+        =========== ===========================================
+
+        Here some examples::
+
+            @app.route('/')
+            def index():
+                pass
+
+            @app.route('/<username>')
+            def show_user(username):
+                pass
+
+            @app.route('/post/<int:post_id>')
+            def show_post(post_id):
+                pass
+
+        An important detail to keep in mind is how Flask deals with trailing
+        slashes.  The idea is to keep each URL unique so the following rules
+        apply:
+
+        1. If a rule ends with a slash and is requested without a slash
+           by the user, the user is automatically redirected to the same
+           page with a trailing slash attached.
+        2. If a rule does not end with a trailing slash and the user request
+           the page with a trailing slash, a 404 not found is raised.
+
+        This is consistent with how web servers deal with static files.  This
+        also makes it possible to use relative link targets safely.
+
+        The :meth:`route` decorator accepts a couple of other arguments
+        as well:
+
+        :param methods: a list of methods this rule should be limited
+                        to (``GET``, ``POST`` etc.).  By default a rule
+                        just listens for ``GET`` (and implicitly ``HEAD``).
+        :param subdomain: specifies the rule for the subdoain in case
+                          subdomain matching is in use.
+        :param strict_slashes: can be used to disable the strict slashes
+                               setting for this rule.  See above.
+        """"""","""""""
+Route a URL pattern to a view function.
+
+This function is used to map a URL rule to a specific view function. It can be used as a decorator to register the view function with the application.
+
+Args:
+    rule (str): The URL rule to match.
+    **options: Additional options for the URL rule, such as the HTTP method.
+
+Returns:
+    A decorator function that registers the view function with the application.
+
+Example:
+    @app.route('/users', methods=['GET'])
+    def get_users():
+        # View function code here
+        pass
+
+Note:
+    This function is typically used in a web framework to map URL patterns to view functions.
+""""""",flask.py,10b26cecf5ca6b1df3644fb2accd005861fec185
+0.73666155,def after_request,"""""""Closes the database again at the end of the request.""""""","""""""
+Closes the database connection after each request.
+
+Args:
+    response (object): The HTTP response object.
+
+Returns:
+    object: The modified HTTP response object with the database connection closed.
+""""""",examples/minitwit/minitwit.py,bba1a03e3a2fcc1b39acfa35d74f9715e25b88a5
+0.5915977,def timeline,"""""""Shows a users timeline or if no user is logged in it will
+    redirect to the public timeline.  This timeline shows the user's
+    messages as well as all the messages of followed users.
+    """"""","""""""
+Fetches the timeline of messages for the current user, including messages they have posted and those from their followers.
+
+Args:
+    - offset (int): The number of rows to skip before displaying messages. Defaults to 0.
+Returns:
+    A rendered HTML template containing the timeline of messages.
+""""""",examples/minitwit/minitwit.py,bba1a03e3a2fcc1b39acfa35d74f9715e25b88a5
+0.549006,def user_timeline,"""""""Display's a users tweets.""""""","""""""
+Returns the user's timeline.
+
+This function retrieves a user's timeline based on their username. It first checks if the user exists in the database, and then queries the follower table to determine if the current user is following the target user. The timeline is then rendered with the retrieved data.
+
+Parameters:
+- username (str): The username of the user whose timeline is being requested.
+Returns:
+- A rendered HTML template containing the user's timeline data.
+""""""",examples/minitwit/minitwit.py,bba1a03e3a2fcc1b39acfa35d74f9715e25b88a5
+0.6375636,def register,"""""""Registers the user""""""","""""""
+Registers a new user.
+
+This function handles the registration process for a new user. It checks if the user is already logged in, 
+and if not, it proceeds with the registration form submission. The form validation includes checking for empty fields,
+valid email addresses, and matching passwords. If all conditions are met, the user's information is inserted into the database.
+
+Parameters:
+    None
+
+Returns:
+    redirect: Redirects to the timeline page if the user is already logged in.
+    render_template: Renders the registration template with any error messages.
+""""""",examples/minitwit/minitwit.py,bba1a03e3a2fcc1b39acfa35d74f9715e25b88a5
+0.60100913,def timeline,"""""""Shows a users timeline or if no user is logged in it will
+    redirect to the public timeline.  This timeline shows the user's
+    messages as well as all the messages of followed users.
+    """"""","""""""
+Fetches the timeline of messages for the current user, including messages they have posted and those from their followers.
+
+Args:
+    - offset (int): The number of rows to skip before displaying messages. Defaults to 0.
+
+Returns:
+    A rendered HTML template containing the timeline of messages.
+""""""",examples/minitwit/minitwit.py,db8b76f40ea8e66491ead49f4cb14dcb2f9748b2
+0.6614651,def setUp,"""""""Before each test, set up a blank database""""""","""""""
+Sets up a test database and application client for the Minitwit framework.
+
+This method creates a temporary in-memory database file, initializes the Minitwit database,
+and sets up an application client to interact with the database.
+""""""",examples/minitwit/minitwit_tests.py,db8b76f40ea8e66491ead49f4cb14dcb2f9748b2
+0.5402305,def register,"""""""Helper function to register a user""""""","""""""
+Registers a new user.
+
+Parameters:
+- `self`: The object instance that this method belongs to.
+- `username` (str): The username chosen by the user.
+- `password` (str): The password chosen by the user.
+- `password2` (str, optional): The confirmation of the password. Defaults to None.
+- `email` (str, optional): The email address associated with the account. Defaults to None.
+
+Returns:
+- A response object from the server after a POST request to '/register'.
+
+Note: If 'password2' is not provided, it will be set to the same value as 'password'. If 'email' is not provided, it will be generated by appending '@example.com' to the username.
+""""""",examples/minitwit/minitwit_tests.py,db8b76f40ea8e66491ead49f4cb14dcb2f9748b2
+0.5663309,def login,"""""""Helper function to login""""""","""""""
+Login to the application.
+
+Parameters:
+    username (str): The username for login.
+    password (str): The password for login.
+
+Returns:
+    Response: The response from the server after submitting the login request.
+
+Note:
+    This function uses the `app.post` method to send a POST request to the `/login` endpoint with the provided username and password. The `follow_redirects=True` parameter ensures that any redirects are followed, allowing for more robust handling of login responses.
+""""""",examples/minitwit/minitwit_tests.py,db8b76f40ea8e66491ead49f4cb14dcb2f9748b2
+0.584042,def logout,"""""""Helper function to logout""""""","""""""
+Logout the user by redirecting to the logout page.
+
+Redirects to the `/logout` endpoint and follows redirects.
+
+Args:
+    None
+
+Returns:
+    A redirect response object
+""""""",examples/minitwit/minitwit_tests.py,db8b76f40ea8e66491ead49f4cb14dcb2f9748b2
+0.49157262,def test_register,"""""""Make sure registering works""""""","""""""
+Tests the register functionality of the class.
+
+This function tests various scenarios for registering users, including:
+
+- Successful registration with default credentials.
+- Registration attempt with an existing username.
+- Registration attempt without a username.
+- Registration attempt without a password.
+- Registration attempt with mismatched passwords.
+- Registration attempt with invalid email address.
+
+Each test case checks if the expected error message is present in the response data.
+
+Parameters:
+self (object): The instance of the class being tested.
+
+Returns:
+None
+""""""",examples/minitwit/minitwit_tests.py,db8b76f40ea8e66491ead49f4cb14dcb2f9748b2
+0.571535,def test_client,"""""""Creates a test client for this application""""""","""""""
+Returns a Werkzeug HTTP client instance for testing purposes.
+
+The client is configured to use cookies and is tied to the provided `self` object and response class. This allows for seamless integration with the test framework's request and response objects.
+
+Args:
+    self (object): The object being tested.
+    self.response_class (class): The response class used by the test framework.
+
+Returns:
+    Client: A Werkzeug HTTP client instance.
+""""""",flask.py,db8b76f40ea8e66491ead49f4cb14dcb2f9748b2
+0.5663309,def login,"""""""Helper function to login""""""","""""""
+Login to the application.
+
+Parameters:
+    username (str): The username for login.
+    password (str): The password for login.
+
+Returns:
+    Response: The response from the server after submitting the login request.
+
+Note:
+    This function uses the `app.post` method to send a POST request to the `/login` endpoint with the provided username and password. The `follow_redirects=True` parameter ensures that any redirects are followed, allowing for more robust handling of login responses.
+""""""",examples/minitwit/minitwit_tests.py,ea1e2f740391fcc183fea73501aa09f922783467
+0.5092691,def logout,"""""""Helper function to logout""""""","""""""
+Redirects to the `/logout` endpoint and follows redirects.
+
+Args:
+    None
+
+Returns:
+    A redirect response object
+""""""",examples/minitwit/minitwit_tests.py,ea1e2f740391fcc183fea73501aa09f922783467
+0.49157268,def test_register,"""""""Make sure registering works""""""","""""""
+Tests the register functionality of the class.
+
+This function tests various scenarios for registering users, including:
+
+- Successful registration with default credentials.
+- Registration attempt with an existing username.
+- Registration attempt without a username.
+- Registration attempt without a password.
+- Registration attempt with mismatched passwords.
+- Registration attempt with invalid email address.
+
+Each test case checks if the expected error message is present in the response data.
+
+Parameters:
+self (object): The instance of the class being tested.
+
+Returns:
+None
+""""""",examples/minitwit/minitwit_tests.py,ea1e2f740391fcc183fea73501aa09f922783467
+0.703703,def _default_template_ctx_processor,"""""""Default template context processor.  Injects `request`,
+    `session` and `g`.
+    """"""","""""""
+Processes default template context with request, session and group information.
+
+This function retrieves the topmost request context from the `_request_ctx_stack` and returns a dictionary containing the request, session, and group attributes.
+
+Returns:
+    dict: A dictionary containing the request, session, and group attributes.
+""""""",flask.py,2cdb42a1b41b117061560b0dd7d433702182babe
+0.7251742,def update_template_context,"""""""Update the template context with some commonly used variables.
+        This injects request, session and g into the template context.
+
+        :param context: the context as a dictionary that is updated in place
+                        to add extra variables.
+        """"""","""""""
+Updates the template context with information from the request and session.
+
+Args:
+    context (dict): The dictionary to update with the new context values.
+
+Returns:
+    None
+
+Raises:
+    AttributeError: If _request_ctx_stack is not available or top is not a Request object.
+""""""",flask.py,2cdb42a1b41b117061560b0dd7d433702182babe
+0.49497724,def request_shutdown,"""""""Register a function to be run after each request.""""""","""""""
+Adds a shutdown function to the list of requested shutdown functions.
+
+Args:
+    f (function): The shutdown function to be added.
+
+Returns:
+    function: The original shutdown function passed in, with no changes made.
+""""""",flask.py,2cdb42a1b41b117061560b0dd7d433702182babe
+0.6857062,def context_processor,"""""""Registers a template context processor function.""""""","""""""
+Processors for the template context.
+
+This function adds a processor to the list of template context processors.
+It is used to inject data into the template context.
+
+Args:
+    f (function): The processor function to be added.
+
+Returns:
+    function: The original processor function, which has been appended to the list of template context processors.
+""""""",flask.py,2cdb42a1b41b117061560b0dd7d433702182babe

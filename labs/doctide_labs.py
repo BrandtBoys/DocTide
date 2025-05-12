@@ -1,4 +1,5 @@
 # build in python
+import io
 import os
 import time
 import csv
@@ -37,7 +38,7 @@ print("repo")
 
 # Commits to compare (replace or allow user input)
 start = 200   # what index of commit the test should start from, have to be higher than "end"
-end = 0  # what index of commit the test should end at
+end = 190  # what index of commit the test should end at
 
 #set of files which have been modified during the test
 modified_filepaths = set()
@@ -65,23 +66,23 @@ with open(success_rate_result_file, mode="w", newline="", encoding="utf-8") as f
     header = ["Successful runs", "Total runs"]
     writer = csv.writer(f)
     writer.writerow(header)
-success_ratio_file = os.path.join(f"results/{timestamp}", "success_ration.txt")
+success_ratio_file = os.path.join(f"results/{timestamp}", "success_ratio.txt")
 
 def main():
     #Remove all comments from .py
-    # cleaned_files = []
-    # tree_sha = branch.commit.sha
-    # tree = repo.get_git_tree(tree_sha, recursive=True).tree
+    cleaned_files = []
+    tree_sha = branch.commit.sha
+    tree = repo.get_git_tree(tree_sha, recursive=True).tree
 
-    # for item in tree:
-    #     if item.type == "blob" and item.path.endswith(".py"):
-    #         content = repo.get_contents(item.path,ref=tree_sha).decoded_content.decode()
-    #         cleaned_content = remove_comments('python', content)
-    #         cleaned_files.append((item.path, cleaned_content))
+    for item in tree:
+        if item.type == "blob" and item.path.endswith(".py"):
+            content = repo.get_contents(item.path,ref=tree_sha).decoded_content.decode()
+            cleaned_content = remove_comments('python', content)
+            cleaned_files.append((item.path, cleaned_content))
 
-    # ref = repo.get_git_ref(f'heads/{branch_name}')
-    # commit = repo.get_git_commit(tree_sha)
-    # commit_multiple_files(ref, cleaned_files, commit, "Remove all comments")
+    ref = repo.get_git_ref(f'heads/{branch_name}')
+    commit = repo.get_git_commit(tree_sha)
+    commit_multiple_files(ref, cleaned_files, commit, "Remove all comments")
 
 
     #read the content of the test_workflow, and add it into the test environment, which enables the test 
@@ -99,6 +100,13 @@ def main():
     create_semantic_score_box_plot(semantic_score_result_file,timestamp)
 
     df = pd.read_csv(success_rate_result_file)
+    total_successful_runs = df["Successful runs"].sum()
+    total_attempts = df["Total runs"].sum()
+
+    overall_ratio = total_successful_runs / total_attempts if total_attempts != 0 else 0
+
+    with open(success_ratio_file, 'w') as f:
+        f.write(f"Overall success ratio: {overall_ratio:.4f}\n")
     
 
 def add_commit_run_agent(commit_sha):
@@ -255,12 +263,17 @@ def update_file(file_name, content):
 def extract_success_rate_metric_from_agent():
     branch = repo.get_branch(branch_name)
     head_commit_sha = branch.commit.sha
+    print(head_commit_sha)
     try:
         success_rate_content = repo.get_contents("success_rate.csv",ref=head_commit_sha).decoded_content.decode("utf-8")
-        df = pd.read_csv(success_rate_content)
-        df.to_csv(success_rate_result_file, index=False, header=False)
-    except:
-        print("No success_rate file found")
+        reader = csv.reader(io.StringIO(success_rate_content))
+        rows = list(reader)
+
+        with open(success_rate_result_file, mode="a", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            writer.writerows(rows[1:])
+    except Exception as e:
+        print(f"No success_rate file found. Exception: {e}")
 
 if __name__ == "__main__":
     main()

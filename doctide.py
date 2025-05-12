@@ -198,7 +198,7 @@ def generate_comments(file_language: str, prev_content: str, source_code: str, g
         if validate_response_as_comment(file_language, llm_response.content):
             llm_bool = True
             generatedComments.append(GeneratedComment(comment=llm_response.content, start_byte=start_byte, end_byte=end_byte, start_col=start_col))
-        generation_attempts.append((llm_bool, llm_response.content))
+        generation_attempts.append([llm_bool, llm_response.content])
 
 
 if __name__ == "__main__":

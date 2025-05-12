@@ -38,7 +38,8 @@ top -b -d 1 -p $(pgrep -f 'ollama serve') >> /tmp/resource_usage.log &
 TOP_PID=$!
 
 # Run Doctide agent
-python /doctide.py $1
+python /doctide.py $1 || { echo "doctide.py failed with exit code $?"; exit 1; }
+
 
 # Stop monitoring after run
 kill $TOP_PID

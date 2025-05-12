@@ -13,7 +13,7 @@ from github.InputGitTreeElement import InputGitTreeElement
 
 # internal dependencies
 from metrics import collect_semantic_score
-from utils.code_diff_utils import remove_diff_comments, edit_diff_restore_comments, detect_language
+from utils.code_diff_utils import remove_diff_comments, edit_diff_restore_comments, detect_language, remove_comments
 
 
 load_dotenv()
@@ -63,6 +63,23 @@ with open(semantic_score_result_file, mode="w", newline="", encoding="utf-8") as
     writer.writerow(header)
 
 def main():
+    #Remove all comments from .py
+    cleaned_files = []
+    tree_sha = branch.commit.sha
+    tree = repo.get_git_tree(tree_sha, recursive=True).tree
+
+    for item in tree:
+        if item.type == "blob" and item.path.endswith(".py"):
+            content = repo.get_contents(item.path,ref=tree_sha).decoded_content
+            cleaned_content = remove_comments('python', content)
+            with open(item.path, "w") as f:
+                f.write(cleaned_content.decode("utf-8"))
+            cleaned_files.append(item.path)
+
+    ref = repo.get_git_ref(f'heads/{branch_name}')
+    commit = repo.get_git_commit(tree_sha)
+    commit_multiple_files(ref, cleaned_files, commit, "Remove all comments")
+
 
     #read the content of the test_workflow, and add it into the test environment, which enables the test 
     #repo to call DocTide workflow

@@ -436,6 +436,25 @@ def remove_diff_comments(file_language, head_content, commit_content):
     
     return("".join(cleaned_content)+"\n")
 
+def remove_comments(file_language, commit_content):
+  
+    # Extract comment lines
+    diff_comment_lines = set(extract_data(False, file_language, commit_content, collect_comment_lines))
+    
+    content = commit_content.splitlines(keepends=True)
+    cleaned_content = []
+    counter = 1
+    if diff_comment_lines:
+        for line in content:
+            if counter not in diff_comment_lines:
+                cleaned_content.append(line)
+            counter += 1
+    else:
+        return commit_content+"\n"
+    print("No comment found")
+    
+    return("".join(cleaned_content)+"\n")
+
 # Helper function, used in metrics
 def get_agent_diff_content(repo, filename, commit_sha, file_language):
     """

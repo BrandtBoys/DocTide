@@ -37,8 +37,8 @@ repo = g.get_repo(f"{GITHUB_OWNER}/{REPO_NAME}")
 print("repo")
 
 # Commits to compare (replace or allow user input)
-start = 200   # what index of commit the test should start from, have to be higher than "end"
-end = 190  # what index of commit the test should end at
+start = 500   # what index of commit the test should start from, have to be higher than "end"
+end = 0  # what index of commit the test should end at
 
 #set of files which have been modified during the test
 modified_filepaths = set()
@@ -132,7 +132,12 @@ def add_commit_run_agent(commit_sha):
         modified_filepaths.add(file.filename)
 
         #Get the version of the modified file from the new commit
-        content = repo.get_contents(file.filename,ref=commit_sha).decoded_content
+        try:
+            content = repo.get_contents(file.filename,ref=commit_sha).decoded_content
+        except Exception:
+            print("file deletion")
+            continue
+
         head_content = ""
         try:
             head_content = repo.get_contents(file.filename, ref= head_commit_sha).decoded_content.decode("utf-8")

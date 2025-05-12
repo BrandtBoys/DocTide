@@ -33,8 +33,28 @@ echo "Ollama is ready!"
 # Pull Ollama model
 ollama pull llama3.2 
 
-# Run Doctide agent
+# -----------------------------------------------
+# Test mode resource monitoring:
+if [ "$1" = "true" ]; then
+    echo "Starting resource usage monitor for test mode..."
+    top -b -d 1 -n 0 -p $(pgrep -f 'ollama serve') > /tmp/resource_usage.log &
+    MONITOR_PID=$!
+fi
+# -----------------------------------------------
+
+# Run Doctide agent (invokes the LLM workload)
 python /doctide.py $1
+
+# Stop resource monitor if it was running
+if [ "$1" = "true" ]; then
+    echo "Stopping resource usage monitor..."
+    kill $MONITOR_PID || true
+
+    # Show last 20 lines of resource usage log (summary)
+    echo "===== CPU & RAM usage during LLM run ====="
+    tail -n 20 /tmp/resource_usage.log || echo "No usage data found"
+    echo "=========================================="
+fi
 
 # Fetch the BRANCH_NAME env var into the container
 if [ -f "$GITHUB_ENV" ]; then

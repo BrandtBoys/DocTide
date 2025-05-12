@@ -37,8 +37,8 @@ repo = g.get_repo(f"{GITHUB_OWNER}/{REPO_NAME}")
 print("repo")
 
 # Commits to compare (replace or allow user input)
-start = 39   # what index of commit the test should start from, have to be higher than "end"
-end = 34  # what index of commit the test should end at
+start = 502   # what index of commit the test should start from, have to be higher than "end"
+end = 200  # what index of commit the test should end at
 
 #set of files which have been modified during the test
 modified_filepaths = set()
@@ -117,6 +117,7 @@ def add_commit_run_agent(commit_sha):
     #Get the HEAD commit of test branch
     head_commit_sha = branch.commit.sha 
     head_commit = repo.get_git_commit(head_commit_sha)
+    print(f"HEAD = {head_commit}")
     #code diff between the HEAD commit and the next commit
     diff = repo.compare(head_commit_sha,commit_sha) 
 

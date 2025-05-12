@@ -79,7 +79,7 @@ def main(testing):
     if testing:
         success_rate_file = os.path.join("success_rate.csv")
         success_rate_file_exists = os.path.exists(success_rate_file)
-        with open(success_rate_file, mode="w", newline="", encoding="utf-8") as f:
+        with open(success_rate_file, mode="a", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             if not success_rate_file_exists:
                 writer.writerow(["Successful runs", "Total runs"])

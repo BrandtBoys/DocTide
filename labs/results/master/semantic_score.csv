@@ -2824,3 +2824,2046 @@ Raises:
     ValueError: If the spec is not found.
     RuntimeError: If no file path can be found for the module.
 """"""",src/flask/helpers.py,9d47e4b50e0be86d524e23593bb41c0bf91ccce6
+0.56479996,def send_file,"""""""Send the contents of a file to the client.
+
+    The first argument can be a file path or a file-like object. Paths
+    are preferred in most cases because Werkzeug can manage the file and
+    get extra information from the path. Passing a file-like object
+    requires that the file is opened in binary mode, and is mostly
+    useful when building a file in memory with :class:`io.BytesIO`.
+
+    Never pass file paths provided by a user. The path is assumed to be
+    trusted, so a user could craft a path to access a file you didn't
+    intend. Use :func:`send_from_directory` to safely serve
+    user-requested paths from within a directory.
+
+    If the WSGI server sets a ``file_wrapper`` in ``environ``, it is
+    used, otherwise Werkzeug's built-in wrapper is used. Alternatively,
+    if the HTTP server supports ``X-Sendfile``, configuring Flask with
+    ``USE_X_SENDFILE = True`` will tell the server to send the given
+    path, which is much more efficient than reading it in Python.
+
+    :param path_or_file: The path to the file to send, relative to the
+        current working directory if a relative path is given.
+        Alternatively, a file-like object opened in binary mode. Make
+        sure the file pointer is seeked to the start of the data.
+    :param mimetype: The MIME type to send for the file. If not
+        provided, it will try to detect it from the file name.
+    :param as_attachment: Indicate to a browser that it should offer to
+        save the file instead of displaying it.
+    :param download_name: The default name browsers will use when saving
+        the file. Defaults to the passed file name.
+    :param conditional: Enable conditional and range responses based on
+        request headers. Requires passing a file path and ``environ``.
+    :param etag: Calculate an ETag for the file, which requires passing
+        a file path. Can also be a string to use instead.
+    :param last_modified: The last modified time to send for the file,
+        in seconds. If not provided, it will try to detect it from the
+        file path.
+    :param max_age: How long the client should cache the file, in
+        seconds. If set, ``Cache-Control`` will be ``public``, otherwise
+        it will be ``no-cache`` to prefer conditional caching.
+
+    .. versionchanged:: 2.0
+        ``download_name`` replaces the ``attachment_filename``
+        parameter. If ``as_attachment=False``, it is passed with
+        ``Content-Disposition: inline`` instead.
+
+    .. versionchanged:: 2.0
+        ``max_age`` replaces the ``cache_timeout`` parameter.
+        ``conditional`` is enabled and ``max_age`` is not set by
+        default.
+
+    .. versionchanged:: 2.0
+        ``etag`` replaces the ``add_etags`` parameter. It can be a
+        string to use instead of generating one.
+
+    .. versionchanged:: 2.0
+        Passing a file-like object that inherits from
+        :class:`~io.TextIOBase` will raise a :exc:`ValueError` rather
+        than sending an empty file.
+
+    .. versionadded:: 2.0
+        Moved the implementation to Werkzeug. This is now a wrapper to
+        pass some Flask-specific arguments.
+
+    .. versionchanged:: 1.1
+        ``filename`` may be a :class:`~os.PathLike` object.
+
+    .. versionchanged:: 1.1
+        Passing a :class:`~io.BytesIO` object supports range requests.
+
+    .. versionchanged:: 1.0.3
+        Filenames are encoded with ASCII instead of Latin-1 for broader
+        compatibility with WSGI servers.
+
+    .. versionchanged:: 1.0
+        UTF-8 filenames as specified in :rfc:`2231` are supported.
+
+    .. versionchanged:: 0.12
+        The filename is no longer automatically inferred from file
+        objects. If you want to use automatic MIME and etag support,
+        pass a filename via ``filename_or_fp`` or
+        ``attachment_filename``.
+
+    .. versionchanged:: 0.12
+        ``attachment_filename`` is preferred over ``filename`` for MIME
+        detection.
+
+    .. versionchanged:: 0.9
+        ``cache_timeout`` defaults to
+        :meth:`Flask.get_send_file_max_age`.
+
+    .. versionchanged:: 0.7
+        MIME guessing and etag support for file-like objects was
+        removed because it was unreliable. Pass a filename if you are
+        able to, otherwise attach an etag yourself.
+
+    .. versionchanged:: 0.5
+        The ``add_etags``, ``cache_timeout`` and ``conditional``
+        parameters were added. The default behavior is to add etags.
+
+    .. versionadded:: 0.2
+    """"""","""""""
+Sends a file to the client.
+
+This function is used to send files from the server to the client. It takes various parameters
+to customize the behavior of the file sending process, such as the MIME type, whether to send
+the file as an attachment, and the last modified date of the file.
+
+Parameters:
+- path_or_file (os.PathLike[t.AnyStr] | str | t.BinaryIO): The path or file-like object containing the data to be sent.
+- mimetype (str | None): The MIME type of the file. Defaults to None.
+- as_attachment (bool): Whether to send the file as an attachment. Defaults to False.
+- download_name (str | None): The name of the downloaded file. Defaults to None.
+- conditional (bool): Whether to check for a conditional GET request. Defaults to True.
+- etag (bool | str): Whether to include the ETag in the response headers or its value as a string. Defaults to True.
+- last_modified (datetime | int | float | None): The last modified date of the file. Defaults to None.
+- max_age (None | (int | t.Callable[[str | None], int | None])): The maximum age of the cached response in seconds. Defaults to None.
+
+Returns:
+- Response: The HTTP response object containing the sent file data.
+""""""",src/flask/helpers.py,bcdf9a2c2f03f665ceea2e39676a019779abf8fc
+0.5720188,def make_response,"""""""Sometimes it is necessary to set additional headers in a view.  Because
+    views do not have to return response objects but can return a value that
+    is converted into a response object by Flask itself, it becomes tricky to
+    add headers to it.  This function can be called instead of using a return
+    and you will get a response object which you can use to attach headers.
+
+    If view looked like this and you want to add a new header::
+
+        def index():
+            return render_template('index.html', foo=42)
+
+    You can now do something like this::
+
+        def index():
+            response = make_response(render_template('index.html', foo=42))
+            response.headers['X-Parachutes'] = 'parachutes are cool'
+            return response
+
+    This function accepts the very same arguments you can return from a
+    view function.  This for example creates a response with a 404 error
+    code::
+
+        response = make_response(render_template('not_found.html'), 404)
+
+    The other use case of this function is to force the return value of a
+    view function into a response which is helpful with view
+    decorators::
+
+        response = make_response(view_function())
+        response.headers['X-Parachutes'] = 'parachutes are cool'
+
+    Internally this function does the following things:
+
+    -   if no arguments are passed, it creates a new response argument
+    -   if one argument is passed, :meth:`flask.Flask.make_response`
+        is invoked with it.
+    -   if more than one argument is passed, the arguments are passed
+        to the :meth:`flask.Flask.make_response` function as tuple.
+
+    .. versionadded:: 0.6
+    """"""","""""""
+Makes a response for the application.
+
+This function takes any number of arguments, which are used to construct the response.
+If no arguments are provided, it returns an empty response. If one argument is provided,
+it is assumed to be a single value and is returned as-is. Otherwise, all arguments
+are passed through to `current_app.make_response()`.
+
+Args:
+    *args: Any number of values to include in the response (optional)
+
+Returns:
+    Response: The constructed response object
+
+Raises:
+    None
+""""""",src/flask/helpers.py,110c03b14bc495d7a13b44f261ac697c5ff0ee2e
+0.6017961,def _validate_key,"""""""The ``--key`` option must be specified when ``--cert`` is a file.
+    Modifies the ``cert`` param to be a ``(cert, key)`` pair if needed.
+    """"""","""""""
+Validate the key for a given certificate.
+
+This function checks if the provided key is valid based on the type of certificate used.
+It raises an error if the key is not required or if it's used with an invalid certificate type.
+
+Args:
+    ctx (click.Context): The context object containing the command-line arguments.
+    param (click.Parameter): The parameter being validated.
+    value: The value to be validated.
+
+Returns:
+    value: The validated key value.
+
+Raises:
+    click.BadParameter: If the key is not required or if it's used with an invalid certificate type.
+""""""",src/flask/cli.py,f1cf027992f92b3176fb639af0a93305fb6bac59
+0.5720188,def make_response,"""""""Sometimes it is necessary to set additional headers in a view.  Because
+    views do not have to return response objects but can return a value that
+    is converted into a response object by Flask itself, it becomes tricky to
+    add headers to it.  This function can be called instead of using a return
+    and you will get a response object which you can use to attach headers.
+
+    If view looked like this and you want to add a new header::
+
+        def index():
+            return render_template('index.html', foo=42)
+
+    You can now do something like this::
+
+        def index():
+            response = make_response(render_template('index.html', foo=42))
+            response.headers['X-Parachutes'] = 'parachutes are cool'
+            return response
+
+    This function accepts the very same arguments you can return from a
+    view function.  This for example creates a response with a 404 error
+    code::
+
+        response = make_response(render_template('not_found.html'), 404)
+
+    The other use case of this function is to force the return value of a
+    view function into a response which is helpful with view
+    decorators::
+
+        response = make_response(view_function())
+        response.headers['X-Parachutes'] = 'parachutes are cool'
+
+    Internally this function does the following things:
+
+    -   if no arguments are passed, it creates a new response argument
+    -   if one argument is passed, :meth:`flask.Flask.make_response`
+        is invoked with it.
+    -   if more than one argument is passed, the arguments are passed
+        to the :meth:`flask.Flask.make_response` function as tuple.
+
+    .. versionadded:: 0.6
+    """"""","""""""
+Makes a response for the application.
+
+This function takes any number of arguments, which are used to construct the response.
+If no arguments are provided, it returns an empty response. If one argument is provided,
+it is assumed to be a single value and is returned as-is. Otherwise, all arguments
+are passed through to `current_app.make_response()`.
+
+Args:
+    *args: Any number of values to include in the response (optional)
+
+Returns:
+    Response: The constructed response object
+
+Raises:
+    None
+""""""",src/flask/helpers.py,f1cf027992f92b3176fb639af0a93305fb6bac59
+0.5720188,def make_response,"""""""Sometimes it is necessary to set additional headers in a view.  Because
+    views do not have to return response objects but can return a value that
+    is converted into a response object by Flask itself, it becomes tricky to
+    add headers to it.  This function can be called instead of using a return
+    and you will get a response object which you can use to attach headers.
+
+    If view looked like this and you want to add a new header::
+
+        def index():
+            return render_template('index.html', foo=42)
+
+    You can now do something like this::
+
+        def index():
+            response = make_response(render_template('index.html', foo=42))
+            response.headers['X-Parachutes'] = 'parachutes are cool'
+            return response
+
+    This function accepts the very same arguments you can return from a
+    view function.  This for example creates a response with a 404 error
+    code::
+
+        response = make_response(render_template('not_found.html'), 404)
+
+    The other use case of this function is to force the return value of a
+    view function into a response which is helpful with view
+    decorators::
+
+        response = make_response(view_function())
+        response.headers['X-Parachutes'] = 'parachutes are cool'
+
+    Internally this function does the following things:
+
+    -   if no arguments are passed, it creates a new response argument
+    -   if one argument is passed, :meth:`flask.Flask.make_response`
+        is invoked with it.
+    -   if more than one argument is passed, the arguments are passed
+        to the :meth:`flask.Flask.make_response` function as tuple.
+
+    .. versionadded:: 0.6
+    """"""","""""""
+Makes a response for the application.
+
+This function takes any number of arguments, which are used to construct the response.
+If no arguments are provided, it returns an empty response. If one argument is provided,
+it is assumed to be a single value and is returned as-is. Otherwise, all arguments
+are passed through to `current_app.make_response()`.
+
+Args:
+    *args: Any number of values to include in the response (optional)
+
+Returns:
+    Response: The constructed response object
+
+Raises:
+    None
+""""""",src/flask/helpers.py,1d2952befa0a0e5384a1e2ff68e94a0e0beee7b6
+0.5720188,def make_response,"""""""Sometimes it is necessary to set additional headers in a view.  Because
+    views do not have to return response objects but can return a value that
+    is converted into a response object by Flask itself, it becomes tricky to
+    add headers to it.  This function can be called instead of using a return
+    and you will get a response object which you can use to attach headers.
+
+    If view looked like this and you want to add a new header::
+
+        def index():
+            return render_template('index.html', foo=42)
+
+    You can now do something like this::
+
+        def index():
+            response = make_response(render_template('index.html', foo=42))
+            response.headers['X-Parachutes'] = 'parachutes are cool'
+            return response
+
+    This function accepts the very same arguments you can return from a
+    view function.  This for example creates a response with a 404 error
+    code::
+
+        response = make_response(render_template('not_found.html'), 404)
+
+    The other use case of this function is to force the return value of a
+    view function into a response which is helpful with view
+    decorators::
+
+        response = make_response(view_function())
+        response.headers['X-Parachutes'] = 'parachutes are cool'
+
+    Internally this function does the following things:
+
+    -   if no arguments are passed, it creates a new response argument
+    -   if one argument is passed, :meth:`flask.Flask.make_response`
+        is invoked with it.
+    -   if more than one argument is passed, the arguments are passed
+        to the :meth:`flask.Flask.make_response` function as tuple.
+
+    .. versionadded:: 0.6
+    """"""","""""""
+Makes a response for the application.
+
+This function takes any number of arguments, which are used to construct the response.
+If no arguments are provided, it returns an empty response. If one argument is provided,
+it is assumed to be a single value and is returned as-is. Otherwise, all arguments
+are passed through to `current_app.make_response()`.
+
+Args:
+    *args: Any number of values to include in the response (optional)
+
+Returns:
+    Response: The constructed response object
+
+Raises:
+    None
+""""""",src/flask/helpers.py,ac979acd6eed6c515bab85ea6add0bf4fe285956
+0.5720188,def make_response,"""""""Sometimes it is necessary to set additional headers in a view.  Because
+    views do not have to return response objects but can return a value that
+    is converted into a response object by Flask itself, it becomes tricky to
+    add headers to it.  This function can be called instead of using a return
+    and you will get a response object which you can use to attach headers.
+
+    If view looked like this and you want to add a new header::
+
+        def index():
+            return render_template('index.html', foo=42)
+
+    You can now do something like this::
+
+        def index():
+            response = make_response(render_template('index.html', foo=42))
+            response.headers['X-Parachutes'] = 'parachutes are cool'
+            return response
+
+    This function accepts the very same arguments you can return from a
+    view function.  This for example creates a response with a 404 error
+    code::
+
+        response = make_response(render_template('not_found.html'), 404)
+
+    The other use case of this function is to force the return value of a
+    view function into a response which is helpful with view
+    decorators::
+
+        response = make_response(view_function())
+        response.headers['X-Parachutes'] = 'parachutes are cool'
+
+    Internally this function does the following things:
+
+    -   if no arguments are passed, it creates a new response argument
+    -   if one argument is passed, :meth:`flask.Flask.make_response`
+        is invoked with it.
+    -   if more than one argument is passed, the arguments are passed
+        to the :meth:`flask.Flask.make_response` function as tuple.
+
+    .. versionadded:: 0.6
+    """"""","""""""
+Makes a response for the application.
+
+This function takes any number of arguments, which are used to construct the response.
+If no arguments are provided, it returns an empty response. If one argument is provided,
+it is assumed to be a single value and is returned as-is. Otherwise, all arguments
+are passed through to `current_app.make_response()`.
+
+Args:
+    *args: Any number of values to include in the response (optional)
+
+Returns:
+    Response: The constructed response object
+
+Raises:
+    None
+""""""",src/flask/helpers.py,0a8f4ea2e6fc8ab617dfd9356fe9f251458fae9a
+0.5902456,def stream_with_context,"""""""Request contexts disappear when the response is started on the server.
+    This is done for efficiency reasons and to make it less likely to encounter
+    memory leaks with badly written WSGI middlewares.  The downside is that if
+    you are using streamed responses, the generator cannot access request bound
+    information any more.
+
+    This function however can help you keep the context around for longer::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            @stream_with_context
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(generate())
+
+    Alternatively it can also be used around a specific generator::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(stream_with_context(generate()))
+
+    .. versionadded:: 0.9
+    """"""","""""""
+Stream a generator or function with context.
+
+This function takes an iterator or callable that returns an iterator, and wraps it in a context manager. The context manager pushes the current request context onto the stack when the generator is started, and pops it off when the iteration completes.
+
+If the input is not an iterator, but rather a callable that returns an iterator, this function will wrap the callable in a decorator to create a new function that takes any arguments and returns an iterator. This allows the original function to be used as if it were an iterator.
+
+The context manager uses the `_cv_request` object to get the current request context, and pushes it onto the stack when the generator is started. When the iteration completes, the context is popped off the stack.
+
+This function can only be used when a request context is active, such as in a view function.
+
+Args:
+    generator_or_function: An iterator or callable that returns an iterator.
+
+Returns:
+    An iterator over the results of the input generator or function.
+""""""",src/flask/helpers.py,f381f2dd595d8e4ef7cf1210605edee9c94beaa1
+0.57201874,def make_response,"""""""Sometimes it is necessary to set additional headers in a view.  Because
+    views do not have to return response objects but can return a value that
+    is converted into a response object by Flask itself, it becomes tricky to
+    add headers to it.  This function can be called instead of using a return
+    and you will get a response object which you can use to attach headers.
+
+    If view looked like this and you want to add a new header::
+
+        def index():
+            return render_template('index.html', foo=42)
+
+    You can now do something like this::
+
+        def index():
+            response = make_response(render_template('index.html', foo=42))
+            response.headers['X-Parachutes'] = 'parachutes are cool'
+            return response
+
+    This function accepts the very same arguments you can return from a
+    view function.  This for example creates a response with a 404 error
+    code::
+
+        response = make_response(render_template('not_found.html'), 404)
+
+    The other use case of this function is to force the return value of a
+    view function into a response which is helpful with view
+    decorators::
+
+        response = make_response(view_function())
+        response.headers['X-Parachutes'] = 'parachutes are cool'
+
+    Internally this function does the following things:
+
+    -   if no arguments are passed, it creates a new response argument
+    -   if one argument is passed, :meth:`flask.Flask.make_response`
+        is invoked with it.
+    -   if more than one argument is passed, the arguments are passed
+        to the :meth:`flask.Flask.make_response` function as tuple.
+
+    .. versionadded:: 0.6
+    """"""","""""""
+Makes a response for the application.
+
+This function takes any number of arguments, which are used to construct the response.
+If no arguments are provided, it returns an empty response. If one argument is provided,
+it is assumed to be a single value and is returned as-is. Otherwise, all arguments
+are passed through to `current_app.make_response()`.
+
+Args:
+    *args: Any number of values to include in the response (optional)
+
+Returns:
+    Response: The constructed response object
+
+Raises:
+    None
+""""""",src/flask/helpers.py,f381f2dd595d8e4ef7cf1210605edee9c94beaa1
+0.5392463,def loads,"""""""Load data from a JSON string and deserialized any tagged objects.""""""","""""""
+Loads and untags a given string.
+
+This method takes a string as input, applies the `_untag_scan` function to it, 
+and returns the result. The `_untag_scan` function is not defined in this snippet,
+but it's assumed to be a part of the class instance (`self`) that this method belongs to.
+
+Args:
+    value (str): The input string to be loaded and untagged.
+
+Returns:
+    t.Any: The result of applying `_untag_scan` to the input string.
+""""""",src/flask/json/tag.py,f381f2dd595d8e4ef7cf1210605edee9c94beaa1
+0.5720188,def make_response,"""""""Sometimes it is necessary to set additional headers in a view.  Because
+    views do not have to return response objects but can return a value that
+    is converted into a response object by Flask itself, it becomes tricky to
+    add headers to it.  This function can be called instead of using a return
+    and you will get a response object which you can use to attach headers.
+
+    If view looked like this and you want to add a new header::
+
+        def index():
+            return render_template('index.html', foo=42)
+
+    You can now do something like this::
+
+        def index():
+            response = make_response(render_template('index.html', foo=42))
+            response.headers['X-Parachutes'] = 'parachutes are cool'
+            return response
+
+    This function accepts the very same arguments you can return from a
+    view function.  This for example creates a response with a 404 error
+    code::
+
+        response = make_response(render_template('not_found.html'), 404)
+
+    The other use case of this function is to force the return value of a
+    view function into a response which is helpful with view
+    decorators::
+
+        response = make_response(view_function())
+        response.headers['X-Parachutes'] = 'parachutes are cool'
+
+    Internally this function does the following things:
+
+    -   if no arguments are passed, it creates a new response argument
+    -   if one argument is passed, :meth:`flask.Flask.make_response`
+        is invoked with it.
+    -   if more than one argument is passed, the arguments are passed
+        to the :meth:`flask.Flask.make_response` function as tuple.
+
+    .. versionadded:: 0.6
+    """"""","""""""
+Makes a response for the application.
+
+This function takes any number of arguments, which are used to construct the response.
+If no arguments are provided, it returns an empty response. If one argument is provided,
+it is assumed to be a single value and is returned as-is. Otherwise, all arguments
+are passed through to `current_app.make_response()`.
+
+Args:
+    *args: Any number of values to include in the response (optional)
+
+Returns:
+    Response: The constructed response object
+
+Raises:
+    None
+""""""",src/flask/helpers.py,2ce53a27f0d09a940191f2dd667360c1c03f7c1a
+0.62879765,def get_send_file_max_age,"""""""Used by :func:`send_file` to determine the ``max_age`` cache
+        value for a given file path if it wasn't passed.
+
+        By default, this returns :data:`SEND_FILE_MAX_AGE_DEFAULT` from
+        the configuration of :data:`~flask.current_app`. This defaults
+        to ``None``, which tells the browser to use conditional requests
+        instead of a timed cache, which is usually preferable.
+
+        Note this is a duplicate of the same method in the Flask
+        class.
+
+        .. versionchanged:: 2.0
+            The default configuration is ``None`` instead of 12 hours.
+
+        .. versionadded:: 0.9
+        """"""","""""""
+Returns the maximum age in seconds for sending files.
+
+If `filename` is provided, it will be used to retrieve the default send file max age from the application configuration.
+Otherwise, the default value will be returned.
+
+Args:
+    filename (str | None): The name of the file to retrieve the default send file max age for. If None, the default value will be returned.
+
+Returns:
+    int | None: The maximum age in seconds for sending files, or None if no default value is set.
+""""""",src/flask/app.py,b36820535d51b007c2551e9b65752754c632f573
+0.4733784,def raise_routing_exception,"""""""Intercept routing exceptions and possibly do something else.
+
+        In debug mode, intercept a routing redirect and replace it with
+        an error if the body will be discarded.
+
+        With modern Werkzeug this shouldn't occur, since it now uses a
+        308 status which tells the browser to resend the method and
+        body.
+
+        .. versionchanged:: 2.1
+            Don't intercept 307 and 308 redirects.
+
+        :meta private:
+        :internal:
+        """"""","""""""
+Raises a routing exception if the current request is not handled by the application.
+
+If `self.debug` is False or the request does not have a valid redirect, and the redirect's code is 307 or 308, or if the request method is GET, HEAD, or OPTIONS, this function raises the original routing exception. Otherwise, it returns a FormDataRoutingRedirect instance for debugging purposes.
+
+Args:
+    request (Request): The current HTTP request.
+
+Returns:
+    t.NoReturn: This function does not return anything.
+""""""",src/flask/app.py,b36820535d51b007c2551e9b65752754c632f573
+0.634112,def update_template_context,"""""""Update the template context with some commonly used variables.
+        This injects request, session, config and g into the template
+        context as well as everything template context processors want
+        to inject.  Note that the as of Flask 0.6, the original values
+        in the context will not be overridden if a context processor
+        decides to return a value with the same key.
+
+        :param context: the context as a dictionary that is updated in place
+                        to add extra variables.
+        """"""","""""""
+Updates the template context with additional information from request blueprints and context processors.
+
+Args:
+    context (dict[str, t.Any]): The initial template context to be updated.
+
+Returns:
+    None
+""""""",src/flask/app.py,b36820535d51b007c2551e9b65752754c632f573
+0.61209804,def handle_http_exception,"""""""Handles an HTTP exception.  By default this will invoke the
+        registered error handlers and fall back to returning the
+        exception as response.
+
+        .. versionchanged:: 1.0.3
+            ``RoutingException``, used internally for actions such as
+             slash redirects during routing, is not passed to error
+             handlers.
+
+        .. versionchanged:: 1.0
+            Exceptions are looked up by code *and* by MRO, so
+            ``HTTPException`` subclasses can be handled with a catch-all
+            handler for the base ``HTTPException``.
+
+        .. versionadded:: 0.3
+        """"""","""""""
+Handles HTTP exceptions by checking their code and routing status.
+
+If the exception does not have an error code (i.e., it's a ProxyException),
+it returns the exception unchanged as an error. If the exception is a RoutingException,
+it also returns it unchanged, as these are internal exceptions used to trigger routing actions.
+Otherwise, it finds an error handler for the exception and calls it with the exception.
+
+Args:
+    e (HTTPException): The HTTP exception to handle.
+Returns:
+    HTTPException | ft.ResponseReturnValue: The handled exception or a ResponseReturnValue object.
+""""""",src/flask/app.py,b36820535d51b007c2551e9b65752754c632f573
+0.6346219,def handle_user_exception,"""""""This method is called whenever an exception occurs that
+        should be handled. A special case is :class:`~werkzeug
+        .exceptions.HTTPException` which is forwarded to the
+        :meth:`handle_http_exception` method. This function will either
+        return a response value or reraise the exception with the same
+        traceback.
+
+        .. versionchanged:: 1.0
+            Key errors raised from request data like ``form`` show the
+            bad key in debug mode rather than a generic bad request
+            message.
+
+        .. versionadded:: 0.7
+        """"""","""""""
+Handles exceptions raised by the application and returns an HTTPException or ResponseReturnValue.
+
+If a BadRequestKeyError occurs and debug mode or the 'TRAP_BAD_REQUEST_ERRORS' configuration option is enabled,
+the exception's show_exception attribute is set to True. If an HTTPException occurs but it is not trapped,
+it is handled by the handle_http_exception method. Otherwise, the error handler for the given exception
+is found using the _find_error_handler method and its result is returned.
+
+Args:
+    e (Exception): The exception to be handled.
+Returns:
+    HTTPException | ResponseReturnValue: The handled exception or response value.
+Raises:
+    Exception: If no error handler can be found for the exception.
+""""""",src/flask/app.py,b36820535d51b007c2551e9b65752754c632f573
+0.6539416,def ensure_sync,"""""""Ensure that the function is synchronous for WSGI workers.
+        Plain ``def`` functions are returned as-is. ``async def``
+        functions are wrapped to run and wait for the response.
+
+        Override this method to change how the app runs async views.
+
+        .. versionadded:: 2.0
+        """"""","""""""
+Ensures that a provided function is synchronous.
+
+If the function is a coroutine, it is converted to a synchronous function using `async_to_sync`. Otherwise, the original function is returned.
+
+Args:
+    func (Callable[..., Any]): The function to be ensured as synchronous.
+
+Returns:
+    Callable[..., Any]: The synchronous version of the input function or the original function if it's already synchronous.
+""""""",src/flask/app.py,b36820535d51b007c2551e9b65752754c632f573
+0.58084154,def async_to_sync,"""""""Return a sync function that will run the coroutine function.
+
+        .. code-block:: python
+
+            result = app.async_to_sync(func)(*args, **kwargs)
+
+        Override this method to change how the app converts async code
+        to be synchronously callable.
+
+        .. versionadded:: 2.0
+        """"""","""""""
+Converts an asynchronous function to a synchronous one.
+
+This function takes an asynchronous function as input and returns a new function that can be called synchronously.
+It uses the `async_to_sync` function from the `asgiref.sync` module, which is part of Flask's async support.
+
+If the required `async` extra for Flask is not installed, a `RuntimeError` is raised with an error message.
+
+Args:
+    func: The asynchronous function to be converted. It should be a coroutine that takes any number of arguments and returns any type of value.
+
+Returns:
+    A new synchronous function that can be called with the same arguments as the original asynchronous function.
+""""""",src/flask/app.py,b36820535d51b007c2551e9b65752754c632f573
+0.596418,def preprocess_request,"""""""Called before the request is dispatched. Calls
+        :attr:`url_value_preprocessors` registered with the app and the
+        current blueprint (if any). Then calls :attr:`before_request_funcs`
+        registered with the app and the blueprint.
+
+        If any :meth:`before_request` handler returns a non-None value, the
+        value is handled as if it was the return value from the view, and
+        further request handling is stopped.
+        """"""","""""""
+Preprocesses the request by applying URL value preprocessors and before request functions.
+
+This method iterates over the blueprint names in reverse order, applying any URL value preprocessors to each one.
+It then iterates over the same list again, applying any before request functions to each one. If a function returns
+a non-None value, it is returned immediately. Otherwise, None is returned at the end.
+
+Args:
+    self: The instance of the class this method belongs to.
+
+Returns:
+    ft.ResponseReturnValue | None: The result of the preprocess request, or None if no functions return a value.
+""""""",src/flask/app.py,b36820535d51b007c2551e9b65752754c632f573
+0.6385737,def request_context,"""""""Create a :class:`~flask.ctx.RequestContext` representing a
+        WSGI environment. Use a ``with`` block to push the context,
+        which will make :data:`request` point at this request.
+
+        See :doc:`/reqcontext`.
+
+        Typically you should not call this from your own code. A request
+        context is automatically pushed by the :meth:`wsgi_app` when
+        handling a request. Use :meth:`test_request_context` to create
+        an environment and context instead of this method.
+
+        :param environ: a WSGI environment
+        """"""","""""""
+Returns a new instance of RequestContext with the given WSGI environment.
+
+Args:
+    environ (WSGIEnvironment): The WSGI environment to use for the context.
+
+Returns:
+    RequestContext: A new instance of RequestContext initialized with the provided environment.
+""""""",src/flask/app.py,b36820535d51b007c2551e9b65752754c632f573
+0.58133,def wsgi_app,"""""""The actual WSGI application. This is not implemented in
+        :meth:`__call__` so that middlewares can be applied without
+        losing a reference to the app object. Instead of doing this::
+
+            app = MyMiddleware(app)
+
+        It's a better idea to do this instead::
+
+            app.wsgi_app = MyMiddleware(app.wsgi_app)
+
+        Then you still have the original application object around and
+        can continue to call methods on it.
+
+        .. versionchanged:: 0.7
+            Teardown events for the request and app contexts are called
+            even if an unhandled error occurs. Other events may not be
+            called depending on when an error occurs during dispatch.
+            See :ref:`callbacks-and-errors`.
+
+        :param environ: A WSGI environment.
+        :param start_response: A callable accepting a status code,
+            a list of headers, and an optional exception context to
+            start the response.
+        """"""","""""""
+WSGI Application Function.
+
+This function serves as the entry point for the WSGI application, handling incoming requests and responses.
+It takes in an environment dictionary (`environ`) and a start response callback (`start_response`), 
+and returns an iterable of bytes representing the response to the request.
+
+The function first creates a request context using `self.request_context(environ)`, which sets up the necessary
+context for the application. It then attempts to dispatch the request, handling any exceptions that may occur.
+If an exception is caught, it is handled by the `handle_exception` method and the response is generated accordingly.
+Finally, the function returns the response, popping the context if no error occurred.
+
+Note: This function uses a try-except block with a bare `except` clause to catch all exceptions. 
+This is generally discouraged in favor of specific exception handling, but may be necessary for compatibility reasons.
+""""""",src/flask/app.py,b36820535d51b007c2551e9b65752754c632f573
+0.57510316,def __call__,"""""""The WSGI server calls the Flask application object as the
+        WSGI application. This calls :meth:`wsgi_app`, which can be
+        wrapped to apply middleware.
+        """"""","""""""
+Call the wsgi_app method to handle the request.
+
+Args:
+    environ (WSGIEnvironment): The environment in which the application is running.
+    start_response (StartResponse): A callable that takes a response status code and headers as arguments.
+
+Returns:
+    cabc.Iterable[bytes]: An iterable of bytes representing the response body.
+""""""",src/flask/app.py,b36820535d51b007c2551e9b65752754c632f573
+0.62879765,def get_send_file_max_age,"""""""Used by :func:`send_file` to determine the ``max_age`` cache
+        value for a given file path if it wasn't passed.
+
+        By default, this returns :data:`SEND_FILE_MAX_AGE_DEFAULT` from
+        the configuration of :data:`~flask.current_app`. This defaults
+        to ``None``, which tells the browser to use conditional requests
+        instead of a timed cache, which is usually preferable.
+
+        Note this is a duplicate of the same method in the Flask
+        class.
+
+        .. versionchanged:: 2.0
+            The default configuration is ``None`` instead of 12 hours.
+
+        .. versionadded:: 0.9
+        """"""","""""""
+Returns the maximum age in seconds for sending files.
+
+If `filename` is provided, it will be used to retrieve the default send file max age from the application configuration.
+Otherwise, the default value will be returned.
+
+Args:
+    filename (str | None): The name of the file to retrieve the default send file max age for. If None, the default value will be returned.
+
+Returns:
+    int | None: The maximum age in seconds for sending files, or None if no default value is set.
+""""""",src/flask/blueprints.py,b36820535d51b007c2551e9b65752754c632f573
+0.6326439,def _called_with_wrong_args,"""""""Check whether calling a function raised a ``TypeError`` because
+    the call failed or because something in the factory raised the
+    error.
+
+    :param f: The function that was called.
+    :return: ``True`` if the call failed.
+    """"""","""""""
+Checks if a given Flask function was called with incorrect arguments.
+
+Args:
+    f (callable): The Flask function to check.
+
+Returns:
+    bool: True if the function was not called with correct arguments, False otherwise.
+""""""",src/flask/cli.py,b36820535d51b007c2551e9b65752754c632f573
+0.60839266,def prepare_import,"""""""Given a filename this will try to calculate the python path, add it
+    to the search path and return the actual module name that is expected.
+    """"""","""""""
+Prepares the import path for a Python module.
+
+This function takes a file path as input and returns the relative import path
+for the corresponding module. It handles cases where the input path is within
+a package structure, and adjusts the sys.path accordingly.
+
+Args:
+    path (str): The absolute or relative path to the Python module.
+
+Returns:
+    str: The relative import path for the module.
+""""""",src/flask/cli.py,b36820535d51b007c2551e9b65752754c632f573
+0.6143534,def load_app,"""""""Loads the Flask app (if not yet loaded) and returns it.  Calling
+        this multiple times will just result in the already loaded app to
+        be returned.
+        """"""","""""""
+Loads a Flask application instance.
+
+This method attempts to load an existing Flask application from the `self._loaded_app` attribute,
+or creates a new one if none exists. It also sets the debug flag of the loaded application
+if `self.set_debug_flag` is True.
+
+If no application can be found, it raises a `NoAppException`.
+
+Returns:
+    Flask: The loaded or created Flask application instance.
+""""""",src/flask/cli.py,b36820535d51b007c2551e9b65752754c632f573
+0.6271221,def with_appcontext,"""""""Wraps a callback so that it's guaranteed to be executed with the
+    script's application context.
+
+    Custom commands (and their options) registered under ``app.cli`` or
+    ``blueprint.cli`` will always have an app context available, this
+    decorator is not required in that case.
+
+    .. versionchanged:: 2.2
+        The app context is active for subcommands as well as the
+        decorated callback. The app context is always available to
+        ``app.cli`` command and parameter callbacks.
+    """"""","""""""
+Decorates a function to run with the application context.
+
+This decorator is used to ensure that functions decorated with it are executed within
+the application's context. This can be useful for tasks such as database operations,
+file I/O, or any other operation that requires access to the current application state.
+
+The `with_appcontext` function takes a function `f` as an argument and returns the result of
+invoking `f` with the application context. If the application context is not already set,
+it will load the application from the `ScriptInfo` object associated with the click context.
+
+Args:
+    f (function): The function to be decorated.
+
+Returns:
+    function: The original function, wrapped in a decorator that runs it with the application context.
+""""""",src/flask/cli.py,b36820535d51b007c2551e9b65752754c632f573
+0.61718327,def load_dotenv,"""""""Load ""dotenv"" files in order of precedence to set environment variables.
+
+    If an env var is already set it is not overwritten, so earlier files in the
+    list are preferred over later files.
+
+    This is a no-op if `python-dotenv`_ is not installed.
+
+    .. _python-dotenv: https://github.com/theskumar/python-dotenv#readme
+
+    :param path: Load the file at this location instead of searching.
+    :return: ``True`` if a file was loaded.
+
+    .. versionchanged:: 2.0
+        The current directory is not changed to the location of the
+        loaded file.
+
+    .. versionchanged:: 2.0
+        When loading the env files, set the default encoding to UTF-8.
+
+    .. versionchanged:: 1.1.0
+        Returns ``False`` when python-dotenv is not installed, or when
+        the given path isn't a file.
+
+    .. versionadded:: 1.0
+    """"""","""""""
+Loads environment variables from a .env or .flaskenv file.
+
+If no specific path is provided, it will attempt to load the default files
+in the current working directory. If neither a specific path nor default
+files are found, it will print a tip message suggesting installing python-dotenv.
+
+Args:
+    path (str | os.PathLike[str] | None): The path to the .env or .flaskenv file.
+        If None, it will attempt to load the default files in the current working directory.
+
+Returns:
+    bool: True if at least one file was located and loaded, False otherwise.
+""""""",src/flask/cli.py,b36820535d51b007c2551e9b65752754c632f573
+0.56629413,def show_server_banner,"""""""Show extra startup messages the first time the server is run,
+    ignoring the reloader.
+    """"""","""""""
+Show server banner based on debug mode and application import path.
+
+This function displays a banner indicating whether the application is being served
+and, if so, its import path. It also indicates whether debug mode is enabled.
+
+Args:
+    - debug (bool): Whether to display debug mode information.
+    - app_import_path (str | None): The path to the imported Flask application.
+
+Returns:
+    None
+""""""",src/flask/cli.py,b36820535d51b007c2551e9b65752754c632f573
+0.60179603,def _validate_key,"""""""The ``--key`` option must be specified when ``--cert`` is a file.
+    Modifies the ``cert`` param to be a ``(cert, key)`` pair if needed.
+    """"""","""""""
+Validate the key for a given certificate.
+
+This function checks if the provided key is valid based on the type of certificate used.
+It raises an error if the key is not required or if it's used with an invalid certificate type.
+
+Args:
+    ctx (click.Context): The context object containing the command-line arguments.
+    param (click.Parameter): The parameter being validated.
+    value: The value to be validated.
+
+Returns:
+    value: The validated key value.
+
+Raises:
+    click.BadParameter: If the key is not required or if it's used with an invalid certificate type.
+""""""",src/flask/cli.py,b36820535d51b007c2551e9b65752754c632f573
+0.64383364,def shell_command,"""""""Run an interactive Python shell in the context of a given
+    Flask application.  The application will populate the default
+    namespace of this shell according to its configuration.
+
+    This is useful for executing small snippets of management code
+    without having to manually configure the application.
+    """"""","""""""
+Run a Python shell with customized banner and interactive hook.
+
+This function sets up a Python shell with a custom banner displaying the
+Python version, platform, application name, and instance path. It also
+supports setting an interactive hook to customize the readline experience,
+such as tab completion.
+
+Args:
+    None
+
+Returns:
+    None
+""""""",src/flask/cli.py,b36820535d51b007c2551e9b65752754c632f573
+0.55731934,def from_pyfile,"""""""Updates the values in the config from a Python file.  This function
+        behaves as if the file was imported as module with the
+        :meth:`from_object` function.
+
+        :param filename: the filename of the config.  This can either be an
+                         absolute filename or a filename relative to the
+                         root path.
+        :param silent: set to ``True`` if you want silent failure for missing
+                       files.
+        :return: ``True`` if the file was loaded successfully.
+
+        .. versionadded:: 0.7
+           `silent` parameter.
+        """"""","""""""
+Loads a configuration from a Python file.
+
+This function reads the contents of a specified Python file, executes it as a module,
+and then calls `from_object` on the resulting object. If the file does not exist or
+cannot be executed for some reason, an error is raised.
+
+Args:
+    filename (str | os.PathLike[str]): The path to the configuration file.
+    silent (bool): If True, returns False if the file cannot be loaded without raising an exception. Defaults to False.
+
+Returns:
+    bool: Whether the configuration was successfully loaded.
+""""""",src/flask/config.py,b36820535d51b007c2551e9b65752754c632f573
+0.5459974,def from_file,"""""""Update the values in the config from a file that is loaded
+        using the ``load`` parameter. The loaded data is passed to the
+        :meth:`from_mapping` method.
+
+        .. code-block:: python
+
+            import json
+            app.config.from_file(""config.json"", load=json.load)
+
+            import tomllib
+            app.config.from_file(""config.toml"", load=tomllib.load, text=False)
+
+        :param filename: The path to the data file. This can be an
+            absolute path or relative to the config root path.
+        :param load: A callable that takes a file handle and returns a
+            mapping of loaded data from the file.
+        :type load: ``Callable[[Reader], Mapping]`` where ``Reader``
+            implements a ``read`` method.
+        :param silent: Ignore the file if it doesn't exist.
+        :param text: Open the file in text or binary mode.
+        :return: ``True`` if the file was loaded successfully.
+
+        .. versionchanged:: 2.3
+            The ``text`` parameter was added.
+
+        .. versionadded:: 2.0
+        """"""","""""""
+Loads a configuration file from disk.
+
+This method attempts to open the specified file and load its contents using the provided
+`load` function. If successful, it returns `True`. Otherwise, it raises an exception with a
+customized error message if silent mode is enabled or returns `False`.
+
+Args:
+    filename (str | os.PathLike[str]): The path to the configuration file.
+    load (t.Callable[[t.IO[t.Any]], t.Mapping[str, t.Any]]): A function that takes an IO object and returns a mapping of key-value pairs.
+    silent (bool, optional): If True, exceptions are caught silently. Defaults to False.
+    text (bool, optional): Specifies whether the file should be opened in text mode (True) or binary mode (False). Defaults to True.
+
+Returns:
+    bool: Whether the configuration was loaded successfully.
+Raises:
+    OSError: If an error occurs while loading the configuration file.
+""""""",src/flask/config.py,b36820535d51b007c2551e9b65752754c632f573
+0.60158515,def after_this_request,"""""""Executes a function after this request.  This is useful to modify
+    response objects.  The function is passed the response object and has
+    to return the same or a new one.
+
+    Example::
+
+        @app.route('/')
+        def index():
+            @after_this_request
+            def add_header(response):
+                response.headers['X-Foo'] = 'Parachute'
+                return response
+            return 'Hello World!'
+
+    This is more useful if a function other than the view function wants to
+    modify a response.  For instance think of a decorator that wants to add
+    some headers without converting the return value into a response object.
+
+    .. versionadded:: 0.9
+    """"""","""""""
+Returns a decorator that appends the provided callable to the list of functions 
+to be executed after the current request has been completed.
+
+Args:
+    f (ft.AfterRequestCallable[t.Any]): The callable to be appended to the list.
+
+Returns:
+    ft.AfterRequestCallable[t.Any]: The decorated function.
+Raises:
+    RuntimeError: If no request context is active, indicating that 'after_this_request' 
+                  can only be used when a request context is active, such as in a view function.
+""""""",src/flask/ctx.py,b36820535d51b007c2551e9b65752754c632f573
+0.5097036,def attach_enctype_error_multidict,"""""""Patch ``request.files.__getitem__`` to raise a descriptive error
+    about ``enctype=multipart/form-data``.
+
+    :param request: The request to patch.
+    :meta private:
+    """"""","""""""
+Replaces the default behavior of Django's `request.files` with a multidict-based implementation.
+
+When an error occurs while accessing a file, it will be raised as a `DebugFilesKeyError` instead of raising a `KeyError`. This allows for additional debugging information to be provided.
+
+This function is intended to be used in conjunction with the `django.http.HttpRequest` class. It should not be called directly by external code.
+
+Args:
+    request (HttpRequest): The HTTP request object.
+
+Returns:
+    None
+""""""",src/flask/debughelpers.py,b36820535d51b007c2551e9b65752754c632f573
+0.5902456,def stream_with_context,"""""""Request contexts disappear when the response is started on the server.
+    This is done for efficiency reasons and to make it less likely to encounter
+    memory leaks with badly written WSGI middlewares.  The downside is that if
+    you are using streamed responses, the generator cannot access request bound
+    information any more.
+
+    This function however can help you keep the context around for longer::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            @stream_with_context
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(generate())
+
+    Alternatively it can also be used around a specific generator::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(stream_with_context(generate()))
+
+    .. versionadded:: 0.9
+    """"""","""""""
+Stream a generator or function with context.
+
+This function takes an iterator or callable that returns an iterator, and wraps it in a context manager. The context manager pushes the current request context onto the stack when the generator is started, and pops it off when the iteration completes.
+
+If the input is not an iterator, but rather a callable that returns an iterator, this function will wrap the callable in a decorator to create a new function that takes any arguments and returns an iterator. This allows the original function to be used as if it were an iterator.
+
+The context manager uses the `_cv_request` object to get the current request context, and pushes it onto the stack when the generator is started. When the iteration completes, the context is popped off the stack.
+
+This function can only be used when a request context is active, such as in a view function.
+
+Args:
+    generator_or_function: An iterator or callable that returns an iterator.
+
+Returns:
+    An iterator over the results of the input generator or function.
+""""""",src/flask/helpers.py,b36820535d51b007c2551e9b65752754c632f573
+0.6559336,def get_root_path,"""""""Find the root path of a package, or the path that contains a
+    module. If it cannot be found, returns the current working
+    directory.
+
+    Not to be confused with the value returned by :func:`find_package`.
+
+    :meta private:
+    """"""","""""""
+Returns the root path of the given imported module.
+
+If the module has already been imported and its file attribute is available,
+its directory path is returned. Otherwise, it attempts to find the loader
+associated with the import specification and uses it to determine the root
+path. If this fails, it falls back to using the current working directory.
+
+Args:
+    import_name (str): The name of the module for which to retrieve the root path.
+
+Returns:
+    str: The root path of the given imported module.
+Raises:
+    ValueError: If the loader is not found or if the module specification is None.
+    RuntimeError: If no root path can be found for a namespace package.
+""""""",src/flask/helpers.py,b36820535d51b007c2551e9b65752754c632f573
+0.5981185,def jsonify,"""""""Serialize the given arguments as JSON, and return a
+    :class:`~flask.Response` object with the ``application/json``
+    mimetype. A dict or list returned from a view will be converted to a
+    JSON response automatically without needing to call this.
+
+    This requires an active request or application context, and calls
+    :meth:`app.json.response() <flask.json.provider.JSONProvider.response>`.
+
+    In debug mode, the output is formatted with indentation to make it
+    easier to read. This may also be controlled by the provider.
+
+    Either positional or keyword arguments can be given, not both.
+    If no arguments are given, ``None`` is serialized.
+
+    :param args: A single value to serialize, or multiple values to
+        treat as a list to serialize.
+    :param kwargs: Treat as a dict to serialize.
+
+    .. versionchanged:: 2.2
+        Calls ``current_app.json.response``, allowing an app to override
+        the behavior.
+
+    .. versionchanged:: 2.0.2
+        :class:`decimal.Decimal` is supported by converting to a string.
+
+    .. versionchanged:: 0.11
+        Added support for serializing top-level arrays. This was a
+        security risk in ancient browsers. See :ref:`security-json`.
+
+    .. versionadded:: 0.2
+    """"""","""""""
+Returns a JSON response.
+
+This function takes in any number of positional arguments and keyword arguments,
+which are then passed to the `json` method of the current application instance.
+The result is a JSON response object.
+
+Args:
+    *args (t.Any): Any positional arguments to be included in the response.
+    **kwargs (t.Any): Any keyword arguments to be included in the response.
+
+Returns:
+    Response: A JSON response object.
+""""""",src/flask/json/__init__.py,b36820535d51b007c2551e9b65752754c632f573
+0.7430807,def tag,"""""""Convert the value to a valid JSON type and add the tag structure
+        around it.""""""","""""""
+Converts a given value to JSON format and returns it as a dictionary.
+
+Args:
+    value (t.Any): The value to be converted to JSON format.
+
+Returns:
+    dict[str, t.Any]: A dictionary containing the key-value pair where the key is 'tag' and the value is the JSON representation of the input value.
+""""""",src/flask/json/tag.py,b36820535d51b007c2551e9b65752754c632f573
+0.7066895,def tag,"""""""Convert a value to a tagged representation if necessary.""""""","""""""
+Converts a given value to JSON format and returns it as a dictionary.
+
+Args:
+    value (t.Any): The value to be converted to JSON format.
+
+Returns:
+    dict[str, t.Any]: A dictionary containing the key-value pair where the key is 'tag' and the value is the JSON representation of the input value.
+""""""",src/flask/json/tag.py,b36820535d51b007c2551e9b65752754c632f573
+0.6471685,def register,"""""""Register a new tag with this serializer.
+
+        :param tag_class: tag class to register. Will be instantiated with this
+            serializer instance.
+        :param force: overwrite an existing tag. If false (default), a
+            :exc:`KeyError` is raised.
+        :param index: index to insert the new tag in the tag order. Useful when
+            the new tag is a special case of an existing tag. If ``None``
+            (default), the tag is appended to the end of the order.
+
+        :raise KeyError: if the tag key is already registered and ``force`` is
+            not true.
+        """"""","""""""
+Registers a new JSON tag or inserts an existing one at the specified position in the order list.
+
+Args:
+    - `tag_class`: The class of the JSON tag to be registered.
+    - `force` (optional): If True, forces registration even if the key already exists. Defaults to False.
+    - `index` (optional): The index at which to insert the tag. If None, appends to the end of the order list.
+
+Raises:
+    KeyError: If the key is already registered and force is False.
+
+Returns:
+    None
+""""""",src/flask/json/tag.py,b36820535d51b007c2551e9b65752754c632f573
+0.5296718,def tag,"""""""Convert the value to a valid JSON type and add the tag structure
+        around it.""""""","""""""
+Returns the first matching tag from the order list.
+
+If a match is found, it returns the corresponding tag's value. Otherwise, it returns the original input value.
+
+Args:
+    value (t.Any): The input value to be checked against the tags.
+
+Returns:
+    t.Any: The matched tag's value or the original input value.
+""""""",src/flask/json/tag.py,b36820535d51b007c2551e9b65752754c632f573
+0.58272654,def tag,"""""""Convert a value to a tagged representation if necessary.""""""","""""""
+Returns the first matching tag from the order list.
+
+If a match is found, it returns the corresponding tag's value. Otherwise, it returns the original input value.
+
+Args:
+    value (t.Any): The input value to be checked against the tags.
+
+Returns:
+    t.Any: The matched tag's value or the original input value.
+""""""",src/flask/json/tag.py,b36820535d51b007c2551e9b65752754c632f573
+0.6078941,def name,"""""""The name of the application.  This is usually the import name
+        with the difference that it's guessed from the run file if the
+        import name is main.  This name is used as a display name when
+        Flask needs the name of the application.  It can be set and overridden
+        to change the value.
+
+        .. versionadded:: 0.8
+        """"""","""""""
+Returns the name of the current module or 'main' if running directly.
+
+If running directly, attempts to retrieve the filename from sys.modules['__main__'].
+If not found, returns '__main__'. Otherwise, returns the base filename without extension.
+
+Args:
+    None
+
+Returns:
+    str: The name of the current module or 'main'.
+""""""",src/flask/sansio/app.py,b36820535d51b007c2551e9b65752754c632f573
+0.5601262,def debug,"""""""Whether debug mode is enabled. When using ``flask run`` to start the
+        development server, an interactive debugger will be shown for unhandled
+        exceptions, and the server will be reloaded when code changes. This maps to the
+        :data:`DEBUG` config key. It may not behave as expected if set late.
+
+        **Do not enable debug mode when deploying in production.**
+
+        Default: ``False``
+        """"""","""""""
+Returns whether the debug mode is enabled based on the configuration.
+
+Args:
+    None
+
+Returns:
+    bool: True if debug mode is enabled, False otherwise
+""""""",src/flask/sansio/app.py,b36820535d51b007c2551e9b65752754c632f573
+0.68007565,def inject_url_defaults,"""""""Injects the URL defaults for the given endpoint directly into
+        the values dictionary passed.  This is used internally and
+        automatically called on URL building.
+
+        .. versionadded:: 0.7
+        """"""","""""""
+Injects URL defaults into the provided endpoint.
+
+This function is used to inject default values from a dictionary into an endpoint.
+It can be called outside of a request context and will parse the passed endpoint
+to determine which blueprint it belongs to. It then calls the specified functions
+for each name in the parsed path, passing the endpoint and values as arguments.
+
+Args:
+    endpoint (str): The URL endpoint to inject defaults into.
+    values (dict[str, t.Any]): A dictionary of default values to inject.
+
+Returns:
+    None
+
+Raises:
+    ValueError: If the endpoint is not a valid URL.
+""""""",src/flask/sansio/app.py,b36820535d51b007c2551e9b65752754c632f573
+0.5729521,def add_url_rule,"""""""A helper method to register a rule (and optionally a view function)
+        to the application.  The endpoint is automatically prefixed with the
+        blueprint's name.
+        """"""","""""""
+Adds a URL rule to the application.
+
+Parameters:
+    rule (str): The URL pattern.
+    endpoint (str | None, optional): The endpoint name. Defaults to None.
+    view_func (ft.RouteCallable | None, optional): The view function. Defaults to None.
+    **options (t.Any): Additional options for the URL rule.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,b36820535d51b007c2551e9b65752754c632f573
+0.70422304,def add_url_rule,"""""""Register a URL rule with the blueprint. See :meth:`.Flask.add_url_rule` for
+        full documentation.
+
+        The URL rule is prefixed with the blueprint's URL prefix. The endpoint name,
+        used with :func:`url_for`, is prefixed with the blueprint's name.
+        """"""","""""""
+Adds a URL rule to the application.
+
+Parameters:
+    rule (str): The URL pattern.
+    endpoint (str | None, optional): The endpoint name. Defaults to None.
+    view_func (ft.RouteCallable | None, optional): The view function. Defaults to None.
+    **options (t.Any): Additional options for the URL rule.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,b36820535d51b007c2551e9b65752754c632f573
+0.5981332,def record_once,"""""""Works like :meth:`record` but wraps the function in another
+        function that will ensure the function is only called once.  If the
+        blueprint is registered a second time on the application, the
+        function passed is not called.
+        """"""","""""""
+Records a function to be executed once during the setup process.
+
+This method is used to register a function that should only be executed once,
+during the initial setup of the application. The function is wrapped in a
+decorator to ensure it's only called once, even if the blueprint is reloaded.
+
+Args:
+    func (DeferredSetupFunction): The function to be recorded and executed.
+    
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,b36820535d51b007c2551e9b65752754c632f573
+0.6088417,def static_folder,"""""""The absolute path to the configured static folder. ``None``
+        if no static folder is set.
+        """"""","""""""
+Sets the static folder path.
+
+This method sets the path to the static folder. If a path is provided, it will be normalized and stripped of trailing slashes.
+
+Args:
+    value (str | os.PathLike[str] | None): The path to the static folder. Can be an absolute or relative path, or `None` for no static folder.
+
+Returns:
+    None
+""""""",src/flask/sansio/scaffold.py,b36820535d51b007c2551e9b65752754c632f573
+0.6828362,def get_cookie_name,"""""""The name of the session cookie. Uses``app.config[""SESSION_COOKIE_NAME""]``.""""""","""""""
+Returns the name of the cookie used by the given Flask application for session management.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str: The name of the session cookie.
+""""""",src/flask/sessions.py,b36820535d51b007c2551e9b65752754c632f573
+0.63466686,def get_cookie_domain,"""""""The value of the ``Domain`` parameter on the session cookie. If not set,
+        browsers will only send the cookie to the exact domain it was set from.
+        Otherwise, they will send it to any subdomain of the given value as well.
+
+        Uses the :data:`SESSION_COOKIE_DOMAIN` config.
+
+        .. versionchanged:: 2.3
+            Not set by default, does not fall back to ``SERVER_NAME``.
+        """"""","""""""
+Returns the domain of the session cookie.
+
+This method retrieves the value of the `SESSION_COOKIE_DOMAIN` configuration
+variable from the provided Flask application instance. If no such variable is set,
+the function returns `None`.
+
+Args:
+    app (Flask): The Flask application instance to retrieve the cookie domain from.
+
+Returns:
+    str | None: The domain of the session cookie, or `None` if not set.
+""""""",src/flask/sessions.py,b36820535d51b007c2551e9b65752754c632f573
+0.6876436,def get_cookie_path,"""""""Returns the path for which the cookie should be valid.  The
+        default implementation uses the value from the ``SESSION_COOKIE_PATH``
+        config var if it's set, and falls back to ``APPLICATION_ROOT`` or
+        uses ``/`` if it's ``None``.
+        """"""","""""""
+Returns the path of the cookie for a given Flask application.
+
+The function checks if `SESSION_COOKIE_PATH` is set in the application's configuration.
+If it is, that value is returned. Otherwise, it falls back to using `APPLICATION_ROOT`.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str: The path of the cookie for the given application.
+""""""",src/flask/sessions.py,b36820535d51b007c2551e9b65752754c632f573
+0.6981503,def get_cookie_httponly,"""""""Returns True if the session cookie should be httponly.  This
+        currently just returns the value of the ``SESSION_COOKIE_HTTPONLY``
+        config var.
+        """"""","""""""
+Returns whether the session cookie is set to be HTTP-only.
+
+Args:
+    app (Flask): The application instance.
+
+Returns:
+    bool: True if the session cookie is HTTP-only, False otherwise.
+""""""",src/flask/sessions.py,b36820535d51b007c2551e9b65752754c632f573
+0.73201877,def get_cookie_secure,"""""""Returns True if the cookie should be secure.  This currently
+        just returns the value of the ``SESSION_COOKIE_SECURE`` setting.
+        """"""","""""""
+Returns whether the session cookie is secure.
+
+This method checks if the `SESSION_COOKIE_SECURE` configuration variable
+is set to True in the provided Flask application. If it is, the function
+returns True; otherwise, it returns False.
+
+Args:
+    app (Flask): The Flask application instance to check.
+
+Returns:
+    bool: Whether the session cookie is secure.
+""""""",src/flask/sessions.py,b36820535d51b007c2551e9b65752754c632f573
+0.556263,def get_cookie_samesite,"""""""Return ``'Strict'`` or ``'Lax'`` if the cookie should use the
+        ``SameSite`` attribute. This currently just returns the value of
+        the :data:`SESSION_COOKIE_SAMESITE` setting.
+        """"""","""""""
+Returns the value of the 'SESSION_COOKIE_SAMESITE' configuration option from the provided Flask application.
+
+Args:
+    app (Flask): The Flask application instance to retrieve the configuration from.
+
+Returns:
+    str | None: The value of the 'SESSION_COOKIE_SAMESITE' configuration option, or None if it is not set.
+""""""",src/flask/sessions.py,b36820535d51b007c2551e9b65752754c632f573
+0.5265649,def session_transaction,"""""""When used in combination with a ``with`` statement this opens a
+        session transaction.  This can be used to modify the session that
+        the test client uses.  Once the ``with`` block is left the session is
+        stored back.
+
+        ::
+
+            with client.session_transaction() as session:
+                session['value'] = 42
+
+        Internally this is implemented by going through a temporary test
+        request context and since session handling could depend on
+        request variables this function accepts the same arguments as
+        :meth:`~flask.Flask.test_request_context` which are directly
+        passed through.
+        """"""","""""""
+Yield a session object for the current test request context.
+
+This function is used to create and manage sessions for testing purposes.
+It checks if cookies are enabled, sets them up, opens a new session,
+and saves it after use. If the session backend fails to open a session,
+it raises a RuntimeError.
+
+Args:
+    *args: Variable arguments passed to the test request context.
+    **kwargs: Keyword arguments passed to the test request context.
+
+Returns:
+    An iterator yielding SessionMixin objects for each session opened.
+""""""",src/flask/testing.py,b36820535d51b007c2551e9b65752754c632f573
+0.61701155,def invoke,"""""""Invokes a CLI command in an isolated environment. See
+        :meth:`CliRunner.invoke <click.testing.CliRunner.invoke>` for
+        full method documentation. See :ref:`testing-cli` for examples.
+
+        If the ``obj`` argument is not given, passes an instance of
+        :class:`~flask.cli.ScriptInfo` that knows how to load the Flask
+        app being tested.
+
+        :param cli: Command object to invoke. Default is the app's
+            :attr:`~flask.app.Flask.cli` group.
+        :param args: List of strings to invoke the command with.
+
+        :return: a :class:`~click.testing.Result` object.
+        """"""","""""""
+Invokes the parent class's invoke method with optional CLI and arguments.
+
+This function is used to initialize the script info object and pass it to the parent class's invoke method.
+If no 'obj' key is provided in kwargs, a ScriptInfo object is created with a create_app lambda that returns the app instance.
+
+Args:
+    cli (t.Any): The command line interface. Defaults to self.app.cli if None.
+    args (t.Any): Any additional arguments. Defaults to None.
+    **kwargs (t.Any): Additional keyword arguments. Must include 'obj' key.
+
+Returns:
+    t.Any: The result of the parent class's invoke method.
+""""""",src/flask/testing.py,b36820535d51b007c2551e9b65752754c632f573
+0.53093755,def max_content_length,"""""""Read-only view of the ``MAX_CONTENT_LENGTH`` config key.""""""","""""""
+Returns the maximum allowed content length for the application.
+
+If `current_app` is available, it returns the value from `current_app.config[""MAX_CONTENT_LENGTH""]`.
+Otherwise, it returns `None`.
+
+Args:
+    None
+
+Returns:
+    int | None: The maximum allowed content length or None if not configured.
+""""""",src/flask/wrappers.py,b36820535d51b007c2551e9b65752754c632f573
+0.62712204,def with_appcontext,"""""""Wraps a callback so that it's guaranteed to be executed with the
+    script's application context.
+
+    Custom commands (and their options) registered under ``app.cli`` or
+    ``blueprint.cli`` will always have an app context available, this
+    decorator is not required in that case.
+
+    .. versionchanged:: 2.2
+        The app context is active for subcommands as well as the
+        decorated callback. The app context is always available to
+        ``app.cli`` command and parameter callbacks.
+    """"""","""""""
+Decorates a function to run with the application context.
+
+This decorator is used to ensure that functions decorated with it are executed within
+the application's context. This can be useful for tasks such as database operations,
+file I/O, or any other operation that requires access to the current application state.
+
+The `with_appcontext` function takes a function `f` as an argument and returns the result of
+invoking `f` with the application context. If the application context is not already set,
+it will load the application from the `ScriptInfo` object associated with the click context.
+
+Args:
+    f (function): The function to be decorated.
+
+Returns:
+    function: The original function, wrapped in a decorator that runs it with the application context.
+""""""",src/flask/cli.py,64712f525beb09fcd8ae56052b7c3081d35568ea
+0.5981332,def record_once,"""""""Works like :meth:`record` but wraps the function in another
+        function that will ensure the function is only called once.  If the
+        blueprint is registered a second time on the application, the
+        function passed is not called.
+        """"""","""""""
+Records a function to be executed once during the setup process.
+
+This method is used to register a function that should only be executed once,
+during the initial setup of the application. The function is wrapped in a
+decorator to ensure it's only called once, even if the blueprint is reloaded.
+
+Args:
+    func (DeferredSetupFunction): The function to be recorded and executed.
+    
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,64712f525beb09fcd8ae56052b7c3081d35568ea
+0.61699253,def jinja_loader,"""""""The Jinja loader for this object's templates. By default this
+        is a class :class:`jinja2.loaders.FileSystemLoader` to
+        :attr:`template_folder` if it is set.
+
+        .. versionadded:: 0.5
+        """"""","""""""
+Loads a Jinja template loader based on the presence of a template folder.
+
+Returns:
+    BaseLoader | None: A Jinja template loader instance if a template folder is present, otherwise None.
+""""""",src/flask/sansio/scaffold.py,2a1d62f904f1a931cc155e7c9ac34638e190d46c
+0.6934788,def test_jsonify_uuid_types,"""""""Test jsonify with uuid.UUID types""""""","""""""
+Tests the JSONification of UUID types.
+
+This function tests that a UUID object can be successfully serialized to JSON and deserialized back into a UUID object.
+
+Parameters:
+app (Flask application): The Flask application instance.
+client (Flask client): The Flask client instance.
+
+Returns:
+None
+""""""",tests/test_json.py,30e153f81ce882c3b184a9429a248c6f89af6be4
+0.6934788,def test_jsonify_uuid_types,"""""""Test jsonify with uuid.UUID types""""""","""""""
+Tests the JSONification of UUID types.
+
+This function tests that a UUID object can be successfully serialized to JSON and deserialized back into a UUID object.
+
+Parameters:
+app (Flask application): The Flask application instance.
+client (Flask client): The Flask client instance.
+
+Returns:
+None
+""""""",tests/test_json.py,79de93c969fae20305a759b31b95f9d3506d3dc8
+0.45890495,def _lazy_sha1,"""""""Don't access ``hashlib.sha1`` until runtime. FIPS builds may not include
+    SHA-1, in which case the import and use as a default would fail before the
+    developer can configure something else.
+    """"""","""""""
+Calculates the SHA-1 hash of a given string.
+
+Args:
+    string (bytes, optional): The input string to be hashed. Defaults to an empty byte string.
+
+Returns:
+    Any: The calculated SHA-1 hash as a bytes object.
+""""""",src/flask/sessions.py,00c943ba18df7a94988f15356acbca27db1d0870
+0.50601614,def save_session,"""""""This is called at the end of each request, after generating
+        a response, before removing the request context. It is skipped
+        if :meth:`is_null_session` returns ``True``.
+        """"""","""""""
+Saves a session cookie to the client's browser.
+
+This method sets a session cookie based on the provided `app`, `session`, and `response` objects.
+It determines the necessary cookie attributes (name, domain, path, secure, samesite, httponly) using
+the `get_cookie_name`, `get_cookie_domain`, `get_cookie_path`, `get_cookie_secure`, 
+`get_cookie_samesite`, and `get_cookie_httponly` methods.
+
+If the session was accessed at all, a ""Vary: Cookie"" header is added to the response.
+If the session is modified or empty, the cookie is removed or not set respectively.
+Otherwise, if the session should be set as a cookie according to the `should_set_cookie` method,
+the necessary attributes are determined and the cookie is set.
+
+Parameters:
+app (Flask): The Flask application instance.
+session (SessionMixin): The session object.
+response (Response): The response object.
+
+Returns:
+None
+""""""",src/flask/sessions.py,1fdd1e0c68c45fc37f7f048f0c757afcb962deca
+0.5060162,def save_session,"""""""This is called at the end of each request, after generating
+        a response, before removing the request context. It is skipped
+        if :meth:`is_null_session` returns ``True``.
+        """"""","""""""
+Saves a session cookie to the client's browser.
+
+This method sets a session cookie based on the provided `app`, `session`, and `response` objects.
+It determines the necessary cookie attributes (name, domain, path, secure, samesite, httponly) using
+the `get_cookie_name`, `get_cookie_domain`, `get_cookie_path`, `get_cookie_secure`, 
+`get_cookie_samesite`, and `get_cookie_httponly` methods.
+
+If the session was accessed at all, a ""Vary: Cookie"" header is added to the response.
+If the session is modified or empty, the cookie is removed or not set respectively.
+Otherwise, if the session should be set as a cookie according to the `should_set_cookie` method,
+the necessary attributes are determined and the cookie is set.
+
+Parameters:
+app (Flask): The Flask application instance.
+session (SessionMixin): The session object.
+response (Response): The response object.
+
+Returns:
+None
+""""""",src/flask/sessions.py,67c430681c02fe02519ff6859afe2582ac422432
+0.591367,def endpoint,"""""""The endpoint that matched the request URL.
+
+        This will be ``None`` if matching failed or has not been
+        performed yet.
+
+        This in combination with :attr:`view_args` can be used to
+        reconstruct the same URL or a modified URL.
+        """"""","""""""
+Returns the URL rule's endpoint if available, otherwise returns None.
+
+Args:
+    None
+
+Returns:
+    str | None: The URL rule's endpoint or None if not set.
+""""""",src/flask/wrappers.py,67c430681c02fe02519ff6859afe2582ac422432
+0.50601614,def save_session,"""""""This is called at the end of each request, after generating
+        a response, before removing the request context. It is skipped
+        if :meth:`is_null_session` returns ``True``.
+        """"""","""""""
+Saves a session cookie to the client's browser.
+
+This method sets a session cookie based on the provided `app`, `session`, and `response` objects.
+It determines the necessary cookie attributes (name, domain, path, secure, samesite, httponly) using
+the `get_cookie_name`, `get_cookie_domain`, `get_cookie_path`, `get_cookie_secure`, 
+`get_cookie_samesite`, and `get_cookie_httponly` methods.
+
+If the session was accessed at all, a ""Vary: Cookie"" header is added to the response.
+If the session is modified or empty, the cookie is removed or not set respectively.
+Otherwise, if the session should be set as a cookie according to the `should_set_cookie` method,
+the necessary attributes are determined and the cookie is set.
+
+Parameters:
+app (Flask): The Flask application instance.
+session (SessionMixin): The session object.
+response (Response): The response object.
+
+Returns:
+None
+""""""",src/flask/sessions.py,2129af5b667e0ba825c8cdc66b42e50975c444bc
+0.59024554,def stream_with_context,"""""""Request contexts disappear when the response is started on the server.
+    This is done for efficiency reasons and to make it less likely to encounter
+    memory leaks with badly written WSGI middlewares.  The downside is that if
+    you are using streamed responses, the generator cannot access request bound
+    information any more.
+
+    This function however can help you keep the context around for longer::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            @stream_with_context
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(generate())
+
+    Alternatively it can also be used around a specific generator::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(stream_with_context(generate()))
+
+    .. versionadded:: 0.9
+    """"""","""""""
+Stream a generator or function with context.
+
+This function takes an iterator or callable that returns an iterator, and wraps it in a context manager. The context manager pushes the current request context onto the stack when the generator is started, and pops it off when the iteration completes.
+
+If the input is not an iterator, but rather a callable that returns an iterator, this function will wrap the callable in a decorator to create a new function that takes any arguments and returns an iterator. This allows the original function to be used as if it were an iterator.
+
+The context manager uses the `_cv_request` object to get the current request context, and pushes it onto the stack when the generator is started. When the iteration completes, the context is popped off the stack.
+
+This function can only be used when a request context is active, such as in a view function.
+
+Args:
+    generator_or_function: An iterator or callable that returns an iterator.
+
+Returns:
+    An iterator over the results of the input generator or function.
+""""""",src/flask/helpers.py,492351adfe9c16d4a8334d51c1cb17836ed50ac0
+0.54186773,def stream_with_context,"""""""Request contexts disappear when the response is started on the server.
+    This is done for efficiency reasons and to make it less likely to encounter
+    memory leaks with badly written WSGI middlewares.  The downside is that if
+    you are using streamed responses, the generator cannot access request bound
+    information any more.
+
+    This function however can help you keep the context around for longer::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            @stream_with_context
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(generate())
+
+    Alternatively it can also be used around a specific generator::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(stream_with_context(generate()))
+
+    .. versionadded:: 0.9
+    """"""","""""""
+Stream a generator or function with context.
+
+This function takes an iterator or callable that returns an iterator, and wraps it in a context manager. The context manager pushes the current request context onto the stack when the generator is started, and pops it off when the iteration completes.
+
+If the input is not a generator or function, but rather a decorator factory, this function will create a new decorator that takes arguments and keyword arguments, calls the original function with those arguments, and then wraps the result in another context manager.
+
+The `stream_with_context` function can only be used when a request context is active, such as in a view function. If no request context is available, it raises a RuntimeError.
+
+Returns:
+    An iterator that yields the same values as the original generator or function, but with the added benefit of being able to use the current request context.
+    A callable that takes an iterator and returns an iterator, if the input was not a generator or function.
+""""""",src/flask/helpers.py,53b536dbc04a552ff1542000147fc5abd300aa46
+0.54186773,def stream_with_context,"""""""Request contexts disappear when the response is started on the server.
+    This is done for efficiency reasons and to make it less likely to encounter
+    memory leaks with badly written WSGI middlewares.  The downside is that if
+    you are using streamed responses, the generator cannot access request bound
+    information any more.
+
+    This function however can help you keep the context around for longer::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            @stream_with_context
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(generate())
+
+    Alternatively it can also be used around a specific generator::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(stream_with_context(generate()))
+
+    .. versionadded:: 0.9
+    """"""","""""""
+Stream a generator or function with context.
+
+This function takes an iterator or callable that returns an iterator, and wraps it in a context manager. The context manager pushes the current request context onto the stack when the generator is started, and pops it off when the iteration completes.
+
+If the input is not a generator or function, but rather a decorator factory, this function will create a new decorator that takes arguments and keyword arguments, calls the original function with those arguments, and then wraps the result in another context manager.
+
+The `stream_with_context` function can only be used when a request context is active, such as in a view function. If no request context is available, it raises a RuntimeError.
+
+Returns:
+    An iterator that yields the same values as the original generator or function, but with the added benefit of being able to use the current request context.
+    A callable that takes an iterator and returns an iterator, if the input was not a generator or function.
+""""""",src/flask/helpers.py,483ed3ecc48651ae93cf78653252a95e32af89e3
+0.54186773,def stream_with_context,"""""""Request contexts disappear when the response is started on the server.
+    This is done for efficiency reasons and to make it less likely to encounter
+    memory leaks with badly written WSGI middlewares.  The downside is that if
+    you are using streamed responses, the generator cannot access request bound
+    information any more.
+
+    This function however can help you keep the context around for longer::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            @stream_with_context
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(generate())
+
+    Alternatively it can also be used around a specific generator::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(stream_with_context(generate()))
+
+    .. versionadded:: 0.9
+    """"""","""""""
+Stream a generator or function with context.
+
+This function takes an iterator or callable that returns an iterator, and wraps it in a context manager. The context manager pushes the current request context onto the stack when the generator is started, and pops it off when the iteration completes.
+
+If the input is not a generator or function, but rather a decorator factory, this function will create a new decorator that takes arguments and keyword arguments, calls the original function with those arguments, and then wraps the result in another context manager.
+
+The `stream_with_context` function can only be used when a request context is active, such as in a view function. If no request context is available, it raises a RuntimeError.
+
+Returns:
+    An iterator that yields the same values as the original generator or function, but with the added benefit of being able to use the current request context.
+    A callable that takes an iterator and returns an iterator, if the input was not a generator or function.
+""""""",src/flask/helpers.py,c7a87242e54ab59a9d444acaf5d9cb14d7d8de63
+0.54186773,def stream_with_context,"""""""Request contexts disappear when the response is started on the server.
+    This is done for efficiency reasons and to make it less likely to encounter
+    memory leaks with badly written WSGI middlewares.  The downside is that if
+    you are using streamed responses, the generator cannot access request bound
+    information any more.
+
+    This function however can help you keep the context around for longer::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            @stream_with_context
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(generate())
+
+    Alternatively it can also be used around a specific generator::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(stream_with_context(generate()))
+
+    .. versionadded:: 0.9
+    """"""","""""""
+Stream a generator or function with context.
+
+This function takes an iterator or callable that returns an iterator, and wraps it in a context manager. The context manager pushes the current request context onto the stack when the generator is started, and pops it off when the iteration completes.
+
+If the input is not a generator or function, but rather a decorator factory, this function will create a new decorator that takes arguments and keyword arguments, calls the original function with those arguments, and then wraps the result in another context manager.
+
+The `stream_with_context` function can only be used when a request context is active, such as in a view function. If no request context is available, it raises a RuntimeError.
+
+Returns:
+    An iterator that yields the same values as the original generator or function, but with the added benefit of being able to use the current request context.
+    A callable that takes an iterator and returns an iterator, if the input was not a generator or function.
+""""""",src/flask/helpers.py,cddf5e62974d95add9bbe4d96e1814e1eaf99191

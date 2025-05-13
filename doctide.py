@@ -83,7 +83,7 @@ def main(testing):
             writer = csv.writer(f)
             if not success_rate_file_exists:
                 writer.writerow(["Success", "Comment"])
-            writer.writerows([generation_attempts])
+            writer.writerows(generation_attempts)
 
     repo.index.add(success_rate_file)
 

@@ -1,0 +1,184 @@
+Semantic-Score,Code,Original-Comment,Agent-Comment,Filename,Agent-Commit
+0.62583506,def open_resource,"""""""Open a resource file relative to :attr:`root_path` for
+        reading.
+
+        For example, if the file ``schema.sql`` is next to the file
+        ``app.py`` where the ``Flask`` app is defined, it can be opened
+        with:
+
+        .. code-block:: python
+
+            with app.open_resource(""schema.sql"") as f:
+                conn.executescript(f.read())
+
+        :param resource: Path to the resource relative to
+            :attr:`root_path`.
+        :param mode: Open the file in this mode. Only reading is
+            supported, valid values are ""r"" (or ""rt"") and ""rb"".
+
+        Note this is a duplicate of the same method in the Flask
+        class.
+
+        """"""","""""""
+Opens a resource file.
+
+Args:
+    resource (str): The path to the resource file.
+    mode (str, optional): The mode in which to open the file. Defaults to ""rb"". Supported modes are ""r"", ""rt"", and ""rb"".
+
+Returns:
+    t.IO[t.AnyStr]: A file object opened in the specified mode.
+
+Raises:
+    ValueError: If an unsupported mode is provided.
+""""""",src/flask/app.py,511c636f04edea1179c6aec4a8a70e00697a3ba8
+0.6558015,def open_instance_resource,"""""""Opens a resource from the application's instance folder
+        (:attr:`instance_path`).  Otherwise works like
+        :meth:`open_resource`.  Instance resources can also be opened for
+        writing.
+
+        :param resource: the name of the resource.  To access resources within
+                         subfolders use forward slashes as separator.
+        :param mode: resource file opening mode, default is 'rb'.
+        """"""","""""""
+Opens an instance resource file.
+
+Args:
+    - `resource` (str): The path to the resource file.
+    - `mode` (str, optional): The mode in which to open the file. Defaults to ""rb"".
+
+Returns:
+    A file object opened at the specified location with the given mode.
+
+Raises:
+    FileNotFoundError: If the instance_path does not exist or the resource is not found.
+""""""",src/flask/app.py,511c636f04edea1179c6aec4a8a70e00697a3ba8
+0.6559337,def get_root_path,"""""""Find the root path of a package, or the path that contains a
+    module. If it cannot be found, returns the current working
+    directory.
+
+    Not to be confused with the value returned by :func:`find_package`.
+
+    :meta private:
+    """"""","""""""
+Returns the root path of the given imported module.
+
+If the module has already been imported and its file attribute is available,
+its directory path is returned. Otherwise, it attempts to find the loader
+associated with the import specification and uses it to determine the root
+path. If this fails, it falls back to using the current working directory.
+
+Args:
+    import_name (str): The name of the module for which to retrieve the root path.
+
+Returns:
+    str: The root path of the given imported module.
+Raises:
+    ValueError: If the loader is not found or if the module specification is None.
+    RuntimeError: If no root path can be found for a namespace package.
+""""""",src/flask/helpers.py,19bec83ace5725d9810699ba3806c2aad1e2f679
+0.6113432,def load_dotenv,"""""""Load ""dotenv"" files to set environment variables. A given path takes
+    precedence over ``.env``, which takes precedence over ``.flaskenv``. After
+    loading and combining these files, values are only set if the key is not
+    already set in ``os.environ``.
+
+    This is a no-op if `python-dotenv`_ is not installed.
+
+    .. _python-dotenv: https://github.com/theskumar/python-dotenv#readme
+
+    :param path: Load the file at this location.
+    :param load_defaults: Search for and load the default ``.flaskenv`` and
+        ``.env`` files.
+    :return: ``True`` if at least one env var was loaded.
+
+    .. versionchanged:: 3.1
+        Added the ``load_defaults`` parameter. A given path takes precedence
+        over default files.
+
+    .. versionchanged:: 2.0
+        The current directory is not changed to the location of the
+        loaded file.
+
+    .. versionchanged:: 2.0
+        When loading the env files, set the default encoding to UTF-8.
+
+    .. versionchanged:: 1.1.0
+        Returns ``False`` when python-dotenv is not installed, or when
+        the given path isn't a file.
+
+    .. versionadded:: 1.0
+    """"""","""""""
+Loads environment variables from a .env file.
+
+This function attempts to load environment variables from the current directory
+or from a specified path. If no .env files are found, it will display a tip
+message suggesting the installation of python-dotenv.
+
+Args:
+    path (str | os.PathLike[str] | None): The path to the .env file to load.
+        If None, the function will look for a .env file in the current directory.
+    load_defaults (bool): Whether to load default environment variables from
+        .flaskenv and .env files. Defaults to True.
+
+Returns:
+    bool: True if at least one environment variable was loaded, False otherwise.
+""""""",src/flask/cli.py,8f6ebe7caaff3a996238b575908d4cfa6b680e27
+0.55849105,def create_url_adapter,"""""""Creates a URL adapter for the given request. The URL adapter
+        is created at a point where the request context is not yet set
+        up so the request is passed explicitly.
+
+        .. versionchanged:: 3.1
+            If :data:`SERVER_NAME` is set, it does not restrict requests to
+            only that domain, for both ``subdomain_matching`` and
+            ``host_matching``.
+
+        .. versionchanged:: 1.0
+            :data:`SERVER_NAME` no longer implicitly enables subdomain
+            matching. Use :attr:`subdomain_matching` instead.
+
+        .. versionchanged:: 0.9
+           This can be called outside a request when the URL adapter is created
+           for an application context.
+
+        .. versionadded:: 0.6
+        """"""","""""""
+Creates an URL adapter based on the provided request or server configuration.
+
+If a request is provided, it will be used to bind the URL map to the environment.
+Otherwise, it will use the server name from the configuration to create the adapter.
+
+Returns:
+    MapAdapter | None: The created URL adapter or None if no valid configuration is found.
+""""""",src/flask/app.py,6b5892977f27fe45606f5b9066100fabf7439d69
+0.5880246,def invoke,"""""""Invokes a CLI command in an isolated environment. See
+        :meth:`CliRunner.invoke <click.testing.CliRunner.invoke>` for
+        full method documentation. See :ref:`testing-cli` for examples.
+
+        If the ``obj`` argument is not given, passes an instance of
+        :class:`~flask.cli.ScriptInfo` that knows how to load the Flask
+        app being tested.
+
+        :param cli: Command object to invoke. Default is the app's
+            :attr:`~flask.app.Flask.cli` group.
+        :param args: List of strings to invoke the command with.
+
+        :return: a :class:`~click.testing.Result` object.
+        """"""","""""""
+Invokes the parent class's invoke method with optional CLI and arguments.
+
+This function is used to extend the functionality of the parent class by providing
+additional parameters such as `cli` and `args`. If `cli` is not provided, it defaults
+to the application's CLI. The `obj` parameter is also optional and defaults to a
+ScriptInfo object with a create_app lambda that returns the current application.
+
+Args:
+    cli (t.Any): The command-line interface. Defaults to None.
+    args (t.Any): Additional arguments. Defaults to None.
+    **kwargs: Keyword arguments, including 'obj' which defaults to ScriptInfo(create_app=lambda: self.app).
+
+Returns:
+    Result: The result of the parent class's invoke method.
+
+Raises:
+    t.Any: Any exception raised by the parent class's invoke method.
+""""""",src/flask/testing.py,0ebba1923ec4704d54bbe8efcbc963164c59f6a5

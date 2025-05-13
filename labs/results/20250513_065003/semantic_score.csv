@@ -1,0 +1,137 @@
+Semantic-Score,Code,Original-Comment,Agent-Comment,Filename,Agent-Commit
+0.57762146,def open_resource,"""""""Open a resource file relative to :attr:`root_path` for reading.
+
+        For example, if the file ``schema.sql`` is next to the file
+        ``app.py`` where the ``Flask`` app is defined, it can be opened
+        with:
+
+        .. code-block:: python
+
+            with app.open_resource(""schema.sql"") as f:
+                conn.executescript(f.read())
+
+        :param resource: Path to the resource relative to :attr:`root_path`.
+        :param mode: Open the file in this mode. Only reading is supported,
+            valid values are ``""r""`` (or ``""rt""``) and ``""rb""``.
+        :param encoding: Open the file with this encoding when opening in text
+            mode. This is ignored when opening in binary mode.
+
+        .. versionchanged:: 3.1
+            Added the ``encoding`` parameter.
+        """"""","""""""
+Opens a resource file.
+
+Args:
+    - `resource` (str): The name of the resource to be opened.
+    - `mode` (str, optional): The mode in which the resource is to be opened. Defaults to ""rb"". Supported modes are ""r"", ""rt"", and ""rb"".
+    - `encoding` (str | None, optional): The encoding to use when opening the file for reading. Defaults to None.
+
+Returns:
+    t.IO[t.AnyStr]: An open file object.
+
+Raises:
+    ValueError: If the mode is not one of ""r"", ""rt"", or ""rb"".
+
+Example:
+    >>> resource = ""example.txt""
+    >>> with open_resource(resource, 'rt', encoding='utf-8') as f:
+    ...     print(f.read())
+""""""",src/flask/app.py,ccfd752b337d210dd77e62b1dfcdffb9706f6f70
+0.61271054,def open_instance_resource,"""""""Open a resource file relative to the application's instance folder
+        :attr:`instance_path`. Unlike :meth:`open_resource`, files in the
+        instance folder can be opened for writing.
+
+        :param resource: Path to the resource relative to :attr:`instance_path`.
+        :param mode: Open the file in this mode.
+        :param encoding: Open the file with this encoding when opening in text
+            mode. This is ignored when opening in binary mode.
+
+        .. versionchanged:: 3.1
+            Added the ``encoding`` parameter.
+        """"""","""""""
+Opens an instance resource file.
+
+This method opens a specified resource file within the instance's directory.
+The file can be opened in binary or text mode. If the mode is binary,
+the file will be opened without any encoding conversion. Otherwise, it
+will be opened with the specified encoding.
+
+Args:
+    - `resource` (str): The name of the resource to open.
+    - `mode` (str, optional): The mode in which to open the file. Defaults to ""rb"".
+    - `encoding` (str | None, optional): The encoding to use when opening the file. Defaults to ""utf-8"".
+
+Returns:
+    t.IO[t.AnyStr]: A file object opened with the specified mode and encoding.
+""""""",src/flask/app.py,ccfd752b337d210dd77e62b1dfcdffb9706f6f70
+0.55652326,def open_resource,"""""""Open a resource file relative to :attr:`root_path` for reading. The
+        blueprint-relative equivalent of the app's :meth:`~.Flask.open_resource`
+        method.
+
+        :param resource: Path to the resource relative to :attr:`root_path`.
+        :param mode: Open the file in this mode. Only reading is supported,
+            valid values are ``""r""`` (or ``""rt""``) and ``""rb""``.
+        :param encoding: Open the file with this encoding when opening in text
+            mode. This is ignored when opening in binary mode.
+
+        .. versionchanged:: 3.1
+            Added the ``encoding`` parameter.
+        """"""","""""""
+Opens a resource file in the specified mode.
+
+Args:
+    - `resource` (str): The name of the resource to be opened.
+    - `mode` (str, optional): The mode in which the resource is to be opened. Defaults to ""rb"".
+    - `encoding` (str | None, optional): The encoding used for reading the file. Defaults to ""utf-8"".
+
+Returns:
+    t.IO[t.AnyStr]: An open file object.
+
+Raises:
+    ValueError: If the specified mode is not valid.
+""""""",src/flask/blueprints.py,ccfd752b337d210dd77e62b1dfcdffb9706f6f70
+0.5418678,def stream_with_context,"""""""Request contexts disappear when the response is started on the server.
+    This is done for efficiency reasons and to make it less likely to encounter
+    memory leaks with badly written WSGI middlewares.  The downside is that if
+    you are using streamed responses, the generator cannot access request bound
+    information any more.
+
+    This function however can help you keep the context around for longer::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            @stream_with_context
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(generate())
+
+    Alternatively it can also be used around a specific generator::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(stream_with_context(generate()))
+
+    .. versionadded:: 0.9
+    """"""","""""""
+Stream a generator or function with context.
+
+This function takes an iterator or callable that returns an iterator, and wraps it in a context manager. The context manager pushes the current request context onto the stack when the generator is started, and pops it off when the iteration completes.
+
+If the input is not a generator or function, but rather a decorator factory, this function will create a new decorator that takes arguments and keyword arguments, calls the original function with those arguments, and then wraps the result in another context manager.
+
+The `stream_with_context` function can only be used when a request context is active, such as in a view function. If no request context is available, it raises a RuntimeError.
+
+Returns:
+    An iterator that yields the same values as the original generator or function, but with the added benefit of being able to use the current request context.
+    A callable that takes an iterator and returns an iterator, if the input was not a generator or function.
+""""""",src/flask/helpers.py,ccfd752b337d210dd77e62b1dfcdffb9706f6f70

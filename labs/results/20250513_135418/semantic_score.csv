@@ -1,0 +1,16 @@
+Semantic-Score,Code,Original-Comment,Agent-Comment,Filename,Agent-Commit
+0.62732244,def load_app,"""""""Loads the Flask app (if not yet loaded) and returns it.  Calling
+        this multiple times will just result in the already loaded app to
+        be returned.
+        """"""","""""""
+Loads a Flask application instance.
+
+This method attempts to load an existing Flask application from the `self._loaded_app` attribute,
+or creates a new one if none exists. It also sets the debug flag of the loaded application
+if `self.set_debug_flag` is True.
+
+If no application can be found, it raises a `NoAppException`.
+
+Returns:
+    The loaded Flask application instance.
+""""""",src/flask/cli.py,27894c48ea9ee091ee6af2e61d892fbfcb31d31b

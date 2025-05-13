@@ -1,0 +1,181 @@
+Semantic-Score,Code,Original-Comment,Agent-Comment,Filename,Agent-Commit
+0.54186773,def stream_with_context,"""""""Request contexts disappear when the response is started on the server.
+    This is done for efficiency reasons and to make it less likely to encounter
+    memory leaks with badly written WSGI middlewares.  The downside is that if
+    you are using streamed responses, the generator cannot access request bound
+    information any more.
+
+    This function however can help you keep the context around for longer::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            @stream_with_context
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(generate())
+
+    Alternatively it can also be used around a specific generator::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(stream_with_context(generate()))
+
+    .. versionadded:: 0.9
+    """"""","""""""
+Stream a generator or function with context.
+
+This function takes an iterator or callable that returns an iterator, and wraps it in a context manager. The context manager pushes the current request context onto the stack when the generator is started, and pops it off when the iteration completes.
+
+If the input is not a generator or function, but rather a decorator factory, this function will create a new decorator that takes arguments and keyword arguments, calls the original function with those arguments, and then wraps the result in another context manager.
+
+The `stream_with_context` function can only be used when a request context is active, such as in a view function. If no request context is available, it raises a RuntimeError.
+
+Returns:
+    An iterator that yields the same values as the original generator or function, but with the added benefit of being able to use the current request context.
+    A callable that takes an iterator and returns an iterator, if the input was not a generator or function.
+""""""",src/flask/helpers.py,53b536dbc04a552ff1542000147fc5abd300aa46
+0.54186773,def stream_with_context,"""""""Request contexts disappear when the response is started on the server.
+    This is done for efficiency reasons and to make it less likely to encounter
+    memory leaks with badly written WSGI middlewares.  The downside is that if
+    you are using streamed responses, the generator cannot access request bound
+    information any more.
+
+    This function however can help you keep the context around for longer::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            @stream_with_context
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(generate())
+
+    Alternatively it can also be used around a specific generator::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(stream_with_context(generate()))
+
+    .. versionadded:: 0.9
+    """"""","""""""
+Stream a generator or function with context.
+
+This function takes an iterator or callable that returns an iterator, and wraps it in a context manager. The context manager pushes the current request context onto the stack when the generator is started, and pops it off when the iteration completes.
+
+If the input is not a generator or function, but rather a decorator factory, this function will create a new decorator that takes arguments and keyword arguments, calls the original function with those arguments, and then wraps the result in another context manager.
+
+The `stream_with_context` function can only be used when a request context is active, such as in a view function. If no request context is available, it raises a RuntimeError.
+
+Returns:
+    An iterator that yields the same values as the original generator or function, but with the added benefit of being able to use the current request context.
+    A callable that takes an iterator and returns an iterator, if the input was not a generator or function.
+""""""",src/flask/helpers.py,483ed3ecc48651ae93cf78653252a95e32af89e3
+0.54186773,def stream_with_context,"""""""Request contexts disappear when the response is started on the server.
+    This is done for efficiency reasons and to make it less likely to encounter
+    memory leaks with badly written WSGI middlewares.  The downside is that if
+    you are using streamed responses, the generator cannot access request bound
+    information any more.
+
+    This function however can help you keep the context around for longer::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            @stream_with_context
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(generate())
+
+    Alternatively it can also be used around a specific generator::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(stream_with_context(generate()))
+
+    .. versionadded:: 0.9
+    """"""","""""""
+Stream a generator or function with context.
+
+This function takes an iterator or callable that returns an iterator, and wraps it in a context manager. The context manager pushes the current request context onto the stack when the generator is started, and pops it off when the iteration completes.
+
+If the input is not a generator or function, but rather a decorator factory, this function will create a new decorator that takes arguments and keyword arguments, calls the original function with those arguments, and then wraps the result in another context manager.
+
+The `stream_with_context` function can only be used when a request context is active, such as in a view function. If no request context is available, it raises a RuntimeError.
+
+Returns:
+    An iterator that yields the same values as the original generator or function, but with the added benefit of being able to use the current request context.
+    A callable that takes an iterator and returns an iterator, if the input was not a generator or function.
+""""""",src/flask/helpers.py,c7a87242e54ab59a9d444acaf5d9cb14d7d8de63
+0.54186773,def stream_with_context,"""""""Request contexts disappear when the response is started on the server.
+    This is done for efficiency reasons and to make it less likely to encounter
+    memory leaks with badly written WSGI middlewares.  The downside is that if
+    you are using streamed responses, the generator cannot access request bound
+    information any more.
+
+    This function however can help you keep the context around for longer::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            @stream_with_context
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(generate())
+
+    Alternatively it can also be used around a specific generator::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(stream_with_context(generate()))
+
+    .. versionadded:: 0.9
+    """"""","""""""
+Stream a generator or function with context.
+
+This function takes an iterator or callable that returns an iterator, and wraps it in a context manager. The context manager pushes the current request context onto the stack when the generator is started, and pops it off when the iteration completes.
+
+If the input is not a generator or function, but rather a decorator factory, this function will create a new decorator that takes arguments and keyword arguments, calls the original function with those arguments, and then wraps the result in another context manager.
+
+The `stream_with_context` function can only be used when a request context is active, such as in a view function. If no request context is available, it raises a RuntimeError.
+
+Returns:
+    An iterator that yields the same values as the original generator or function, but with the added benefit of being able to use the current request context.
+    A callable that takes an iterator and returns an iterator, if the input was not a generator or function.
+""""""",src/flask/helpers.py,cddf5e62974d95add9bbe4d96e1814e1eaf99191

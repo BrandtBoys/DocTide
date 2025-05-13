@@ -1,0 +1,34 @@
+Semantic-Score,Code,Original-Comment,Agent-Comment,Filename,Agent-Commit
+0.59874177,def abort,"""""""Raise an :exc:`~werkzeug.exceptions.HTTPException` for the given
+    status code.
+
+    If :data:`~flask.current_app` is available, it will call its
+    :attr:`~flask.Flask.aborter` object, otherwise it will use
+    :func:`werkzeug.exceptions.abort`.
+
+    :param code: The status code for the exception, which must be
+        registered in ``app.aborter``.
+    :param args: Passed to the exception.
+    :param kwargs: Passed to the exception.
+
+    .. versionadded:: 2.2
+        Calls ``current_app.aborter`` if available instead of always
+        using Werkzeug's default ``abort``.
+    """"""","""""""
+Aborts the application with a given error code.
+
+This function is used to terminate the application and return an error response.
+It takes in an optional `code` parameter which specifies the error code,
+as well as any additional arguments that may be required for the abort process.
+
+Args:
+    - code (int | BaseResponse): The error code to use for the abort.
+    - *args: Additional positional arguments.
+    - **kwargs: Additional keyword arguments.
+
+Returns:
+    None
+
+Raises:
+    NoReturn: If the application is not currently running, this function will raise a NoReturn exception.
+""""""",src/flask/helpers.py,324208b26dfde4c8c65b7c92ac83dbd8d68d698e

@@ -1,1 +1,4937 @@
 Success,Comment
+False,"def register(self, app: ""Flask"", options: dict) -> None:
+    """"""
+    Registers the current Blueprint with the Flask application.
+
+    This method checks if a Blueprint with the same name already exists and raises an error if it does.
+    It then adds the Blueprint to the application\'s blueprints dictionary and updates various internal state variables.
+
+    Args:
+        app (Flask): The Flask application instance.
+        options (dict): A dictionary of options for the Blueprint registration process.
+
+    Raises:
+        ValueError: If a Blueprint with the same name already exists in the application.
+    """"""
+True,"""""""
+Test the functionality of a Flask application with nested subdomains.
+
+This function tests that a Flask application can be configured to use a parent and child Blueprint, 
+with the child Blueprint accessible at a subdomain. The test verifies that the client can successfully 
+access the child endpoint without encountering any redirects.
+
+Parameters:
+app (Flask): The Flask application instance.
+client (Client): The client instance used for testing.
+
+Returns:
+None
+"""""""
+True,"""""""
+Returns the string \'child\'.
+
+This function is likely part of a larger application or framework and serves as an index or entry point. The returned value suggests that it may be used to navigate to a child component or page.
+
+Args:
+
+None
+
+Returns:
+str: The string \'child\'
+
+Raises:
+No exceptions are expected to be raised by this function.
+"""""""
+True,"""""""
+Test that a child Blueprint overrides the parent\'s subdomain.
+
+This test ensures that when accessing the root URL of the application,
+the child Blueprint is used instead of the parent, even if the request
+is made to the parent\'s subdomain. This is necessary because Flask does not
+default to using the child Blueprint when a request is made to the parent\'s
+subdomain.
+
+The test creates two Blueprints: one for the parent and one for the child.
+It then registers the child Blueprint with the parent, but only after setting
+the `client.allow_subdomain_redirects` flag to True. This allows the client
+to make requests to the parent\'s subdomain without being redirected to the root.
+
+Finally, the test makes two GET requests: one to the root URL of the application,
+and one to the parent\'s subdomain. The first request should return a 200 status
+code, indicating that the child Blueprint was used. The second request should
+return a 404 status code, indicating that the parent Blueprint was not used.
+
+This test ensures that the child Blueprint is correctly overridden by the parent
+when accessing the root URL of the application.
+"""""""
+True,"""""""
+Returns the string \'child\'.
+
+This function is likely part of a larger application or framework and serves as an index or entry point. The returned value suggests that it may be used to navigate to a child component or page.
+
+Args:
+
+None
+
+Returns:
+str: The string \'child\'
+
+Raises:
+No exceptions are expected to be raised by this function.
+"""""""
+False,"def register(self, app: ""Flask"", options: dict) -> None:
+    """"""
+    Registers the current class instance as a Blueprint in the given Flask application.
+
+    Args:
+        app (Flask): The Flask application to register with.
+        options (dict): A dictionary of options for the registration process.
+
+    Raises:
+        ValueError: If a name conflict occurs while registering the Blueprint.
+
+    Returns:
+        None
+    """"""
+    # ... (rest of the code remains the same)"
+True,"""""""
+Test that a child Blueprint overrides the parent\'s subdomain.
+
+This test ensures that when accessing the root URL of the application,
+the child Blueprint is used instead of the parent, even if the request
+is made to the parent\'s subdomain. This is necessary because Flask does not
+default to using the child Blueprint when a request is made to the parent\'s
+subdomain.
+
+The test creates two Blueprints: one for the parent and one for the child.
+It then registers the child Blueprint with the parent, but only after setting
+the `client.allow_subdomain_redirects` flag to True. This allows the client
+to make requests to the parent\'s subdomain without being redirected to the root.
+
+Finally, the test makes two GET requests: one to the root URL of the application,
+and one to the parent\'s subdomain. The first request should return a 200 status
+code, indicating that the child Blueprint was used. The second request should
+return a 404 status code, indicating that the parent Blueprint was not used.
+
+This test ensures that the child Blueprint is correctly overridden by the parent
+when accessing the root URL of the application.
+"""""""
+True,"""""""
+Test application tearing down with unhandled exception.
+
+This test case verifies that the application properly tears down when an unhandled exception is raised during request processing.
+It sets up a Flask app, configures it to propagate exceptions, and then attempts to access a route that raises a ValueError.
+The teardown_appcontext decorator is used to catch any exceptions that occur during request processing and store them in the cleanup_stuff list.
+Finally, the test asserts that one exception was caught and that its message matches the expected value.
+
+Args:
+    app (Flask): The Flask application instance.
+    client (Client): The test client instance.
+
+Raises:
+    ValueError: If the test fails to catch an unhandled exception.
+"""""""
+True,"""""""
+Raises a ValueError with a dummy message.
+ 
+Parameters:
+ None
+ 
+ Returns:
+ None
+ 
+ Raises:
+ ValueError: Dummy error message.
+ """""""
+True,"""""""
+Creates a new Flask application instance with Celery configuration and blueprint registration.
+
+Returns:
+    A fully configured Flask application instance.
+"""""""
+True,"""""""
+Returns an HTML template rendered from \'index.html\' using the `render_template` function.
+
+Args:
+    None
+
+Returns:
+    str: The rendered HTML content of the \'index.html\' template.
+"""""""
+True,"""""""
+Initialize the Celery application for a Flask application.
+
+This function sets up the Celery application with the provided Flask application.
+It configures the Celery application from the Flask application\'s configuration,
+sets default settings, and registers the Celery application as an extension of the Flask application.
+
+Args:
+    app (Flask): The Flask application to initialize the Celery application for.
+
+Returns:
+    Celery: The initialized Celery application.
+"""""""
+True,"""""""
+Call the run method of the current instance within an application context.
+
+This function is a special method that allows instances to be called like functions.
+It sets up an application context and then calls the run method on the instance,
+passing any provided arguments and keyword arguments to it.
+
+Args:
+    *args (object): Variable number of positional arguments to pass to the run method.
+    **kwargs (object): Variable number of keyword arguments to pass to the run method.
+
+Returns:
+    object: The result of calling the run method on the instance with the provided arguments and keyword arguments.
+"""""""
+True,"""""""
+Adds two integers together.
+
+Args:
+    a (int): The first integer to be added.
+    b (int): The second integer to be added.
+
+Returns:
+    int: The sum of the two input integers.
+
+Raises:
+    TypeError: If either \'a\' or \'b\' is not an integer.
+
+Example:
+    >>> add(3, 5)
+    8
+"""""""
+True,"""""""
+Blocks the execution of the program for 5 seconds.
+
+This function uses the `time` module\'s `sleep` function to pause the execution of the program for a specified amount of time. It does not return any value and is intended to be used as a blocking operation.
+
+Args:
+    None
+
+Returns:
+    None
+"""""""
+True,"""""""
+Process a task and update its state.
+
+This function updates the state of a task to \'PROGRESS\' with metadata indicating the current progress.
+It then waits for 1 second between each update before returning the final state.
+
+Args:
+    self (Task): The task object being processed.
+    total (int): The total number of steps in the process.
+
+Returns:
+    dict: A dictionary containing the final state of the task, including \'current\' and \'total\' values.
+"""""""
+True,"""""""
+Returns a dictionary containing the status and result of an asynchronous operation.
+
+Args:
+    id (str): The ID of the asynchronous operation.
+
+Returns:
+    dict[str, object]: A dictionary with the following keys:
+        - ""ready"": A boolean indicating whether the operation is ready.
+        - ""successful"": A boolean indicating whether the operation was successful. If not ready, this will be None.
+        - ""value"": The result of the operation if it\'s ready; otherwise, the result itself.
+
+Raises:
+    TypeError: If the input ID is not a string.
+"""""""
+False,"""""""
+Adds two numbers and returns the ID of the task that performs this operation.
+
+Args:
+    a (int): The first number to add.
+    b (int): The second number to add.
+
+Returns:
+    dict[str, object]: A dictionary containing the ID of the task that performs the addition.
+
+Note: This function uses Celery\'s `delay` method to perform the addition in the background,
+      allowing for asynchronous processing and potentially improving performance.
+""""""
+def add() -> dict[str, object]:
+    a = request.form.get(""a"", type=int)
+    b = request.form.get(""b"", type=int)
+    result = tasks.add.delay(a, b)
+    return {""result_id"": result.id}"
+True,"""""""
+Blocks the execution of a task and returns its ID.
+
+This function uses Celery\'s `delay` method to execute a task asynchronously.
+The returned dictionary contains the ID of the executed task.
+
+Args:
+    None
+
+Returns:
+    dict[str, object]: A dictionary containing the result ID of the blocked task.
+
+Raises:
+    None
+"""""""
+True,"""""""
+Processes a task and returns the ID of the delayed job.
+
+This function takes no arguments and returns a dictionary containing the ID of the delayed job.
+The delay is set to the total value provided in the request form, defaulting to 0 if not specified.
+
+Returns:
+    dict[str, object]: A dictionary containing the result_id of the delayed job.
+"""""""
+False,"def register(self, app: ""Flask"", options: dict) -> None:
+    """"""
+    Registers the current class instance as a Blueprint in the given Flask application.
+
+    Args:
+        app (Flask): The Flask application to register with.
+        options (dict): A dictionary of options for the registration process.
+
+    Raises:
+        ValueError: If a name conflict occurs while registering the Blueprint.
+
+    Returns:
+        None
+    """"""
+    # ... (rest of the code remains the same)"
+False,"def render_template(
+    """"""
+    Renders a Jinja2 template with the given context.
+
+    Args:
+        template_name_or_list (t.Union[str, Template, t.List[t.Union[str, Template]]]): 
+            The name or list of names of the templates to be rendered. Can also be a single
+            Template object.
+        **context (t.Any): 
+            A dictionary-like object containing variables to be passed to the template.
+
+    Returns:
+        str: The rendered HTML content of the template.
+
+    Raises:
+        ValueError: If the provided template name or list is invalid.
+    """"""
+    app = current_app._get_current_object()  # type: ignore[attr-defined]
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+    return _render(app, template, context)"
+False,"def stream_template(
+    """"""
+    Streams a Jinja2 template to the output.
+
+    Args:
+        template_name_or_list (t.Union[str, Template, t.List[t.Union[str, Template]]]): 
+            The name or list of names of the templates to be streamed. Can also be a single Template object.
+        **context (t.Any): 
+            Keyword arguments to be passed to the Jinja2 template.
+
+    Returns:
+        t.Iterator[str]: An iterator over the rendered template as strings.
+    """"""
+    app = current_app._get_current_object()  # type: ignore[attr-defined]
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+    return _stream(app, template, context)"
+False,"def register(self, app: ""Flask"", options: dict) -> None:
+    """"""
+    Registers the current class instance as a Blueprint in the given Flask application.
+
+    Args:
+        app (Flask): The Flask application to register with.
+        options (dict): A dictionary of options for the registration process.
+
+    Raises:
+        ValueError: If a name conflict occurs while registering the Blueprint.
+
+    Returns:
+        None
+    """"""
+    # ... (rest of the code remains the same)"
+False,"def register(self, app: ""Flask"", options: dict) -> None:
+    """"""
+    Registers the current class instance as a Blueprint in the given Flask application.
+
+    Args:
+        app (Flask): The Flask application to register with.
+        options (dict): A dictionary of options for the registration process.
+
+    Raises:
+        ValueError: If a name conflict occurs while registering the Blueprint.
+
+    Returns:
+        None
+    """"""
+    # ... (rest of the code remains the same)"
+True,"""""""
+Returns the value of a deprecated attribute.
+
+If the requested attribute is `_app_ctx_stack` or `_request_ctx_stack`, it returns its value and issues a deprecation warning. Otherwise, it raises an `AttributeError`.
+
+Args:
+    name (str): The name of the attribute to return.
+
+Returns:
+    object: The value of the requested attribute, or raises an AttributeError if not found.
+Raises:
+    DeprecationWarning: If the requested attribute is deprecated and will be removed in a future version of Flask.
+"""""""
+False,"```python
+def run(
+    host: t.Optional[str] = None,
+    port: t.Optional[int] = None,
+    debug: t.Optional[bool] = None,
+    load_dotenv: bool = True,
+    **options: t.Any,
+) -> None:
+    """"""
+    Run the Flask development server.
+
+    This method is used to start a Flask development server. It takes several
+    optional parameters, including `host`, `port`, and `debug`. If these
+    parameters are not provided, they will be set based on the configuration
+    of the application.
+
+    Args:
+        host: The hostname or IP address to bind to. Defaults to None.
+        port: The port number to use. Defaults to None.
+        debug: A boolean indicating whether to enable debug mode. Defaults to None.
+        load_dotenv: A boolean indicating whether to load environment variables
+            from a .env file. Defaults to True.
+        **options: Additional keyword arguments to pass to the `run_simple`
+            function.
+
+    Returns:
+        None
+
+    Raises:
+        ValueError: If an invalid port number is provided.
+    """"""
+```"
+False,"def full_dispatch_request(self) -> Response:
+    """"""
+    Dispatches a request and handles its outcome.
+
+    This method initiates the request processing pipeline, which includes
+    preprocessing, dispatching, handling exceptions, and finalizing the response.
+    
+    If an exception occurs during this process, it is caught and handled by 
+    the `handle_user_exception` method. The response is then finalized using 
+    the `finalize_request` method.
+
+    Returns:
+        Response: The processed response from the request dispatching pipeline.
+    """""""
+True,"""""""
+Deprecation Warning: `_{self.name}_ctx_stack` is deprecated and will be removed in Flask 2.4.
+Use \'g\' to store data, or \'{self.name}_ctx\' to access the current context.
+
+Returns:
+    t.Optional[t.Any]: The value stored in the context variable `None`, or `None` if not set.
+"""""""
+False,"""""""
+Returns the value of a named attribute, raising an AttributeError if the attribute does not exist.
+
+If the attribute is `_app_ctx_stack` or `_request_ctx_stack`, it returns the corresponding context object and issues a DeprecationWarning for future removal in Flask 2.4.
+
+Args:
+    name (str): The name of the attribute to return.
+
+Returns:
+    t.Any: The value of the named attribute, or raises AttributeError if not found.
+""""""
+def __getattr__(name: str) -> t.Any:"
+True,"""""""
+Returns a boolean indicating whether debug mode is enabled.
+
+The value of the `FLASK_DEBUG` environment variable is checked. If it exists, its value is converted to lowercase and compared with \'0\', \'false\', or \'no\'. If the value matches any of these strings, debug mode is disabled; otherwise, it\'s enabled.
+
+Args:
+    None
+
+Returns:
+    bool: Whether debug mode is enabled.
+"""""""
+False,"""""""
+Dumps an object to a JSON string.
+
+This function takes an object and optional keyword arguments, and returns a JSON string representation of the object. If `current_app` is defined, it will use its `json.dumps()` method; otherwise, it will fall back to the `_json.dumps()` method with the provided keyword arguments.
+
+Args:
+    obj: The object to be dumped to JSON.
+    **kwargs: Optional keyword arguments for customizing the dumping process.
+
+Returns:
+    A JSON string representation of the input object."
+True,"""""""
+Dumps the provided object to a file stream.
+
+This function is used to serialize and dump objects to a file. It supports both Flask\'s `current_app.json` and the standard `_json` library for dumping objects.
+
+Args:
+    obj (t.Any): The object to be dumped.
+    fp (t.IO[str]): The file stream where the object will be written.
+    **kwargs (t.Any): Additional keyword arguments to be passed to the dump function. If `current_app` is not set, these arguments are used to configure the dumping process.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Loads JSON data from a string or bytes object.
+
+This function is used to parse JSON data from various sources. It can handle both strings and bytes objects as input.
+The `current_app` variable is used to determine the context in which this function is being called. If it exists, 
+it will use its `json.loads` method to parse the data. Otherwise, it will fall back to a generic `_json.loads` method.
+
+Args:
+    s (str | bytes): The JSON data to be loaded.
+    **kwargs: Additional keyword arguments to be passed to the parsing function.
+
+Returns:
+    t.Any: The parsed JSON data.
+
+Raises:
+    None
+"""""""
+True,"""""""
+Loads JSON data from a file.
+
+This function takes an open file object `fp` and optional keyword arguments `**kwargs`.
+If the `current_app` context is available, it will use its `json.load()` method to load the data.
+Otherwise, it falls back to using `_json.load()`.
+
+Args:
+    fp (IO[AnyStr]): The file object containing the JSON data.
+    **kwargs: Optional keyword arguments to pass to the loading function.
+
+Returns:
+    Any: The loaded JSON data.
+"""""""
+False,"def dumps(self, obj: t.Any, **kwargs: t.Any) -> str:
+    """"""
+    Serializes an object into a JSON string.
+
+    Args:
+        obj (t.Any): The object to be serialized.
+        **kwargs (t.Any): Keyword arguments that override the default settings.
+            - ""default"" (optional): The value to use when a serializable object cannot be found. Defaults to self.default.
+            - ""ensure_ascii"" (optional): Whether to ensure all characters are ASCII. Defaults to self.ensure_ascii.
+            - ""sort_keys"" (optional): Whether to sort the keys in the JSON string. Defaults to self.sort_keys.
+
+    Returns:
+        str: The JSON string representation of the object.
+    """""""
+True,"""""""
+Returns a response object with the prepared data.
+
+This method prepares an HTTP response based on the provided arguments and 
+configuration. It uses the `_prepare_response_obj` method to prepare the 
+response object and then formats it according to the specified dump_args.
+
+Args:
+    *args: Variable length argument list containing any type of data.
+    **kwargs: Keyworded arguments containing any type of data.
+
+Returns:
+    Response: An HTTP response object with the prepared data.
+"""""""
+False,"""""""
+Processes an application request and tests the before, after, and teardown events.
+
+This function creates a Flask Blueprint with three event handlers: `before_app`, 
+`after_app`, and `teardown_app`. These handlers are used to track events in the 
+request processing pipeline. The function then tests these events by sending two 
+requests to the application endpoint.
+
+Parameters:
+app (Flask): The Flask application instance.
+client (Client): A client object for making HTTP requests.
+
+Returns:
+None
+""""""
+def test_app_request_processing(app, client):"
+False,"""""""
+Tests the functionality of the `get_debug_flag` function.
+
+This test case verifies that the `get_debug_flag` function returns the correct value when the Flask debug flag is set to a specific value.
+
+Parameters:
+    monkeypatch (object): A mock object used for patching environment variables.
+    debug (bool): The expected value of the Flask debug flag.
+    expect (bool): The expected return value of the `get_debug_flag` function.
+
+Returns:
+    None
+""""""
+def test_get_debug_flag(self, monkeypatch, debug, expect):
+    monkeypatch.setenv(""FLASK_DEBUG"", debug)
+    assert get_debug_flag() == expect"
+False,"""""""
+Returns the value of a deprecated attribute.
+
+If the requested attribute is `_app_ctx_stack` or `_request_ctx_stack`, it returns its value and issues a deprecation warning. Otherwise, it raises an `AttributeError`.
+
+Args:
+    name (str): The name of the attribute to return.
+
+Returns:
+    object: The value of the requested attribute, or raises an AttributeError if not found.
+Raises:
+    DeprecationWarning: If the requested attribute is deprecated and will be removed in a future version of Flask."
+True,"""""""
+Test session special types.
+
+This function tests the behavior of Flask\'s session object when storing
+special types such as bytes, Markup objects, and UUIDs. It verifies that
+these types are stored correctly and can be retrieved later.
+
+Parameters:
+app (Flask application): The Flask application instance.
+client (Client): The client instance used for testing.
+
+Returns:
+None
+"""""""
+True,"""""""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content).
+"""""""
+True,"""""""
+Test the functionality of the `flask.flash` function.
+
+This test suite checks that the `flask.flash` function correctly stores and retrieves
+messages with different categories. It also tests that messages can be filtered by category.
+
+The test suite consists of several routes, each testing a specific scenario:
+
+- `/`: Tests flashing a message without specifying a category.
+- `/test/`: Tests flashing multiple messages with different categories.
+- `/test_with_categories/`: Tests flashing a message with a category and retrieving it.
+- `/test_filter/`: Tests filtering messages by category.
+- `/test_filters/`: Tests filtering messages by multiple categories.
+- `/test_filters_without_returning_categories/`: Tests filtering messages without returning categories.
+
+Each test uses the `app.test_client()` to simulate a request to the route, ensuring that
+the flashed messages are properly cleaned after each test.
+
+Note: Make sure to set `app.testing=True` before running these tests, as otherwise,
+AssertionErrors in view functions will cause a 500 response instead of propagating exceptions.
+"""""""
+True,"""""""
+Flask Flash Messages Function
+
+This function utilizes Flask\'s flash messaging system to display messages to the user.
+It takes advantage of the `flash` method provided by Flask, which can be used to set and retrieve
+messages for different types of notifications (e.g., success, error, warning).
+
+Parameters:
+None
+
+Returns:
+str: An empty string indicating the function has completed its task.
+
+Notes:
+- The first call to `flask.flash(""Hello World"")` sets a default message type as \'success\'.
+- The second call to `flask.flash(""Hello World"", ""error"")` overrides the previous message with an error type.
+- The third call to `flask.flash(Markup(""<em>Testing</em>""), ""warning"")` sets a warning message containing HTML markup.
+"""""""
+False,"""""""
+Tests that the flashed messages are correctly retrieved and asserted.
+
+This function tests the functionality of Flask\'s `get_flashed_messages` method.
+It asserts that the returned list of messages matches the expected output,
+which includes a mix of plain text and HTML markup. If the assertion fails,
+it returns an empty string to indicate test failure."
+True,"""""""
+Tests the functionality of getting flashed messages with categories.
+
+This function tests the `flask.get_flashed_messages(with_categories=True)` method, 
+which returns a list of tuples containing the category and message. The test 
+asserts that the length of the returned list is 3 and that it contains the expected
+messages with their respective categories.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution.
+"""""""
+False,"""""""
+Tests the functionality of the `get_flashed_messages` function from Flask, 
+specifically when using category filters.
+
+This test case checks that the function returns a list of messages with their respective categories,
+and that it correctly handles the \'with_categories\' parameter.
+
+Parameters:
+- None
+
+Returns:
+- A string indicating whether the test passed or failed.
+""""""
+def test_filters():
+    messages = flask.get_flashed_messages(
+        category_filter=[""message"", ""warning""], with_categories=True
+    )
+    assert list(messages) == [
+        (""message"", ""Hello World""),
+        (""warning"", Markup(""<em>Testing</em>"")),
+    ]
+    return """""
+True,"""""""
+Tests the functionality of getting flashed messages with a category filter.
+
+This function tests that the `flask.get_flashed_messages` method returns two messages
+when called with a category filter. The first message is expected to be ""Hello World""
+and the second message is expected to be an HTML-marked string ""<em>Testing</em>"".
+"""""""
+True,"""""""
+Tests the escaping of HTML characters in a Flask application.
+
+This function tests that the Flask application correctly escapes HTML characters
+in the `text` variable, which is passed to the `escaping_template.html` template.
+The test checks that the escaped characters are properly rendered as HTML entities.
+
+Parameters:
+app (Flask): The Flask application instance.
+client (Client): The client instance used for testing.
+
+Returns:
+None
+"""""""
+True,"""""""
+Returns an HTML template with escaped text and HTML markup.
+
+This function uses Flask\'s `render_template` method to render a template
+with the provided text and HTML markup. The `text` parameter is passed as-is,
+while the `html` parameter is marked up using Markup from the Marked library.
+
+Args:
+    text (str): The text to be rendered in the template.
+    html (Markup): The HTML markup to be rendered in the template.
+
+Returns:
+    flask.Response: The rendered HTML response.
+"""""""
+True,"""""""
+Test function to verify that HTML escaping is not applied in the Flask application.
+
+This test checks if the `flask.render_template` function correctly passes through the HTML text without escaping it, 
+and if the client receives the escaped version of the HTML text.
+
+Parameters:
+app (Flask app): The Flask application instance.
+client (Client): The client instance used to make HTTP requests.
+
+Returns:
+None
+"""""""
+True,"""""""
+Returns an HTML page using Flask\'s render_template function.
+
+This function takes in a template file name and passes two variables: \'text\' and \'html\'. The \'text\' variable is rendered as plain text, while the \'html\' variable is rendered with HTML escaping enabled to prevent XSS attacks. 
+
+Parameters:
+    None
+
+Returns:
+    A rendered Flask template object
+"""""""
+True,"""""""
+Test the functionality of the `flask.flash` function.
+
+This test suite checks that the `flask.flash` function correctly stores and retrieves
+messages with different categories. It also tests that messages can be filtered by category.
+
+The test suite consists of several routes, each testing a specific scenario:
+
+- `/`: Tests flashing a message without specifying a category.
+- `/test/`: Tests flashing multiple messages with different categories.
+- `/test_with_categories/`: Tests flashing a message with a category and retrieving it.
+- `/test_filter/`: Tests filtering messages by category.
+- `/test_filters/`: Tests filtering messages by multiple categories.
+- `/test_filters_without_returning_categories/`: Tests filtering messages without returning categories.
+
+Each test uses the `app.test_client()` to simulate a request to the route, ensuring that
+the flashed messages are properly cleaned after each test.
+
+Note: Make sure to set `app.testing=True` before running these tests, as otherwise,
+AssertionErrors in view functions will cause a 500 response instead of propagating exceptions.
+"""""""
+True,"""""""
+Deprecation Notice: `got_first_request` is deprecated and will be removed in Flask 2.4.
+
+Returns:
+    bool: Whether the first request has been received.
+
+Raises:
+    DeprecationWarning: If the function is called, indicating that it should not be used.
+"""""""
+True,"""""""
+Raises an AssertionError if the setup method has already been registered.
+
+If the setup method has been called at least once, this function will raise
+an AssertionError with a message indicating that further calls to the setup
+method will not be applied consistently. This is intended to prevent changes
+to imports, decorators, functions, etc. from being made after registration.
+
+Args:
+    f_name (str): The name of the setup method that was called.
+
+Raises:
+    AssertionError: If the setup method has already been registered.
+"""""""
+True,"""""""
+Initialize a cached property with optional getter, name, and documentation.
+
+This method initializes a cached property with the provided getter function, 
+name (defaulting to None), and documentation (defaulting to None). It also sets up 
+a lock for thread-safe access to the property.
+
+Args:
+    fget: The getter function for the property.
+    name: The name of the property (optional).
+    doc: The documentation string for the property (optional).
+
+Returns:
+    None
+"""""""
+True,"""""""
+Loads a configuration file from disk.
+
+This method attempts to open the specified file and load its contents using the provided `load` function.
+If successful, it returns whether the loaded object is a mapping (i.e., a dictionary or similar data structure).
+If an error occurs while loading the file, it will be raised unless `silent` is True, in which case it will return False instead.
+
+Parameters:
+filename (str): The path to the configuration file to load.
+load (Callable[[IO[Any], Mapping]): A function that takes an IO object and returns a mapping.
+silent (bool, optional): Whether to suppress error messages. Defaults to False.
+text (bool, optional): Whether to open the file in text mode instead of binary mode. Defaults to True.
+
+Returns:
+bool: Whether the loaded object is a mapping or not.
+"""""""
+True,"""""""
+Loads the application configuration from a JSON file.
+
+This function initializes a Flask application instance and loads its configuration
+from a JSON file named \'config.json\' located in the \'static\' directory of the current working directory.
+The loaded configuration is then passed to the `common_object_test` function for further processing.
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    FileNotFoundError: If the \'config.json\' file does not exist in the specified location.
+    json.JSONDecodeError: If the \'config.json\' file contains invalid JSON data.
+"""""""
+False,"""""""
+Tests configuration from a TOML file.
+
+This function tests the ability to load configuration from a TOML file using the `tomllib` library.
+It creates a Flask application instance and loads the configuration from a file named ""config.toml"" in the static directory of the current working directory.
+
+Args:
+    None
+
+Returns:
+    None
+""""""
+def test_config_from_file_toml():"
+False,"""""""
+Returns the value of a deprecated attribute.
+
+If the requested attribute is `_app_ctx_stack` or `_request_ctx_stack`, it returns its value and issues a deprecation warning. Otherwise, it raises an `AttributeError`.
+
+Args:
+    name (str): The name of the attribute to return.
+
+Returns:
+    object: The value of the requested attribute, or raises an AttributeError if not found.
+Raises:
+    DeprecationWarning: If the requested attribute is deprecated and will be removed in a future version of Flask."
+True,"""""""
+Returns the name of the session cookie.
+
+This method is deprecated and will be removed in Flask 2.3. Instead, use
+`app.config[\'SESSION_COOKIE_NAME\"`.
+
+Args:
+    None
+
+Returns:
+    str: The name of the session cookie.
+"""""""
+True,"""""""
+Deprecation Notice:
+
+The `session_cookie_name` method is deprecated and will be removed in Flask 2.3.
+Use the \'SESSION_COOKIE_NAME\' configuration option in \'app.config\' instead.
+
+Parameters:
+value (str): The new session cookie name.
+
+Returns:
+None
+"""""""
+True,"""""""
+Deprecation Notice:
+
+The `use_x_sendfile` method is deprecated and will be removed in Flask 2.3.
+Instead, use the \'USE_X_SENDFILE\' configuration option in the application\'s
+configuration dictionary.
+
+Returns:
+    bool: The value of the \'USE_X_SENDFILE\' configuration option.
+
+Raises:
+    DeprecationWarning: If the \'use_x_sendfile\' method is called.
+"""""""
+True,"""""""
+Returns the JSON encoder class for this application.
+
+This method is deprecated in favor of customizing \'app.json_provider_class\' or \'app.json\'.
+The `DeprecationWarning` will be raised when calling this function.
+ 
+Args:
+    None
+ 
+Returns:
+    t.Type[json.JSONEncoder]: The JSON encoder class.
+"""""""
+True,"""""""
+Deprecation Warning: `json_encoder` is deprecated and will be removed in Flask 2.3.
+Customize `json_provider_class` or `json` instead.
+
+Args:
+    value (t.Type[json.JSONEncoder]): The new JSON encoder class to use.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Returns the JSON decoder class.
+
+This function returns the JSON decoder class used by the application. It is deprecated in favor of customizing \'app.json_provider_class\' or \'app.json\'. 
+
+Parameters:
+    None
+
+Returns:
+    t.Type[json.JSONDecoder]: The JSON decoder class.
+
+Raises:
+    DeprecationWarning: If \'app.json_decoder\' is called, it will raise a deprecation warning.
+"""""""
+True,"""""""
+Decodes JSON data using the provided decoder.
+
+This function is deprecated in Flask 2.3 and will be removed.
+Instead, customize `app.json_provider_class` or `app.json`.
+
+Args:
+    value (t.Type[json.JSONDecoder]): The JSON decoder to use.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Propagates exceptions to the application\'s context.
+
+This function checks the value of `PROPAGATE_EXCEPTIONS` in the Flask configuration.
+If it exists, its value is returned. Otherwise, the function returns whether the application is running in testing or debug mode.
+
+Deprecation Warning: This method is deprecated and will be removed in Flask 2.3. It\'s recommended to use a different approach for exception propagation.
+
+Args:
+    None
+
+Returns:
+    bool: Whether exceptions should be propagated to the application\'s context.
+"""""""
+False,"def make_config(
+    """"""
+    Creates a configuration object for the application.
+
+    Args:
+        instance_relative (bool): If True, uses the instance\'s path as the root path.
+            Defaults to False.
+
+    Returns:
+        Config: The created configuration object.
+    """"""
+    root_path = self.root_path
+    if instance_relative:
+        root_path = self.instance_path
+    defaults = dict(self.default_config)
+    defaults[""ENV""] = os.environ.get(""FLASK_ENV"") or ""production""
+    defaults[""DEBUG""] = get_debug_flag()
+    return self.config_class(root_path, defaults)"
+True,"""""""
+Returns the value of `TEMPLATES_AUTO_RELOAD` from the application configuration.
+
+If `TEMPLATES_AUTO_RELOAD` is set, its value is returned. Otherwise, the value of `debug` is used as a fallback.
+
+Deprecated since Flask 2.3 in favor of using `TEMPLATES_AUTO_RELOAD` in `app.config`.
+
+Args:
+    None
+
+Returns:
+    bool: The value of `TEMPLATES_AUTO_RELOAD` or `debug` if not set.
+"""""""
+False,"""""""
+Deprecation Notice:
+
+    The `templates_auto_reload` method is deprecated and will be removed in Flask 2.3.
+    Use the \'TEMPLATES_AUTO_RELOAD\' configuration option instead.
+
+    Args:
+        value (bool): Whether to enable or disable template auto-reload.
+
+    Returns:
+        None
+""""""
+def templates_auto_reload(self, value: bool) -> None:
+import warnings
+
+warnings.warn(
+    ""\'templates_auto_reload\' is deprecated and will be removed in Flask 2.3.""
+    "" Use \'TEMPLATES_AUTO_RELOAD\' in \'app.config\' instead."",
+    DeprecationWarning,
+    stacklevel=2,
+)
+self.config[""TEMPLATES_AUTO_RELOAD""] = value"
+True,"""""""
+Returns the environment variable as a string.
+
+Deprecation Warning: This method is deprecated and will be removed in Flask 2.3.
+Use `app.debug` instead.
+
+Args:
+    None
+
+Returns:
+    str: The environment variable value.
+
+Raises:
+    DeprecationWarning: If the \'app.env\' method is called.
+"""""""
+True,"""""""
+Deprecation Warning: `env` method is deprecated and will be removed in Flask 2.3.
+Use `debug` attribute instead.
+
+Args:
+    value (str): The environment variable to set.
+
+Returns:
+    None
+"""""""
+False,"```
+Run the Flask Development Server.
+
+### Parameters
+
+- `host`: The host IP address or hostname to bind to (default: None)
+- `port`: The port number to use for the server (default: None)
+- `debug`: Whether to enable debug mode (default: None, will override other sources)
+- `load_dotenv`: Whether to load environment variables from a .env file (default: True)
+- `options`: Additional options for the server (default: {})
+
+### Returns
+
+None. This function runs the Flask development server and does not return any value.
+
+### Notes
+
+This function is used to run the Flask development server. It takes several parameters, including host, port, debug mode, and environment variables from a .env file. The `debug` parameter can override other sources of debug information. If no host or port are provided, it will use the default values. The `options` dictionary can be used to customize the behavior of the server.
+
+### Example Usage
+
+```python
+app = Flask(__name__)
+app.run(host=""0.0.0.0"", port=5000)
+```
+
+This example runs the Flask development server on host ""0.0.0.0"" and port 5000."
+True,"""""""
+Deprecation Warning: before_first_request function is deprecated and will be removed in Flask 2.3.
+ 
+   To avoid deprecation warnings, run setup code while creating the application instead.
+
+   Parameters:
+       f (T_before_first_request): The function to be executed before the first request.
+
+   Returns:
+       T_before_first_request: The input function for appending to self.before_first_request_funcs.
+
+   Note:
+       This function is deprecated and should not be used in new applications. Instead, run setup code while creating the application.
+"""""""
+True,"""""""
+Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+This method is deprecated in favor of a more efficient implementation. It should not be used in new code.
+
+Parameters
+----------
+self : object
+    The instance of the class that this method belongs to.
+
+Returns
+-------
+Response
+    The response from the dispatching process.
+"""""""
+True,"""""""
+Returns the JSON encoder class, deprecation warning if applicable.
+
+This function is deprecated and will be removed in Flask 2.3. It\'s recommended to customize \'app.json_provider_class\' or \'app.json\' instead.
+
+Args:
+    None
+
+Returns:
+    t.Union[t.Type[json.JSONEncoder], None]: The JSON encoder class or None.
+"""""""
+True,"""""""
+Deprecation Warning: json_encoder function is deprecated and will be removed in Flask 2.3.
+ 
+To customize the JSON encoding behavior, use either \'app.json_provider_class\' or \'app.json\' instead.
+
+Args:
+    value (Union[Type[JSONEncoder], None]): The JSON encoder class to use. Defaults to None.
+
+Returns:
+    None
+"""""""
+False,"""""""
+Decodes JSON data.
+
+This function returns the instance of `JSONDecoder` class, which is used to decode JSON data.
+However, due to deprecation, it\'s recommended to customize \'app.json_provider_class\' or \'app.json\' instead.
+
+Returns:
+    t.Union[t.Type[json.JSONDecoder], None]: The instance of `JSONDecoder` class or None if not available."
+True,"""""""
+Decodes JSON values.
+
+This function is deprecated and will be removed in Flask 2.3.
+Instead, customize `app.json_provider_class` or `app.json`.
+
+Args:
+    value (t.Union[t.Type[json.JSONDecoder], None]): The JSON decoder to use.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Raises an AssertionError if the setup method has already been registered.
+
+If the setup method has been called at least once, this function will raise
+an AssertionError with a message indicating that further calls to the setup
+method will not be applied consistently. This is intended to prevent changes
+to imports, decorators, functions, etc. from being made after registration.
+
+Args:
+    f_name (str): The name of the setup method that was called.
+
+Raises:
+    AssertionError: If the setup method has already been registered.
+"""""""
+True,"""""""
+Deprecation Notice:
+
+The `before_app_first_request` function is deprecated and will be removed in Flask 2.3.
+Use the `record_once` method instead to run setup code when registering a blueprint.
+
+Parameters:
+f (T_before_first_request): The function to register for before first request.
+
+Returns:
+T_before_first_request: The registered function.
+
+Raises:
+DeprecationWarning: If the function is deprecated and should be replaced with `record_once`.
+"""""""
+True,"""""""
+Tests the behavior of Flask\'s session object when storing special types such as bytes, Markup objects, and UUIDs.
+
+This function tests that these types are stored correctly and can be retrieved later.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (Client): The client instance used for testing.
+
+Returns:
+    None
+"""""""
+False,"""""""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content)."
+True,"""""""
+Test the functionality of the `flask.flash` function.
+
+This test suite checks that the `flask.flash` function correctly stores and retrieves
+messages with different categories. It also tests that messages can be filtered by category.
+
+The test suite consists of several routes, each testing a specific scenario:
+
+- `/`: Tests flashing a message without specifying a category.
+- `/test/`: Tests flashing multiple messages with different categories.
+- `/test_with_categories/`: Tests flashing a message with a category and retrieving it.
+- `/test_filter/`: Tests filtering messages by category.
+- `/test_filters/`: Tests filtering messages by multiple categories.
+- `/test_filters_without_returning_categories/`: Tests filtering messages without returning categories.
+
+Each test uses the `app.test_client()` to simulate a request to the route, ensuring that
+the flashed messages are properly cleaned after each test.
+
+Note: Make sure to set `app.testing=True` before running these tests, as otherwise,
+AssertionErrors in view functions will cause a 500 response instead of propagating exceptions.
+"""""""
+True,"""""""
+Flask Flash Messages Function
+
+This function utilizes Flask\'s flash messaging system to display messages to the user.
+It takes advantage of the `flash` method provided by Flask, which can be used to set and retrieve
+messages for different types of notifications (e.g., success, error, warning).
+
+Parameters:
+    None
+
+Returns:
+    str: An empty string indicating the function has completed its task.
+
+Notes:
+- The first call to `flask.flash(""Hello World"")` sets a default message type as \'success\'.
+- The second call to `flask.flash(""Hello World"", ""error"")` overrides the previous message with an error type.
+- The third call to `flask.flash(flask.Markup(""<em>Testing</em>""), ""warning"")` sets a warning message containing HTML markup.
+"""""""
+True,"""""""
+Tests that the `get_flashed_messages` function returns a list of flashed messages.
+
+This test case checks if the `get_flashed_messages` function correctly retrieves and returns a list of flashed messages.
+It asserts that the returned list contains the expected messages, including HTML markup.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution of the test.
+
+Raises:
+    AssertionError: If the returned list does not match the expected output.
+"""""""
+True,"""""""
+Tests the functionality of getting flashed messages with categories.
+
+This function tests the `flask.get_flashed_messages(with_categories=True)` method, 
+which returns a list of tuples containing the category and message. The test 
+asserts that the length of the returned list is 3 and that it contains the expected
+messages with their respective categories.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution.
+"""""""
+False,"""""""
+Tests the functionality of `flask.get_flashed_messages` with category filtering.
+
+This function tests that the `get_flashed_messages` method returns a list of
+flashed messages, filtered by categories. The test case checks that the
+filtered messages match the expected output.
+
+Parameters:
+    None
+
+Returns:
+    A string indicating whether the test passed or failed.
+""""""
+def test_filters():"
+True,"""""""
+Tests the functionality of getting flashed messages with a category filter.
+
+This function tests that the `flask.get_flashed_messages` method returns two messages
+when called with a category filter. The first message is expected to be ""Hello World""
+and the second message is expected to be an HTML-marked string ""<em>Testing</em>"".
+
+Args:
+    None
+
+Returns:
+    str: An empty string, indicating successful test execution.
+"""""""
+True,"""""""
+Renders the first request to an application.
+
+This function simulates a client making a GET request to the root URL of the application.
+It asserts that the `debug` attribute is set to True, and that the response from the server matches the expected value.
+Additionally, it tests that attempting to add a new route after the first request raises an AssertionError with a specific message.
+
+Args:
+    app (Flask application): The Flask application instance being tested.
+    client (requests.Session): A requests session object used to simulate the client\'s request.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Request Functions for Application Testing
+
+This function tests the application\'s behavior when making requests before and after the first request.
+
+Parameters:
+app (object): The application object to be tested.
+client (object): The client object used to make HTTP requests.
+
+Returns:
+None
+"""""""
+True,"""""""
+Adds 42 to the \'got\' list.
+
+This function is not intended for external use and should only be accessed internally within the application.
+"""""""
+True,"""""""
+Concurrently tests the application\'s routing functionality by making a request to the root URL while another thread is asserting that a value was appended to the `got` list.
+
+This function uses pytest\'s deprecated_call context manager to ensure that the `foo` function, which appends a value to the `got` list, is called before the first request is made. It then creates a new thread that runs the `get_and_assert` function in parallel with the main thread.
+
+The `get_and_assert` function makes a GET request to the root URL and asserts that the value appended to the `got` list matches the expected value. The main thread waits for the thread to finish before asserting that the application\'s `got_first_request` attribute is set to True.
+
+This test ensures that the application\'s routing functionality works correctly even when multiple threads are making requests concurrently.
+"""""""
+True,"""""""
+Returns the result of appending 42 to the \'got\' list after a 200ms delay.
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    None
+
+Example:
+    >>> get_and_asse()
+"""""""
+False,"""""""
+Tests the functionality of the get method on the client object.
+
+This test case checks if the get method returns a list containing the expected value when called with the root URL (""/"").
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the returned list does not match the expected output.
+""""""
+
+client.get(""/"")
+assert got == [42]
+
+""""""
+Tests the functionality of threading in Python.
+
+This test case checks if the Thread class can be instantiated correctly and if it can target a specific function.
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the thread is not created successfully or if it does not target the expected function.
+""""""
+
+t = Thread(target=  # <--- Missing keyword \'self\'"
+False,"""""""
+Returns the value of a deprecated attribute.
+
+If the requested attribute is `_app_ctx_stack` or `_request_ctx_stack`, it returns its value and issues a deprecation warning. Otherwise, it raises an `AttributeError`.
+
+Args:
+    name (str): The name of the attribute to return.
+
+Returns:
+    object: The value of the requested attribute, or raises an AttributeError if not found.
+Raises:
+    DeprecationWarning: If the requested attribute is deprecated and will be removed in a future version of Flask."
+True,"""""""
+Returns an instance of the Logger class.
+
+This method is used to initialize and return a new logger object. The logger object is created using the `create_logger` function, which takes the current object (`self`) as an argument.
+
+Args:
+    self: The current object.
+
+Returns:
+    logging.Logger: An instance of the Logger class.
+"""""""
+True,"""""""
+Returns an instance of Jinja2\'s Environment class.
+
+This method is a wrapper around `create_jinja_environment` and provides a more Pythonic interface for creating a new Jinja environment. The returned environment can be used to compile templates, render templates with data, and perform other template-related tasks.
+
+Note: This method does not create a new environment instance; it simply delegates the creation to the underlying `create_jinja_environment` method.
+"""""""
+True,"""""""
+Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+This method is deprecated in favor of a more efficient implementation. It should not be used in new code.
+
+Parameters
+self : object
+    The instance of the class that this method belongs to.
+
+Returns
+Response
+    The response from the dispatching process.
+"""""""
+True,"""""""
+Raises an AssertionError if the setup method has already been registered.
+
+If the setup method has been called at least once, this function will raise
+an AssertionError with a message indicating that further calls to the setup
+method will not be applied consistently. This is intended to prevent changes
+to imports, decorators, functions, etc. from being made after registration.
+
+Args:
+    f_name (str): The name of the setup method that was called.
+
+Raises:
+    AssertionError: If the setup method has already been registered.
+"""""""
+False,"def register(self, app: ""Flask"", options: dict) -> None:
+    """"""
+    Registers the current class instance as a Blueprint in the given Flask application.
+
+    Args:
+        app (Flask): The Flask application to register with.
+        options (dict): A dictionary of options for the registration process.
+
+    Raises:
+        ValueError: If a name conflict occurs while registering the Blueprint.
+
+    Returns:
+        None
+    """"""
+    # ... (rest of the code remains the same)"
+False,"""""""
+Tests the behavior of Flask\'s session object when storing special types such as bytes, Markup objects, and UUIDs.
+
+This function tests that these types are stored correctly and can be retrieved later.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (Client): The client instance used for testing.
+
+Returns:
+    None
+""""""
+def test_session_special_types(app, client):
+    """"""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content).
+""""""
+        flask.session[""t""] = (1, 2, 3)
+        flask.session[""b""] = b""\\xff""
+        flask.session[""m""] = Markup(""<html>"")
+        flask.session[""u""] = the_uuid
+        flask.session[""d""] = now
+        flask.session[""t_tag""] = {"" t"": ""not-a-tuple""}
+        flask.session[""di_t_tag""] = {"" t__"": ""not-a-tuple""}
+        flask.session[""di_tag""] = {"" di"": ""not-a-dict""}
+        return """", 204"
+False,"""""""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content)."
+True,"""""""
+Test the functionality of the `flask.flash` function.
+
+This test suite checks that the `flask.flash` function correctly stores and retrieves
+messages with different categories. It also tests that messages can be filtered by category.
+
+The test suite consists of several routes, each testing a specific scenario:
+
+- `/`: Tests flashing a message without specifying a category.
+- `/test/`: Tests flashing multiple messages with different categories.
+- `/test_with_categories/`: Tests flashing a message with a category and retrieving it.
+- `/test_filter/`: Tests filtering messages by category.
+- `/test_filters/`: Tests filtering messages by multiple categories.
+- `/test_filters_without_returning_categories/`: Tests filtering messages without returning categories.
+
+Each test uses the `app.test_client()` to simulate a request to the route, ensuring that
+the flashed messages are properly cleaned after each test.
+
+Note: Make sure to set `app.testing=True` before running these tests, as otherwise,
+AssertionErrors in view functions will cause a 500 response instead of propagating exceptions.
+"""""""
+True,"""""""
+Flask Flash Messages Function
+
+This function utilizes Flask\'s flash messaging system to display messages to the user.
+It takes advantage of the `flash` method provided by Flask, which can be used to set and retrieve
+messages for different types of notifications (e.g., success, error, warning).
+
+Parameters:
+    None
+
+Returns:
+    str: An empty string indicating the function has completed its task.
+
+Notes:
+- The first call to `flask.flash(""Hello World"")` sets a default message type as \'success\'.
+- The second call to `flask.flash(""Hello World"", ""error"")` overrides the previous message with an error type.
+- The third call to `flask.flash(flask.Markup(""<em>Testing</em>""), ""warning"")` sets a warning message containing HTML markup.
+"""""""
+False,"""""""
+Tests that the `get_flashed_messages` function returns a list of flashed messages.
+
+This test case checks if the `get_flashed_messages` function correctly retrieves and returns a list of flashed messages.
+It asserts that the returned list contains the expected messages, including HTML markup.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution of the test.
+
+Raises:
+    AssertionError: If the returned list does not match the expected output."
+True,"""""""
+Tests the functionality of getting flashed messages with categories.
+
+This function tests the `flask.get_flashed_messages(with_categories=True)` method, 
+which returns a list of tuples containing the category and message. The test 
+asserts that the length of the returned list is 3 and that it contains the expected
+messages with their respective categories.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution.
+"""""""
+False,"""""""
+Tests the functionality of the `get_flashed_messages` function from Flask, 
+specifically when using category filters.
+
+This test case checks that the function returns a list of messages with their respective categories,
+and that it correctly handles the \'with_categories\' parameter.
+
+Parameters:
+- None
+
+Returns:
+- A string indicating whether the test passed or failed.
+""""""
+def test_filters():
+    messages = flask.get_flashed_messages(
+        category_filter=[""message"", ""warning""], with_categories=True
+    )
+    assert list(messages) == [
+        (""message"", ""Hello World""),
+        (""warning"", Markup(""<em>Testing</em>"")),
+    ]
+    return """""
+True,"""""""
+Tests the functionality of getting flashed messages with a category filter.
+
+This function tests that the `flask.get_flashed_messages` method returns two messages
+when called with a category filter. The first message is expected to be ""Hello World""
+and the second message is expected to be an HTML-marked string ""<em>Testing</em>"".
+
+Args:
+    None
+
+Returns:
+    str: An empty string, indicating successful test execution.
+"""""""
+False,"def url_for(
+    """"""
+    Generates a URL for the given endpoint.
+
+    This function is used to generate URLs for routes in Flask. It takes into account
+    various parameters such as scheme, domain, and anchor.
+
+    Args:
+        endpoint (str): The name of the route.
+        _anchor (t.Optional[str], optional): The anchor for the URL. Defaults to None.
+        _method (t.Optional[str], optional): The HTTP method for the URL. Defaults to None.
+        _scheme (t.Optional[str], optional): The scheme for the URL. Defaults to None.
+        _external (t.Optional[bool], optional): Whether the URL is external or not. Defaults to None.
+        **values: t.Any): Additional values to be passed to the route.
+
+    Returns:
+        str: The generated URL.
+
+    Raises:
+        RuntimeError: If unable to build URLs outside an active request without \'SERVER_NAME\' configured.
+        ValueError: If \'_scheme\' is specified when \'_external\' is False.
+    """"""
+) -> str:
+    req_ctx = _cv_request.get(None)
+
+    if req_ctx is not None:
+        url_adapter = req_ctx.url_adapter
+        blueprint_name = req_ctx.request.blueprint
+
+        # If the endpoint starts with ""."" and the request matches a
+        # blueprint, the endpoint is relative to the blueprint.
+        if endpoint[:1] == ""."":
+            if blueprint_name is not None:
+                endpoint = f""{blueprint_name}{endpoint}""
+            else:
+                endpoint = endpoint[1:]
+
+        # When in a request, generate a URL without scheme and
+        # domain by default, unless a scheme is given.
+        if _external is None:
+            _external = _scheme is not None
+    else:
+        app_ctx = _cv_app.get(None)
+
+        # If called by helpers.url_for, an app context is active,
+        # use its url_adapter. Otherwise, app.url_for was called
+        # directly, build an adapter.
+        if app_ctx is not None:
+            url_adapter = app_ctx.url_adapter
+        else:
+            url_adapter = self.create_url_adapter(None)
+
+        if url_adapter is None:
+            raise RuntimeError(
+                ""Unable to build URLs outside an active request""
+                "" without \'SERVER_NAME\' configured. Also configure""
+                "" \'APPLICATION_ROOT\' and \'PREFERRED_URL_SCHEME\' as""
+                "" needed.""
+            )
+
+        # When outside a request, generate a URL with scheme and
+        # domain by default.
+        if _external is None:
+            _external = True
+
+    # It is an error to set _scheme when _external=False, in order
+    # to avoid accidental insecure URLs.
+    if _scheme is not None and not _external:
+        raise ValueError(""When specifying \'_scheme\', \'_external\' must be True."")
+
+    self.inject_url_defaults(endpoint, values)
+
+    try:
+        rv = url_adapter.build(  # type: ignore[union-attr]
+            endpoint,
+            values,
+            method=_method,
+            url_scheme=_scheme,
+            force_external=_external,
+        )
+    except BuildError as error:
+        values.update(
+            _anchor=_anchor, _method=_method, _scheme=_scheme, _external=_external
+        )
+        return self.handle_url_build_error(error, endpoint, values)
+
+    if _anchor is not None:
+        _anchor = _url_quote(_anchor, safe=""%!#$&\'()*+,/:;=?@"")
+        rv = f""{rv}#{_anchor}""
+
+    return rv"
+True,"""""""
+Initialize the application.
+
+This method is called when an instance of this class is created. It takes in various parameters to configure the application\'s URL structure.
+
+Parameters:
+app (Flask): The Flask application instance.
+path (str): The root path of the application. Defaults to ""/"".
+base_url (Optional[str]): The base URL of the application. If provided, subdomain and url_scheme cannot be used. Defaults to None.
+subdomain (Optional[str]): The subdomain of the application. If provided with a base_url, it will override the base_url. Defaults to None.
+url_scheme (Optional[str]): The scheme of the URL. If not provided, it will use the preferred scheme from the Flask configuration. Defaults to None.
+
+Returns:
+None
+"""""""
+False,"""""""
+Returns the value of a deprecated attribute.
+
+If the requested attribute is `_app_ctx_stack` or `_request_ctx_stack`, it returns its value and issues a deprecation warning. Otherwise, it raises an `AttributeError`.
+
+Args:
+    name (str): The name of the attribute to return.
+
+Returns:
+    object: The value of the requested attribute, or raises an AttributeError if not found.
+Raises:
+    DeprecationWarning: If the requested attribute is deprecated and will be removed in a future version of Flask."
+True,"""""""
+Returns an instance of the Logger class.
+
+This method is used to initialize and return a new logger object. The logger object is created using the `create_logger` function, which takes the current object (`self`) as an argument.
+
+Args:
+    self: The current object.
+
+Returns:
+    logging.Logger: An instance of the Logger class.
+"""""""
+True,"""""""
+Returns an instance of Jinja2\'s Environment class.
+
+This method is a wrapper around `create_jinja_environment` and provides a more Pythonic interface for creating a new Jinja environment. The returned environment can be used to compile templates, render templates with data, and perform other template-related tasks.
+
+Note: This method does not create a new environment instance; it simply delegates the creation to the underlying `create_jinja_environment` method.
+"""""""
+False,"def got_first_request(self) -> bool:
+    """"""
+    Returns an instance of the Logger class.
+
+    This method is used to initialize and return a new logger object. The logger object is created using the `create_logger` function, which takes the current object (`self`) as an argument.
+
+    Args:
+        self: The current object.
+
+    Returns:
+        logging.Logger: An instance of the Logger class.
+""""""
+def _got_first_request(self) -> bool:
+    """"""
+    Returns an instance of Jinja2\'s Environment class.
+
+    This method is a wrapper around `create_jinja_environment` and provides a more Pythonic interface for creating a new Jinja environment. The returned environment can be used to compile templates, render templates with data, and perform other template-related tasks.
+
+    Note: This method does not create a new environment instance; it simply delegates the creation to the underlying `create_jinja_environment` method.
+""""""
+    import warnings
+
+    warnings.warn(
+        ""\'got_first_request\' is deprecated and will be removed in Flask 2.4."",
+        DeprecationWarning,
+        stacklevel=2,
+    )"
+False,"```python
+def run(
+    host: t.Optional[str] = None,
+    port: t.Optional[int] = None,
+    debug: t.Optional[bool] = None,
+    load_dotenv: bool = True,
+    **options: t.Any,
+) -> None:
+    """"""
+    Run the Flask development server.
+
+    This method is used to start a Flask development server. It takes several
+    optional parameters, including `host`, `port`, and `debug`. If these
+    parameters are not provided, they will be set based on the configuration
+    of the application.
+
+    Args:
+        host: The hostname or IP address to bind to. Defaults to None.
+        port: The port number to use. Defaults to None.
+        debug: A boolean indicating whether to enable debug mode. Defaults to None.
+        load_dotenv: A boolean indicating whether to load environment variables
+            from a .env file. Defaults to True.
+        **options: Additional keyword arguments to pass to the `run_simple`
+            function.
+
+    Returns:
+        None
+
+    Raises:
+        ValueError: If an invalid port number is provided.
+    """"""
+```"
+False,"""""""
+Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+This method is deprecated in favor of a more efficient implementation. It should not be used in new code.
+
+Parameters
+self (object): The instance of the class that this method belongs to.
+
+Returns
+Response: The response from the dispatching process.
+""""""
+def full_dispatch_request(self) -> Response:
+    """"""
+    Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+    This method is deprecated in favor of a more efficient implementation. It should not be used in new code.
+
+    Parameters
+    self (object): The instance of the class that this method belongs to.
+
+    Returns
+    Response: The response from the dispatching process.
+    """"""
+    self._got_first_request = True
+
+    try:
+        request_started.send(self)
+        rv = self.preprocess_request()
+        if rv is None:
+            rv = self.dispatch_request()
+    except Exception as e:
+        rv = self.handle_user_exception(e)
+    return self.finalize_request(rv)"
+True,"""""""
+Raises an AssertionError if the setup method has already been registered.
+
+If the setup method has been called at least once, this function will raise
+an AssertionError with a message indicating that further calls to the setup
+method will not be applied consistently. This is intended to prevent changes
+to imports, decorators, functions, etc. from being made after registration.
+
+Args:
+    f_name (str): The name of the setup method that was called.
+
+Raises:
+    AssertionError: If the setup method has already been registered.
+"""""""
+False,"def register(self, app: ""Flask"", options: dict) -> None:
+    """"""
+    Registers the current class instance as a Blueprint in the given Flask application.
+
+    Args:
+        app (Flask): The Flask application to register with.
+        options (dict): A dictionary of options for the registration process.
+
+    Raises:
+        ValueError: If a name conflict occurs while registering the Blueprint.
+
+    Returns:
+        None
+    """"""
+    # ... (rest of the code remains the same)"
+False,"""""""
+Tests the behavior of Flask\'s session object when storing special types such as bytes, Markup objects, and UUIDs.
+
+This function tests that these types are stored correctly and can be retrieved later.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (Client): The client instance used for testing.
+
+Returns:
+    None
+""""""
+def test_session_special_types(app, client):
+    """"""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content).
+""""""
+        flask.session[""t""] = (1, 2, 3)
+        flask.session[""b""] = b""\\xff""
+        flask.session[""m""] = Markup(""<html>"")
+        flask.session[""u""] = the_uuid
+        flask.session[""d""] = now
+        flask.session[""t_tag""] = {"" t"": ""not-a-tuple""}
+        flask.session[""di_t_tag""] = {"" t__"": ""not-a-tuple""}
+        flask.session[""di_tag""] = {"" di"": ""not-a-dict""}
+        return """", 204"
+False,"""""""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content)."
+True,"""""""
+Test the functionality of the `flask.flash` function.
+
+This test suite checks that the `flask.flash` function correctly stores and retrieves
+messages with different categories. It also tests that messages can be filtered by category.
+
+The test suite consists of several routes, each testing a specific scenario:
+
+- `/`: Tests flashing a message without specifying a category.
+- `/test/`: Tests flashing multiple messages with different categories.
+- `/test_with_categories/`: Tests flashing a message with a category and retrieving it.
+- `/test_filter/`: Tests filtering messages by category.
+- `/test_filters/`: Tests filtering messages by multiple categories.
+- `/test_filters_without_returning_categories/`: Tests filtering messages without returning categories.
+
+Each test uses the `app.test_client()` to simulate a request to the route, ensuring that
+the flashed messages are properly cleaned after each test.
+
+Note: Make sure to set `app.testing=True` before running these tests, as otherwise,
+AssertionErrors in view functions will cause a 500 response instead of propagating exceptions.
+"""""""
+True,"""""""
+Flask Flash Messages Function
+
+This function utilizes Flask\'s flash messaging system to display messages to the user.
+It takes advantage of the `flash` method provided by Flask, which can be used to set and retrieve
+messages for different types of notifications (e.g., success, error, warning).
+
+Parameters:
+    None
+
+Returns:
+    str: An empty string indicating the function has completed its task.
+
+Notes:
+- The first call to `flask.flash(""Hello World"")` sets a default message type as \'success\'.
+- The second call to `flask.flash(""Hello World"", ""error"")` overrides the previous message with an error type.
+- The third call to `flask.flash(flask.Markup(""<em>Testing</em>""), ""warning"")` sets a warning message containing HTML markup.
+"""""""
+False,"""""""
+Tests that the `get_flashed_messages` function returns a list of flashed messages.
+
+This test case checks if the `get_flashed_messages` function correctly retrieves and returns a list of flashed messages.
+It asserts that the returned list contains the expected messages, including HTML markup.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution of the test.
+
+Raises:
+    AssertionError: If the returned list does not match the expected output."
+True,"""""""
+Tests the functionality of getting flashed messages with categories.
+
+This function tests the `flask.get_flashed_messages(with_categories=True)` method, 
+which returns a list of tuples containing the category and message. The test 
+asserts that the length of the returned list is 3 and that it contains the expected
+messages with their respective categories.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution.
+"""""""
+False,"""""""
+Tests the functionality of the `get_flashed_messages` function from Flask, 
+specifically when using category filters.
+
+This test case checks that the function returns a list of messages with their respective categories,
+and that it correctly handles the \'with_categories\' parameter.
+
+Parameters:
+- None
+
+Returns:
+- A string indicating whether the test passed or failed.
+""""""
+def test_filters():
+    messages = flask.get_flashed_messages(
+        category_filter=[""message"", ""warning""], with_categories=True
+    )
+    assert list(messages) == [
+        (""message"", ""Hello World""),
+        (""warning"", Markup(""<em>Testing</em>"")),
+    ]
+    return """""
+True,"""""""
+Tests the functionality of getting flashed messages with a category filter.
+
+This function tests that the `flask.get_flashed_messages` method returns two messages
+when called with a category filter. The first message is expected to be ""Hello World""
+and the second message is expected to be an HTML-marked string ""<em>Testing</em>"".
+
+Args:
+    None
+
+Returns:
+    str: An empty string, indicating successful test execution.
+"""""""
+True,"""""""
+Initialize a new instance of the class.
+
+Parameters:
+    name (str): The name of the application or module.
+    import_name (str): The import name of the application or module.
+    static_folder (t.Optional[t.Union[str, os.PathLike]], optional): The path to the static folder. Defaults to None.
+    static_url_path (t.Optional[str], optional): The URL path for static files. Defaults to None.
+    template_folder (t.Optional[t.Union[str, os.PathLike]], optional): The path to the template folder. Defaults to None.
+    url_prefix (t.Optional[str], optional): The prefix for URLs. Defaults to None.
+    subdomain (t.Optional[str], optional): The subdomain for URLs. Defaults to None.
+    url_defaults (t.Optional[dict], optional): Default values for URL parameters. Defaults to None.
+    root_path (t.Optional[str], optional): The root path of the application or module. Defaults to None.
+    cli_group (t.Optional[str], optional): The CLI group name. Defaults to _sentinel.
+
+Raises:
+    ValueError: If \'name\' is empty or contains a dot \'.\' character.
+
+Attributes:
+    name (str): The name of the application or module.
+    url_prefix (str): The prefix for URLs.
+    subdomain (str): The subdomain for URLs.
+    deferred_functions (list): A list of deferred functions.
+    url_values_defaults (dict): Default values for URL parameters.
+    cli_group (str): The CLI group name.
+    _blueprints (list): A list of blueprints and their configurations.
+"""""""
+True,"""""""
+Tests that attempting to create a Flask Blueprint with an empty name raises a ValueError.
+
+Args:
+    app (object): The application instance.
+    client (object): The test client instance.
+
+Raises:
+    ValueError: If the Blueprint name is empty.
+"""""""
+False,"""""""
+Returns the value of a deprecated attribute.
+
+If the requested attribute is `_app_ctx_stack` or `_request_ctx_stack`, it returns its value and issues a deprecation warning. Otherwise, it raises an `AttributeError`.
+
+Args:
+    name (str): The name of the attribute to return.
+
+Returns:
+    object: The value of the requested attribute, or raises an AttributeError if not found.
+Raises:
+    DeprecationWarning: If the requested attribute is deprecated and will be removed in a future version of Flask."
+True,"""""""
+Returns the name of the session cookie.
+
+This method is deprecated and will be removed in Flask 2.3. Instead, use
+`app.config[\'SESSION_COOKIE_NAME\"`.
+
+Args:
+    None
+
+Returns:
+    str: The name of the session cookie.
+"""""""
+True,"""""""
+Deprecation Notice:
+
+The `session_cookie_name` method is deprecated and will be removed in Flask 2.3.
+Use the \'SESSION_COOKIE_NAME\' configuration option in \'app.config\' instead.
+
+Parameters:
+value (str): The new session cookie name.
+
+Returns:
+None
+"""""""
+True,"""""""
+Deprecation Notice:
+
+The `use_x_sendfile` method is deprecated and will be removed in Flask 2.3.
+Instead, use the \'USE_X_SENDFILE\' configuration option in the application\'s
+configuration dictionary.
+
+Returns:
+    bool: The value of the \'USE_X_SENDFILE\' configuration option.
+
+Raises:
+    DeprecationWarning: If the \'use_x_sendfile\' method is called.
+"""""""
+True,"""""""
+Returns the JSON encoder class for this application.
+
+This method is deprecated in favor of customizing \'app.json_provider_class\' or \'app.json\'.
+The `DeprecationWarning` will be raised when calling this function.
+ 
+Args:
+    None
+ 
+Returns:
+    t.Type[json.JSONEncoder]: The JSON encoder class.
+"""""""
+True,"""""""
+Deprecation Warning: `json_encoder` is deprecated and will be removed in Flask 2.3.
+Customize `json_provider_class` or `json` instead.
+
+Args:
+    value (t.Type[json.JSONEncoder]): The new JSON encoder class to use.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Returns the JSON decoder class.
+
+This function returns the JSON decoder class used by the application. It is deprecated in favor of customizing \'app.json_provider_class\' or \'app.json\'. 
+
+Parameters:
+    None
+
+Returns:
+    t.Type[json.JSONDecoder]: The JSON decoder class.
+
+Raises:
+    DeprecationWarning: If \'app.json_decoder\' is called, it will raise a deprecation warning.
+"""""""
+True,"""""""
+Decodes JSON data using the provided decoder.
+
+This function is deprecated in Flask 2.3 and will be removed.
+Instead, customize `app.json_provider_class` or `app.json`.
+
+Args:
+    value (t.Type[json.JSONDecoder]): The JSON decoder to use.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Propagates exceptions to the application\'s context.
+
+This function checks the value of `PROPAGATE_EXCEPTIONS` in the Flask configuration.
+If it exists, its value is returned. Otherwise, the function returns whether the application is running in testing or debug mode.
+
+Deprecation Warning: This method is deprecated and will be removed in Flask 2.3. It\'s recommended to use a different approach for exception propagation.
+
+Args:
+    None
+
+Returns:
+    bool: Whether exceptions should be propagated to the application\'s context.
+"""""""
+False,"def make_config(
+    """"""
+    Creates a configuration object for the application.
+
+    Args:
+        instance_relative (bool): If True, uses the instance\'s path as the root path.
+            Defaults to False.
+
+    Returns:
+        Config: The created configuration object.
+    """"""
+    root_path = self.root_path
+    if instance_relative:
+        root_path = self.instance_path
+    defaults = dict(self.default_config)
+    defaults[""ENV""] = os.environ.get(""FLASK_ENV"") or ""production""
+    defaults[""DEBUG""] = get_debug_flag()
+    return self.config_class(root_path, defaults)"
+True,"""""""
+Returns the value of `TEMPLATES_AUTO_RELOAD` from the application configuration.
+
+If `TEMPLATES_AUTO_RELOAD` is set, its value is returned. Otherwise, the value of `debug` is used as a fallback.
+
+Deprecated since Flask 2.3 in favor of using `TEMPLATES_AUTO_RELOAD` in `app.config`.
+
+Args:
+    None
+
+Returns:
+    bool: The value of `TEMPLATES_AUTO_RELOAD` or `debug` if not set.
+"""""""
+False,"""""""
+Deprecation Notice:
+
+    The `templates_auto_reload` method is deprecated and will be removed in Flask 2.3.
+    Use the \'TEMPLATES_AUTO_RELOAD\' configuration option instead.
+
+    Args:
+        value (bool): Whether to enable or disable template auto-reload.
+
+    Returns:
+        None
+""""""
+def templates_auto_reload(self, value: bool) -> None:
+import warnings
+
+warnings.warn(
+    ""\'templates_auto_reload\' is deprecated and will be removed in Flask 2.3.""
+    "" Use \'TEMPLATES_AUTO_RELOAD\' in \'app.config\' instead."",
+    DeprecationWarning,
+    stacklevel=2,
+)
+self.config[""TEMPLATES_AUTO_RELOAD""] = value"
+True,"""""""
+Returns the environment variable as a string.
+
+Deprecation Warning: This method is deprecated and will be removed in Flask 2.3.
+Use `app.debug` instead.
+
+Args:
+    None
+
+Returns:
+    str: The environment variable value.
+
+Raises:
+    DeprecationWarning: If the \'app.env\' method is called.
+"""""""
+True,"""""""
+Deprecation Warning: `env` method is deprecated and will be removed in Flask 2.3.
+Use `debug` attribute instead.
+
+Args:
+    value (str): The environment variable to set.
+
+Returns:
+    None
+"""""""
+False,"```
+Run the Flask Development Server.
+
+### Parameters
+
+- `host`: The host IP address or hostname to bind to (default: None)
+- `port`: The port number to use for the server (default: None)
+- `debug`: Whether to enable debug mode (default: None, will override other sources)
+- `load_dotenv`: Whether to load environment variables from a .env file (default: True)
+- `options`: Additional options for the server (default: {})
+
+### Returns
+
+None. This function runs the Flask development server and does not return any value.
+
+### Notes
+
+This function is used to run the Flask development server. It takes several parameters, including host, port, debug mode, and environment variables from a .env file. The `debug` parameter can override other sources of debug information. If no host or port are provided, it will use the default values. The `options` dictionary can be used to customize the behavior of the server.
+
+### Example Usage
+
+```python
+app = Flask(__name__)
+app.run(host=""0.0.0.0"", port=5000)
+```
+
+This example runs the Flask development server on host ""0.0.0.0"" and port 5000."
+True,"""""""
+Deprecation Warning: before_first_request function is deprecated and will be removed in Flask 2.3.
+ 
+   To avoid deprecation warnings, run setup code while creating the application instead.
+
+   Parameters:
+       f (T_before_first_request): The function to be executed before the first request.
+
+   Returns:
+       T_before_first_request: The input function for appending to self.before_first_request_funcs.
+
+   Note:
+       This function is deprecated and should not be used in new applications. Instead, run setup code while creating the application.
+"""""""
+False,"""""""
+Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+This method is deprecated in favor of a more efficient implementation. It should not be used in new code.
+
+Parameters
+self (object): The instance of the class that this method belongs to.
+
+Returns
+Response: The response from the dispatching process.
+""""""
+def full_dispatch_request(self) -> Response:
+    """"""
+    Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+    # Run before_first_request functions if this is the thread\'s first request.
+    # Inlined to avoid a method call on subsequent requests.
+    # This is deprecated, will be removed in Flask 2.3.
+    if not self._got_first_request:
+        with self._before_request_lock:
+            if not self._got_first_request:
+                for func in self.before_first_request_funcs:
+                    self.ensure_sync(func)()
+
+    self._got_first_request = True
+
+    try:
+        request_started.send(self)
+        rv = self.preprocess_request()
+        if rv is None:
+            rv = self.dispatch_request()
+    except Exception as e:
+        rv = self.handle_user_exception(e)
+    return self.finalize_request(rv)"
+True,"""""""
+Returns the JSON encoder class, deprecation warning if applicable.
+
+This function is deprecated and will be removed in Flask 2.3. It\'s recommended to customize \'app.json_provider_class\' or \'app.json\' instead.
+
+Args:
+    None
+
+Returns:
+    t.Union[t.Type[json.JSONEncoder], None]: The JSON encoder class or None.
+"""""""
+True,"""""""
+Deprecation Warning: json_encoder function is deprecated and will be removed in Flask 2.3.
+ 
+To customize the JSON encoding behavior, use either \'app.json_provider_class\' or \'app.json\' instead.
+
+Args:
+    value (Union[Type[JSONEncoder], None]): The JSON encoder class to use. Defaults to None.
+
+Returns:
+    None
+"""""""
+False,"""""""
+Decodes JSON data.
+
+This function returns the instance of `JSONDecoder` class, which is used to decode JSON data.
+However, due to deprecation, it\'s recommended to customize \'app.json_provider_class\' or \'app.json\' instead.
+
+Returns:
+    t.Union[t.Type[json.JSONDecoder], None]: The instance of `JSONDecoder` class or None if not available."
+True,"""""""
+Decodes JSON values.
+
+This function is deprecated and will be removed in Flask 2.3.
+Instead, customize `app.json_provider_class` or `app.json`.
+
+Args:
+    value (t.Union[t.Type[json.JSONDecoder], None]): The JSON decoder to use.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Raises an AssertionError if the setup method has already been registered.
+
+If the setup method has been called at least once, this function will raise
+an AssertionError with a message indicating that further calls to the setup
+method will not be applied consistently. This is intended to prevent changes
+to imports, decorators, functions, etc. from being made after registration.
+
+Args:
+    f_name (str): The name of the setup method that was called.
+
+Raises:
+    AssertionError: If the setup method has already been registered.
+"""""""
+True,"""""""
+Deprecation Notice:
+
+The `before_app_first_request` function is deprecated and will be removed in Flask 2.3.
+Use the `record_once` method instead to run setup code when registering a blueprint.
+
+Parameters:
+f (T_before_first_request): The function to register for before first request.
+
+Returns:
+T_before_first_request: The registered function.
+
+Raises:
+DeprecationWarning: If the function is deprecated and should be replaced with `record_once`.
+"""""""
+False,"""""""
+Tests the behavior of Flask\'s session object when storing special types such as bytes, Markup objects, and UUIDs.
+
+This function tests that these types are stored correctly and can be retrieved later.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (Client): The client instance used for testing.
+
+Returns:
+    None
+""""""
+def test_session_special_types(app, client):
+    """"""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content).
+""""""
+        flask.session[""t""] = (1, 2, 3)
+        flask.session[""b""] = b""\\xff""
+        flask.session[""m""] = flask.Markup(""<html>"")
+        flask.session[""u""] = the_uuid
+        flask.session[""d""] = now
+        flask.session[""t_tag""] = {"" t"": ""not-a-tuple""}
+        flask.session[""di_t_tag""] = {"" t__"": ""not-a-tuple""}
+        flask.session[""di_tag""] = {"" di"": ""not-a-dict""}
+        return """", 204"
+False,"""""""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content)."
+True,"""""""
+Test the functionality of the `flask.flash` function.
+
+This test suite checks that the `flask.flash` function correctly stores and retrieves
+messages with different categories. It also tests that messages can be filtered by category.
+
+The test suite consists of several routes, each testing a specific scenario:
+
+- `/`: Tests flashing a message without specifying a category.
+- `/test/`: Tests flashing multiple messages with different categories.
+- `/test_with_categories/`: Tests flashing a message with a category and retrieving it.
+- `/test_filter/`: Tests filtering messages by category.
+- `/test_filters/`: Tests filtering messages by multiple categories.
+- `/test_filters_without_returning_categories/`: Tests filtering messages without returning categories.
+
+Each test uses the `app.test_client()` to simulate a request to the route, ensuring that
+the flashed messages are properly cleaned after each test.
+
+Note: Make sure to set `app.testing=True` before running these tests, as otherwise,
+AssertionErrors in view functions will cause a 500 response instead of propagating exceptions.
+"""""""
+True,"""""""
+Flask Flash Messages Function
+
+This function utilizes Flask\'s flash messaging system to display messages to the user.
+It takes advantage of the `flash` method provided by Flask, which can be used to set and retrieve
+messages for different types of notifications (e.g., success, error, warning).
+
+Parameters:
+    None
+
+Returns:
+    str: An empty string indicating the function has completed its task.
+
+Notes:
+- The first call to `flask.flash(""Hello World"")` sets a default message type as \'success\'.
+- The second call to `flask.flash(""Hello World"", ""error"")` overrides the previous message with an error type.
+- The third call to `flask.flash(flask.Markup(""<em>Testing</em>""), ""warning"")` sets a warning message containing HTML markup.
+"""""""
+False,"""""""
+Tests that the `get_flashed_messages` function returns a list of flashed messages.
+
+This test case checks if the `get_flashed_messages` function correctly retrieves and returns a list of flashed messages.
+It asserts that the returned list contains the expected messages, including HTML markup.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution of the test.
+
+Raises:
+    AssertionError: If the returned list does not match the expected output."
+True,"""""""
+Tests the functionality of getting flashed messages with categories.
+
+This function tests the `flask.get_flashed_messages(with_categories=True)` method, 
+which returns a list of tuples containing the category and message. The test 
+asserts that the length of the returned list is 3 and that it contains the expected
+messages with their respective categories.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution.
+"""""""
+False,"""""""
+Tests the functionality of `flask.get_flashed_messages` with category filtering.
+
+This function tests that the `get_flashed_messages` method returns a list of
+flashed messages, filtered by categories. The test case checks that the
+filtered messages match the expected output.
+
+Parameters:
+    None
+
+Returns:
+    A string indicating whether the test passed or failed.
+""""""
+def test_filters():"
+True,"""""""
+Tests the functionality of getting flashed messages with a category filter.
+
+This function tests that the `flask.get_flashed_messages` method returns two messages
+when called with a category filter. The first message is expected to be ""Hello World""
+and the second message is expected to be an HTML-marked string ""<em>Testing</em>"".
+
+Args:
+    None
+
+Returns:
+    str: An empty string, indicating successful test execution.
+"""""""
+True,"""""""
+Renders the first request to an application.
+
+This function simulates a client making a GET request to the root URL of the application.
+It asserts that the `debug` attribute is set to True, and that the response from the server matches the expected value.
+Additionally, it tests that attempting to add a new route after the first request raises an AssertionError with a specific message.
+
+Args:
+    app (Flask application): The Flask application instance being tested.
+    client (requests.Session): A requests session object used to simulate the client\'s request.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Request Functions for Application Testing
+
+This function tests the application\'s behavior when making requests before and after the first request.
+
+Parameters:
+app (object): The application object to be tested.
+client (object): The client object used to make HTTP requests.
+
+Returns:
+None
+"""""""
+True,"""""""
+Adds 42 to the \'got\' list.
+
+This function is not intended for external use and should only be accessed internally within the application.
+"""""""
+True,"""""""
+Concurrently tests the application\'s routing functionality by making a request to the root URL while another thread is asserting that a value was appended to the `got` list.
+
+This function uses pytest\'s deprecated_call context manager to ensure that the `foo` function, which appends a value to the `got` list, is called before the first request is made. It then creates a new thread that runs the `get_and_assert` function in parallel with the main thread.
+
+The `get_and_assert` function makes a GET request to the root URL and asserts that the value appended to the `got` list matches the expected value. The main thread waits for the thread to finish before asserting that the application\'s `got_first_request` attribute is set to True.
+
+This test ensures that the application\'s routing functionality works correctly even when multiple threads are making requests concurrently.
+"""""""
+True,"""""""
+Returns the result of appending 42 to the \'got\' list after a 200ms delay.
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    None
+
+Example:
+    >>> get_and_asse()
+"""""""
+False,"""""""
+Tests the functionality of the get method on the client object.
+
+This test case checks if the get method returns a list containing the expected value when called with the root URL (""/"").
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the returned list does not match the expected output.
+""""""
+
+client.get(""/"")
+assert got == [42]
+
+""""""
+Tests the functionality of threading in Python.
+
+This test case checks if the Thread class can be instantiated correctly and if it can target a specific function.
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the thread is not created successfully or if it does not target the expected function.
+""""""
+
+t = Thread(target=  # <--- Missing keyword \'self\'"
+False,"""""""
+Returns the value of a deprecated attribute.
+
+If the requested attribute is `_app_ctx_stack` or `_request_ctx_stack`, it returns its value and issues a deprecation warning. Otherwise, it raises an `AttributeError`.
+
+Args:
+    name (str): The name of the attribute to return.
+
+Returns:
+    object: The value of the requested attribute, or raises an AttributeError if not found.
+Raises:
+    DeprecationWarning: If the requested attribute is deprecated and will be removed in a future version of Flask."
+True,"""""""
+Returns an instance of the Logger class.
+
+This method is used to initialize and return a new logger object. The logger object is created using the `create_logger` function, which takes the current object (`self`) as an argument.
+
+Args:
+    self: The current object.
+
+Returns:
+    logging.Logger: An instance of the Logger class.
+"""""""
+True,"""""""
+Returns an instance of Jinja2\'s Environment class.
+
+This method is a wrapper around `create_jinja_environment` and provides a more Pythonic interface for creating a new Jinja environment. The returned environment can be used to compile templates, render templates with data, and perform other template-related tasks.
+
+Note: This method does not create a new environment instance; it simply delegates the creation to the underlying `create_jinja_environment` method.
+"""""""
+False,"def got_first_request(self) -> bool:
+    """"""
+    Propagates exceptions to the application\'s context.
+
+    This function checks the value of `PROPAGATE_EXCEPTIONS` in the Flask configuration.
+    If it exists, its value is returned. Otherwise, the function returns whether the application is running in testing or debug mode.
+
+    Deprecation Warning: This method is deprecated and will be removed in Flask 2.3. It\'s recommended to use a different approach for exception propagation.
+
+    Args:
+        None
+
+    Returns:
+        bool: Whether exceptions should be propagated to the application\'s context.
+    """"""
+    import warnings
+    warnings.warn(
+        ""\'got_first_request\' is deprecated and will be removed in Flask 2.4."",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    return self._got_first_request"
+False,"```python
+def run(
+    host: t.Optional[str] = None,
+    port: t.Optional[int] = None,
+    debug: t.Optional[bool] = None,
+    load_dotenv: bool = True,
+    **options: t.Any,
+) -> None:
+    """"""
+    Run the Flask development server.
+
+    This method is used to start a Flask development server. It takes several
+    optional parameters, including `host`, `port`, and `debug`. If these
+    parameters are not provided, they will be set based on the configuration
+    of the application.
+
+    Args:
+        host: The hostname or IP address to bind to. Defaults to None.
+        port: The port number to use. Defaults to None.
+        debug: A boolean indicating whether to enable debug mode. Defaults to None.
+        load_dotenv: A boolean indicating whether to load environment variables
+            from a .env file. Defaults to True.
+        **options: Additional keyword arguments to pass to the `run_simple`
+            function.
+
+    Returns:
+        None
+
+    Raises:
+        ValueError: If an invalid port number is provided.
+    """"""
+```"
+False,"""""""
+Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+This method is deprecated in favor of a more efficient implementation. It should not be used in new code.
+
+Parameters
+self (object): The instance of the class that this method belongs to.
+
+Returns
+Response: The response from the dispatching process.
+""""""
+def full_dispatch_request(self) -> Response:
+    """"""
+    Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+    This method is deprecated in favor of a more efficient implementation. It should not be used in new code.
+
+    Parameters
+    self (object): The instance of the class that this method belongs to.
+
+    Returns
+    Response: The response from the dispatching process.
+    """"""
+    self._got_first_request = True
+
+    try:
+        request_started.send(self)
+        rv = self.preprocess_request()
+        if rv is None:
+            rv = self.dispatch_request()
+    except Exception as e:
+        rv = self.handle_user_exception(e)
+    return self.finalize_request(rv)"
+True,"""""""
+Initialize a new instance of the class.
+
+Parameters:
+    name (str): The name of the application or module.
+    import_name (str): The import name of the application or module.
+    static_folder (t.Optional[t.Union[str, os.PathLike]], optional): The path to the static folder. Defaults to None.
+    static_url_path (t.Optional[str], optional): The URL path for static files. Defaults to None.
+    template_folder (t.Optional[t.Union[str, os.PathLike]], optional): The path to the template folder. Defaults to None.
+    url_prefix (t.Optional[str], optional): The prefix for URLs. Defaults to None.
+    subdomain (t.Optional[str], optional): The subdomain for URLs. Defaults to None.
+    url_defaults (t.Optional[dict], optional): Default values for URL parameters. Defaults to None.
+    root_path (t.Optional[str], optional): The root path of the application or module. Defaults to None.
+    cli_group (t.Optional[str], optional): The CLI group name. Defaults to _sentinel.
+
+Raises:
+    ValueError: If \'name\' is empty or contains a dot \'.\' character.
+
+Attributes:
+    name (str): The name of the application or module.
+    url_prefix (str): The prefix for URLs.
+    subdomain (str): The subdomain for URLs.
+    deferred_functions (list): A list of deferred functions.
+    url_values_defaults (dict): Default values for URL parameters.
+    cli_group (str): The CLI group name.
+    _blueprints (list): A list of blueprints and their configurations.
+
+Note:
+This function initializes a new instance of the class, setting up various attributes such as `name`, `url_prefix`, `subdomain`, and more. It also raises a ValueError if the \'name\' parameter is empty or contains a dot \'.\' character.
+"""""""
+True,"""""""
+Raises an AssertionError if the setup method has already been registered.
+
+If the setup method has been called at least once, this function will raise
+an AssertionError with a message indicating that further calls to the setup
+method will not be applied consistently. This is intended to prevent changes
+to imports, decorators, functions, etc. from being made after registration.
+
+Args:
+    f_name (str): The name of the setup method that was called.
+
+Raises:
+    AssertionError: If the setup method has already been registered.
+"""""""
+False,"def register(self, app: ""Flask"", options: dict) -> None:
+    """"""
+    Registers the current class instance as a Blueprint in the given Flask application.
+
+    Args:
+        app (Flask): The Flask application to register with.
+        options (dict): A dictionary of options for the registration process.
+
+    Raises:
+        ValueError: If a name conflict occurs while registering the Blueprint.
+
+    Returns:
+        None
+    """"""
+    # ... (rest of the code remains the same)"
+False,"""""""
+Tests the behavior of Flask\'s session object when storing special types such as bytes, Markup objects, and UUIDs.
+
+This function tests that these types are stored correctly and can be retrieved later.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (Client): The client instance used for testing.
+
+Returns:
+    None
+""""""
+def test_session_special_types(app, client):
+    """"""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content).
+""""""
+        flask.session[""t""] = (1, 2, 3)
+        flask.session[""b""] = b""\\xff""
+        flask.session[""m""] = Markup(""<html>"")
+        flask.session[""u""] = the_uuid
+        flask.session[""d""] = now
+        flask.session[""t_tag""] = {"" t"": ""not-a-tuple""}
+        flask.session[""di_t_tag""] = {"" t__"": ""not-a-tuple""}
+        flask.session[""di_tag""] = {"" di"": ""not-a-dict""}
+        return """", 204"
+False,"""""""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content)."
+True,"""""""
+Test the functionality of the `flask.flash` function.
+
+This test suite checks that the `flask.flash` function correctly stores and retrieves
+messages with different categories. It also tests that messages can be filtered by category.
+
+The test suite consists of several routes, each testing a specific scenario:
+
+- `/`: Tests flashing a message without specifying a category.
+- `/test/`: Tests flashing multiple messages with different categories.
+- `/test_with_categories/`: Tests flashing a message with a category and retrieving it.
+- `/test_filter/`: Tests filtering messages by category.
+- `/test_filters/`: Tests filtering messages by multiple categories.
+- `/test_filters_without_returning_categories/`: Tests filtering messages without returning categories.
+
+Each test uses the `app.test_client()` to simulate a request to the route, ensuring that
+the flashed messages are properly cleaned after each test.
+
+Note: Make sure to set `app.testing=True` before running these tests, as otherwise,
+AssertionErrors in view functions will cause a 500 response instead of propagating exceptions.
+"""""""
+True,"""""""
+Flask Flash Messages Function
+
+This function utilizes Flask\'s flash messaging system to display messages to the user.
+It takes advantage of the `flash` method provided by Flask, which can be used to set and retrieve
+messages for different types of notifications (e.g., success, error, warning).
+
+Parameters:
+    None
+
+Returns:
+    str: An empty string indicating the function has completed its task.
+
+Notes:
+- The first call to `flask.flash(""Hello World"")` sets a default message type as \'success\'.
+- The second call to `flask.flash(""Hello World"", ""error"")` overrides the previous message with an error type.
+- The third call to `flask.flash(flask.Markup(""<em>Testing</em>""), ""warning"")` sets a warning message containing HTML markup.
+"""""""
+False,"""""""
+Tests that the `get_flashed_messages` function returns a list of flashed messages.
+
+This test case checks if the `get_flashed_messages` function correctly retrieves and returns a list of flashed messages.
+It asserts that the returned list contains the expected messages, including HTML markup.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution of the test.
+
+Raises:
+    AssertionError: If the returned list does not match the expected output."
+True,"""""""
+Tests the functionality of getting flashed messages with categories.
+
+This function tests the `flask.get_flashed_messages(with_categories=True)` method, 
+which returns a list of tuples containing the category and message. The test 
+asserts that the length of the returned list is 3 and that it contains the expected
+messages with their respective categories.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution.
+"""""""
+False,"""""""
+Tests the functionality of the `get_flashed_messages` function from Flask, 
+specifically when using category filters.
+
+This test case checks that the function returns a list of messages with their respective categories,
+and that it correctly handles the \'with_categories\' parameter.
+
+Parameters:
+- None
+
+Returns:
+- A string indicating whether the test passed or failed.
+""""""
+def test_filters():
+    messages = flask.get_flashed_messages(
+        category_filter=[""message"", ""warning""], with_categories=True
+    )
+    assert list(messages) == [
+        (""message"", ""Hello World""),
+        (""warning"", Markup(""<em>Testing</em>"")),
+    ]
+    return """""
+True,"""""""
+Tests the functionality of getting flashed messages with a category filter.
+
+This function tests that the `flask.get_flashed_messages` method returns two messages
+when called with a category filter. The first message is expected to be ""Hello World""
+and the second message is expected to be an HTML-marked string ""<em>Testing</em>"".
+
+Args:
+    None
+
+Returns:
+    str: An empty string, indicating successful test execution.
+"""""""
+False,"""""""
+Returns the value of a deprecated attribute.
+
+If the requested attribute is `_app_ctx_stack` or `_request_ctx_stack`, it returns its value and issues a deprecation warning. Otherwise, it raises an `AttributeError`.
+
+Args:
+    name (str): The name of the attribute to return.
+
+Returns:
+    object: The value of the requested attribute, or raises an AttributeError if not found.
+Raises:
+    DeprecationWarning: If the requested attribute is deprecated and will be removed in a future version of Flask."
+True,"""""""
+Returns the name of the session cookie.
+
+This method is deprecated and will be removed in Flask 2.3. Instead, use
+`app.config[\'SESSION_COOKIE_NAME\"`.
+
+Args:
+    None
+
+Returns:
+    str: The name of the session cookie.
+"""""""
+True,"""""""
+Deprecation Notice:
+
+The `session_cookie_name` method is deprecated and will be removed in Flask 2.3.
+Use the \'SESSION_COOKIE_NAME\' configuration option in \'app.config\' instead.
+
+Parameters:
+value (str): The new session cookie name.
+
+Returns:
+None
+"""""""
+True,"""""""
+Deprecation Notice:
+
+The `use_x_sendfile` method is deprecated and will be removed in Flask 2.3.
+Instead, use the \'USE_X_SENDFILE\' configuration option in the application\'s
+configuration dictionary.
+
+Returns:
+    bool: The value of the \'USE_X_SENDFILE\' configuration option.
+
+Raises:
+    DeprecationWarning: If the \'use_x_sendfile\' method is called.
+"""""""
+True,"""""""
+Deprecation Warning: `json_encoder` is deprecated and will be removed in Flask 2.3.
+Customize `json_provider_class` or `json` instead.
+
+Args:
+    value (t.Type[json.JSONEncoder]): The new JSON encoder class to use.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Returns the JSON decoder class.
+
+This function returns the JSON decoder class used by the application. It is deprecated in favor of customizing \'app.json_provider_class\' or \'app.json\'. 
+
+Parameters:
+    None
+
+Returns:
+    t.Type[json.JSONDecoder]: The JSON decoder class.
+
+Raises:
+    DeprecationWarning: If \'app.json_decoder\' is called, it will raise a deprecation warning.
+"""""""
+True,"""""""
+Decodes JSON data using the provided decoder.
+
+This function is deprecated in Flask 2.3 and will be removed.
+Instead, customize `app.json_provider_class` or `app.json`.
+
+Args:
+    value (t.Type[json.JSONDecoder]): The JSON decoder to use.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Propagates exceptions to the application\'s context.
+
+This function checks the value of `PROPAGATE_EXCEPTIONS` in the Flask configuration.
+If it exists, its value is returned. Otherwise, the function returns whether the application is running in testing or debug mode.
+
+Deprecation Warning: This method is deprecated and will be removed in Flask 2.3. It\'s recommended to use a different approach for exception propagation.
+
+Args:
+    None
+
+Returns:
+    bool: Whether exceptions should be propagated to the application\'s context.
+"""""""
+False,"def make_config(
+    """"""
+    Creates a configuration object for the application.
+
+    Args:
+        instance_relative (bool): If True, uses the instance\'s path as the root path.
+            Defaults to False.
+
+    Returns:
+        Config: The created configuration object.
+    """"""
+    root_path = self.root_path
+    if instance_relative:
+        root_path = self.instance_path
+    defaults = dict(self.default_config)
+    defaults[""ENV""] = os.environ.get(""FLASK_ENV"") or ""production""
+    defaults[""DEBUG""] = get_debug_flag()
+    return self.config_class(root_path, defaults)"
+True,"""""""
+Returns the value of `TEMPLATES_AUTO_RELOAD` from the application configuration.
+
+If `TEMPLATES_AUTO_RELOAD` is set, its value is returned. Otherwise, the value of `debug` is used as a fallback.
+
+Deprecated since Flask 2.3 in favor of using `TEMPLATES_AUTO_RELOAD` in `app.config`.
+
+Args:
+    None
+
+Returns:
+    bool: The value of `TEMPLATES_AUTO_RELOAD` or `debug` if not set.
+"""""""
+False,"""""""
+Deprecation Notice:
+
+    The `templates_auto_reload` method is deprecated and will be removed in Flask 2.3.
+    Use the \'TEMPLATES_AUTO_RELOAD\' configuration option instead.
+
+    Args:
+        value (bool): Whether to enable or disable template auto-reload.
+
+    Returns:
+        None
+""""""
+def templates_auto_reload(self, value: bool) -> None:
+import warnings
+
+warnings.warn(
+    ""\'templates_auto_reload\' is deprecated and will be removed in Flask 2.3.""
+    "" Use \'TEMPLATES_AUTO_RELOAD\' in \'app.config\' instead."",
+    DeprecationWarning,
+    stacklevel=2,
+)
+self.config[""TEMPLATES_AUTO_RELOAD""] = value"
+True,"""""""
+Returns the environment variable as a string.
+
+Deprecation Warning: This method is deprecated and will be removed in Flask 2.3.
+Use `app.debug` instead.
+
+Args:
+    None
+
+Returns:
+    str: The environment variable value.
+
+Raises:
+    DeprecationWarning: If the \'app.env\' method is called.
+"""""""
+True,"""""""
+Deprecation Warning: `env` method is deprecated and will be removed in Flask 2.3.
+Use `debug` attribute instead.
+
+Args:
+    value (str): The environment variable to set.
+
+Returns:
+    None
+"""""""
+False,"```
+Run the Flask Development Server.
+
+### Parameters
+
+- `host`: The host IP address or hostname to bind to (default: None)
+- `port`: The port number to use for the server (default: None)
+- `debug`: Whether to enable debug mode (default: None, will override other sources)
+- `load_dotenv`: Whether to load environment variables from a .env file (default: True)
+- `options`: Additional options for the server (default: {})
+
+### Returns
+
+None. This function runs the Flask development server and does not return any value.
+
+### Notes
+
+This function is used to run the Flask development server. It takes several parameters, including host, port, debug mode, and environment variables from a .env file. The `debug` parameter can override other sources of debug information. If no host or port are provided, it will use the default values. The `options` dictionary can be used to customize the behavior of the server.
+
+### Example Usage
+
+```python
+app = Flask(__name__)
+app.run(host=""0.0.0.0"", port=5000)
+```
+
+This example runs the Flask development server on host ""0.0.0.0"" and port 5000."
+True,"""""""
+Deprecation Warning: before_first_request function is deprecated and will be removed in Flask 2.3.
+ 
+   To avoid deprecation warnings, run setup code while creating the application instead.
+
+   Parameters:
+       f (T_before_first_request): The function to be executed before the first request.
+
+   Returns:
+       T_before_first_request: The input function for appending to self.before_first_request_funcs.
+
+   Note:
+       This function is deprecated and should not be used in new applications. Instead, run setup code while creating the application.
+"""""""
+False,"""""""
+Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+This method is deprecated in favor of a more efficient implementation. It should not be used in new code.
+
+Parameters
+self (object): The instance of the class that this method belongs to.
+
+Returns
+Response: The response from the dispatching process.
+""""""
+def full_dispatch_request(self) -> Response:
+    """"""
+    Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+    # Run before_first_request functions if this is the thread\'s first request.
+    # Inlined to avoid a method call on subsequent requests.
+    # This is deprecated, will be removed in Flask 2.3.
+    if not self._got_first_request:
+        with self._before_request_lock:
+            if not self._got_first_request:
+                for func in self.before_first_request_funcs:
+                    self.ensure_sync(func)()
+
+    self._got_first_request = True
+
+    try:
+        request_started.send(self)
+        rv = self.preprocess_request()
+        if rv is None:
+            rv = self.dispatch_request()
+    except Exception as e:
+        rv = self.handle_user_exception(e)
+    return self.finalize_request(rv)"
+True,"""""""
+Returns the JSON encoder class, deprecation warning if applicable.
+
+This function is deprecated and will be removed in Flask 2.3. It\'s recommended to customize \'app.json_provider_class\' or \'app.json\' instead.
+
+Args:
+    None
+
+Returns:
+    t.Union[t.Type[json.JSONEncoder], None]: The JSON encoder class or None.
+"""""""
+True,"""""""
+Deprecation Warning: json_encoder function is deprecated and will be removed in Flask 2.3.
+ 
+To customize the JSON encoding behavior, use either \'app.json_provider_class\' or \'app.json\' instead.
+
+Args:
+    value (Union[Type[JSONEncoder], None]): The JSON encoder class to use. Defaults to None.
+
+Returns:
+    None
+"""""""
+False,"""""""
+Decodes JSON data.
+
+This function returns the instance of `JSONDecoder` class, which is used to decode JSON data.
+However, due to deprecation, it\'s recommended to customize \'app.json_provider_class\' or \'app.json\' instead.
+
+Returns:
+    t.Union[t.Type[json.JSONDecoder], None]: The instance of `JSONDecoder` class or None if not available."
+True,"""""""
+Decodes JSON values.
+
+This function is deprecated and will be removed in Flask 2.3.
+Instead, customize `app.json_provider_class` or `app.json`.
+
+Args:
+    value (t.Union[t.Type[json.JSONDecoder], None]): The JSON decoder to use.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Raises an AssertionError if the setup method has already been registered.
+
+If the setup method has been called at least once, this function will raise
+an AssertionError with a message indicating that further calls to the setup
+method will not be applied consistently. This is intended to prevent changes
+to imports, decorators, functions, etc. from being made after registration.
+
+Args:
+    f_name (str): The name of the setup method that was called.
+
+Raises:
+    AssertionError: If the setup method has already been registered.
+"""""""
+True,"""""""
+Deprecation Notice:
+
+The `before_app_first_request` function is deprecated and will be removed in Flask 2.3.
+Use the `record_once` method instead to run setup code when registering a blueprint.
+
+Parameters:
+f (T_before_first_request): The function to register for before first request.
+
+Returns:
+T_before_first_request: The registered function.
+
+Raises:
+DeprecationWarning: If the function is deprecated and should be replaced with `record_once`.
+"""""""
+False,"""""""
+Tests the behavior of Flask\'s session object when storing special types such as bytes, Markup objects, and UUIDs.
+
+This function tests that these types are stored correctly and can be retrieved later.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (Client): The client instance used for testing.
+
+Returns:
+    None
+""""""
+def test_session_special_types(app, client):
+    """"""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content).
+""""""
+        flask.session[""t""] = (1, 2, 3)
+        flask.session[""b""] = b""\\xff""
+        flask.session[""m""] = flask.Markup(""<html>"")
+        flask.session[""u""] = the_uuid
+        flask.session[""d""] = now
+        flask.session[""t_tag""] = {"" t"": ""not-a-tuple""}
+        flask.session[""di_t_tag""] = {"" t__"": ""not-a-tuple""}
+        flask.session[""di_tag""] = {"" di"": ""not-a-dict""}
+        return """", 204"
+False,"""""""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content)."
+True,"""""""
+Test the functionality of the `flask.flash` function.
+
+This test suite checks that the `flask.flash` function correctly stores and retrieves
+messages with different categories. It also tests that messages can be filtered by category.
+
+The test suite consists of several routes, each testing a specific scenario:
+
+- `/`: Tests flashing a message without specifying a category.
+- `/test/`: Tests flashing multiple messages with different categories.
+- `/test_with_categories/`: Tests flashing a message with a category and retrieving it.
+- `/test_filter/`: Tests filtering messages by category.
+- `/test_filters/`: Tests filtering messages by multiple categories.
+- `/test_filters_without_returning_categories/`: Tests filtering messages without returning categories.
+
+Each test uses the `app.test_client()` to simulate a request to the route, ensuring that
+the flashed messages are properly cleaned after each test.
+
+Note: Make sure to set `app.testing=True` before running these tests, as otherwise,
+AssertionErrors in view functions will cause a 500 response instead of propagating exceptions.
+"""""""
+True,"""""""
+Flask Flash Messages Function
+
+This function utilizes Flask\'s flash messaging system to display messages to the user.
+It takes advantage of the `flash` method provided by Flask, which can be used to set and retrieve
+messages for different types of notifications (e.g., success, error, warning).
+
+Parameters:
+    None
+
+Returns:
+    str: An empty string indicating the function has completed its task.
+
+Notes:
+- The first call to `flask.flash(""Hello World"")` sets a default message type as \'success\'.
+- The second call to `flask.flash(""Hello World"", ""error"")` overrides the previous message with an error type.
+- The third call to `flask.flash(flask.Markup(""<em>Testing</em>""), ""warning"")` sets a warning message containing HTML markup.
+"""""""
+False,"""""""
+Tests that the `get_flashed_messages` function returns a list of flashed messages.
+
+This test case checks if the `get_flashed_messages` function correctly retrieves and returns a list of flashed messages.
+It asserts that the returned list contains the expected messages, including HTML markup.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution of the test.
+
+Raises:
+    AssertionError: If the returned list does not match the expected output."
+True,"""""""
+Tests the functionality of getting flashed messages with categories.
+
+This function tests the `flask.get_flashed_messages(with_categories=True)` method, 
+which returns a list of tuples containing the category and message. The test 
+asserts that the length of the returned list is 3 and that it contains the expected
+messages with their respective categories.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution.
+"""""""
+False,"""""""
+Tests the functionality of `flask.get_flashed_messages` with category filtering.
+
+This function tests that the `get_flashed_messages` method returns a list of
+flashed messages, filtered by categories. The test case checks that the
+filtered messages match the expected output.
+
+Parameters:
+    None
+
+Returns:
+    A string indicating whether the test passed or failed.
+""""""
+def test_filters():"
+True,"""""""
+Tests the functionality of getting flashed messages with a category filter.
+
+This function tests that the `flask.get_flashed_messages` method returns two messages
+when called with a category filter. The first message is expected to be ""Hello World""
+and the second message is expected to be an HTML-marked string ""<em>Testing</em>"".
+
+Args:
+    None
+
+Returns:
+    str: An empty string, indicating successful test execution.
+"""""""
+True,"""""""
+Renders the first request to an application.
+
+This function simulates a client making a GET request to the root URL of the application.
+It asserts that the `debug` attribute is set to True, and that the response from the server matches the expected value.
+Additionally, it tests that attempting to add a new route after the first request raises an AssertionError with a specific message.
+
+Args:
+    app (Flask application): The Flask application instance being tested.
+    client (requests.Session): A requests session object used to simulate the client\'s request.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Request Functions for Application Testing
+
+This function tests the application\'s behavior when making requests before and after the first request.
+
+Parameters:
+app (object): The application object to be tested.
+client (object): The client object used to make HTTP requests.
+
+Returns:
+None
+"""""""
+True,"""""""
+Adds 42 to the \'got\' list.
+
+This function is not intended for external use and should only be accessed internally within the application.
+"""""""
+True,"""""""
+Concurrently tests the application\'s routing functionality by making a request to the root URL while another thread is asserting that a value was appended to the `got` list.
+
+This function uses pytest\'s deprecated_call context manager to ensure that the `foo` function, which appends a value to the `got` list, is called before the first request is made. It then creates a new thread that runs the `get_and_assert` function in parallel with the main thread.
+
+The `get_and_assert` function makes a GET request to the root URL and asserts that the value appended to the `got` list matches the expected value. The main thread waits for the thread to finish before asserting that the application\'s `got_first_request` attribute is set to True.
+
+This test ensures that the application\'s routing functionality works correctly even when multiple threads are making requests concurrently.
+"""""""
+True,"""""""
+Returns the result of appending 42 to the \'got\' list after a 200ms delay.
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    None
+
+Example:
+    >>> get_and_asse()
+"""""""
+False,"""""""
+Tests the functionality of the get method on the client object.
+
+This test case checks if the get method returns a list containing the expected value when called with the root URL (""/"").
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the returned list does not match the expected output.
+""""""
+
+client.get(""/"")
+assert got == [42]
+
+""""""
+Tests the functionality of threading in Python.
+
+This test case checks if the Thread class can be instantiated correctly and if it can target a specific function.
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the thread is not created successfully or if it does not target the expected function.
+""""""
+
+t = Thread(target=  # <--- Missing keyword \'self\'"
+False,"""""""
+Returns the value of a deprecated attribute.
+
+If the requested attribute is `_app_ctx_stack` or `_request_ctx_stack`, it returns its value and issues a deprecation warning. Otherwise, it raises an `AttributeError`.
+
+Args:
+    name (str): The name of the attribute to return.
+
+Returns:
+    object: The value of the requested attribute, or raises an AttributeError if not found.
+Raises:
+    DeprecationWarning: If the requested attribute is deprecated and will be removed in a future version of Flask."
+True,"""""""
+Returns an instance of the Logger class.
+
+This method is used to initialize and return a new logger object. The logger object is created using the `create_logger` function, which takes the current object (`self`) as an argument.
+
+Args:
+    self: The current object.
+
+Returns:
+    logging.Logger: An instance of the Logger class.
+"""""""
+True,"""""""
+Returns an instance of Jinja2\'s Environment class.
+
+This method is a wrapper around `create_jinja_environment` and provides a more Pythonic interface for creating a new Jinja environment. The returned environment can be used to compile templates, render templates with data, and perform other template-related tasks.
+
+Note: This method does not create a new environment instance; it simply delegates the creation to the underlying `create_jinja_environment` method.
+"""""""
+False,"def got_first_request(self) -> bool:
+""""""
+Propagates exceptions to the application\'s context.
+
+This function checks the value of `PROPAGATE_EXCEPTIONS` in the Flask configuration.
+If it exists, its value is returned. Otherwise, the function returns whether the application is running in testing or debug mode.
+
+Deprecation Warning: This method is deprecated and will be removed in Flask 2.3. It\'s recommended to use a different approach for exception propagation.
+
+Args:
+    None
+
+Returns:
+    bool: Whether exceptions should be propagated to the application\'s context.
+""""""
+import warnings
+warnings.warn(
+    ""\'got_first_request\' is deprecated and will be removed in Flask 2.4."",
+    DeprecationWarning,
+    stacklevel=2,
+)
+return self._got_first_request"
+False,"```python
+def run(
+    host: t.Optional[str] = None,
+    port: t.Optional[int] = None,
+    debug: t.Optional[bool] = None,
+    load_dotenv: bool = True,
+    **options: t.Any,
+) -> None:
+    """"""
+    Run the Flask development server.
+
+    This method is used to start a Flask development server. It takes several
+    optional parameters, including `host`, `port`, and `debug`. If these
+    parameters are not provided, they will be set based on the configuration
+    of the application.
+
+    Args:
+        host: The hostname or IP address to bind to. Defaults to None.
+        port: The port number to use. Defaults to None.
+        debug: A boolean indicating whether to enable debug mode. Defaults to None.
+        load_dotenv: A boolean indicating whether to load environment variables
+            from a .env file. Defaults to True.
+        **options: Additional keyword arguments to pass to the `run_simple`
+            function.
+
+    Returns:
+        None
+
+    Raises:
+        ValueError: If an invalid port number is provided.
+    """"""
+```"
+False,"""""""
+Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+This method is deprecated in favor of a more efficient implementation. It should not be used in new code.
+
+Parameters
+self (object): The instance of the class that this method belongs to.
+
+Returns
+Response: The response from the dispatching process.
+""""""
+def full_dispatch_request(self) -> Response:
+    """"""
+    Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+    This method is deprecated in favor of a more efficient implementation. It should not be used in new code.
+
+    Parameters
+    self (object): The instance of the class that this method belongs to.
+
+    Returns
+    Response: The response from the dispatching process.
+    """"""
+    self._got_first_request = True
+
+    try:
+        request_started.send(self)
+        rv = self.preprocess_request()
+        if rv is None:
+            rv = self.dispatch_request()
+    except Exception as e:
+        rv = self.handle_user_exception(e)
+    return self.finalize_request(rv)"
+True,"""""""
+Initialize a new instance of the class.
+
+Parameters:
+    name (str): The name of the application or module.
+    import_name (str): The import name of the application or module.
+    static_folder (t.Optional[t.Union[str, os.PathLike]], optional): The path to the static folder. Defaults to None.
+    static_url_path (t.Optional[str], optional): The URL path for static files. Defaults to None.
+    template_folder (t.Optional[t.Union[str, os.PathLike]], optional): The path to the template folder. Defaults to None.
+    url_prefix (t.Optional[str], optional): The prefix for URLs. Defaults to None.
+    subdomain (t.Optional[str], optional): The subdomain for URLs. Defaults to None.
+    url_defaults (t.Optional[dict], optional): Default values for URL parameters. Defaults to None.
+    root_path (t.Optional[str], optional): The root path of the application or module. Defaults to None.
+    cli_group (t.Optional[str], optional): The CLI group name. Defaults to _sentinel.
+
+Raises:
+    ValueError: If \'name\' is empty or contains a dot \'.\' character.
+
+Attributes:
+    name (str): The name of the application or module.
+    url_prefix (str): The prefix for URLs.
+    subdomain (str): The subdomain for URLs.
+    deferred_functions (list): A list of deferred functions.
+    url_values_defaults (dict): Default values for URL parameters.
+    cli_group (str): The CLI group name.
+    _blueprints (list): A list of blueprints and their configurations.
+
+Note:
+This function initializes a new instance of the class, setting up various attributes such as `name`, `url_prefix`, `subdomain`, and more. It also raises a ValueError if the \'name\' parameter is empty or contains a dot \'.\' character.
+"""""""
+True,"""""""
+Raises an AssertionError if the setup method has already been registered.
+
+If the setup method has been called at least once, this function will raise
+an AssertionError with a message indicating that further calls to the setup
+method will not be applied consistently. This is intended to prevent changes
+to imports, decorators, functions, etc. from being made after registration.
+
+Args:
+    f_name (str): The name of the setup method that was called.
+
+Raises:
+    AssertionError: If the setup method has already been registered.
+"""""""
+False,"def register(self, app: ""Flask"", options: dict) -> None:
+    """"""
+    Registers the current class instance as a Blueprint in the given Flask application.
+
+    Args:
+        app (Flask): The Flask application to register with.
+        options (dict): A dictionary of options for the registration process.
+
+    Raises:
+        ValueError: If a name conflict occurs while registering the Blueprint.
+
+    Returns:
+        None
+    """"""
+    # ... (rest of the code remains the same)"
+False,"""""""
+Tests the behavior of Flask\'s session object when storing special types such as bytes, Markup objects, and UUIDs.
+
+This function tests that these types are stored correctly and can be retrieved later.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (Client): The client instance used for testing.
+
+Returns:
+    None
+""""""
+def test_session_special_types(app, client):
+    """"""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content).
+""""""
+        flask.session[""t""] = (1, 2, 3)
+        flask.session[""b""] = b""\\xff""
+        flask.session[""m""] = Markup(""<html>"")
+        flask.session[""u""] = the_uuid
+        flask.session[""d""] = now
+        flask.session[""t_tag""] = {"" t"": ""not-a-tuple""}
+        flask.session[""di_t_tag""] = {"" t__"": ""not-a-tuple""}
+        flask.session[""di_tag""] = {"" di"": ""not-a-dict""}
+        return """", 204"
+False,"""""""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content)."
+True,"""""""
+Test the functionality of the `flask.flash` function.
+
+This test suite checks that the `flask.flash` function correctly stores and retrieves
+messages with different categories. It also tests that messages can be filtered by category.
+
+The test suite consists of several routes, each testing a specific scenario:
+
+- `/`: Tests flashing a message without specifying a category.
+- `/test/`: Tests flashing multiple messages with different categories.
+- `/test_with_categories/`: Tests flashing a message with a category and retrieving it.
+- `/test_filter/`: Tests filtering messages by category.
+- `/test_filters/`: Tests filtering messages by multiple categories.
+- `/test_filters_without_returning_categories/`: Tests filtering messages without returning categories.
+
+Each test uses the `app.test_client()` to simulate a request to the route, ensuring that
+the flashed messages are properly cleaned after each test.
+
+Note: Make sure to set `app.testing=True` before running these tests, as otherwise,
+AssertionErrors in view functions will cause a 500 response instead of propagating exceptions.
+"""""""
+True,"""""""
+Flask Flash Messages Function
+
+This function utilizes Flask\'s flash messaging system to display messages to the user.
+It takes advantage of the `flash` method provided by Flask, which can be used to set and retrieve
+messages for different types of notifications (e.g., success, error, warning).
+
+Parameters:
+    None
+
+Returns:
+    str: An empty string indicating the function has completed its task.
+
+Notes:
+- The first call to `flask.flash(""Hello World"")` sets a default message type as \'success\'.
+- The second call to `flask.flash(""Hello World"", ""error"")` overrides the previous message with an error type.
+- The third call to `flask.flash(flask.Markup(""<em>Testing</em>""), ""warning"")` sets a warning message containing HTML markup.
+"""""""
+False,"""""""
+Tests that the `get_flashed_messages` function returns a list of flashed messages.
+
+This test case checks if the `get_flashed_messages` function correctly retrieves and returns a list of flashed messages.
+It asserts that the returned list contains the expected messages, including HTML markup.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution of the test.
+
+Raises:
+    AssertionError: If the returned list does not match the expected output."
+True,"""""""
+Tests the functionality of getting flashed messages with categories.
+
+This function tests the `flask.get_flashed_messages(with_categories=True)` method, 
+which returns a list of tuples containing the category and message. The test 
+asserts that the length of the returned list is 3 and that it contains the expected
+messages with their respective categories.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution.
+"""""""
+False,"""""""
+Tests the functionality of the `get_flashed_messages` function from Flask, 
+specifically when using category filters.
+
+This test case checks that the function returns a list of messages with their respective categories,
+and that it correctly handles the \'with_categories\' parameter.
+
+Parameters:
+- None
+
+Returns:
+- A string indicating whether the test passed or failed.
+""""""
+def test_filters():
+    messages = flask.get_flashed_messages(
+        category_filter=[""message"", ""warning""], with_categories=True
+    )
+    assert list(messages) == [
+        (""message"", ""Hello World""),
+        (""warning"", Markup(""<em>Testing</em>"")),
+    ]
+    return """""
+True,"""""""
+Tests the functionality of getting flashed messages with a category filter.
+
+This function tests that the `flask.get_flashed_messages` method returns two messages
+when called with a category filter. The first message is expected to be ""Hello World""
+and the second message is expected to be an HTML-marked string ""<em>Testing</em>"".
+
+Args:
+    None
+
+Returns:
+    str: An empty string, indicating successful test execution.
+"""""""
+True,"""""""
+Checks if the provided string is a valid IP address.
+
+This function uses the `socket` module to perform the validation.
+It supports both IPv4 and IPv6 addresses.
+
+Args:
+    value (str): The IP address to be validated.
+
+Returns:
+    bool: True if the IP address is valid, False otherwise.
+
+Deprecation Warning: This function is deprecated and will be removed in Flask 2.4.
+"""""""
+True,"""""""
+Returns the domain of the session cookie for a given Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    Optional[str]: The domain of the session cookie, or None if not set.
+"""""""
+True,"""""""
+Tests the session path configuration for a Flask application.
+
+This function tests that the `APPLICATION_ROOT` is correctly set as the
+session path. It does this by updating the app\'s config, creating an index
+route with a test session value, and then making a GET request to the root
+URL of the app. The response headers are checked to ensure that the correct
+Cookie is being set.
+
+Args:
+    app (Flask): The Flask application instance.
+    client (requests.Session): A requests session object for making HTTP requests.
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the expected Cookie header value is not found in the response.
+"""""""
+False,"""""""
+Returns the value of a deprecated attribute.
+
+If the requested attribute is `_app_ctx_stack` or `_request_ctx_stack`, it returns its value and issues a deprecation warning. Otherwise, it raises an `AttributeError`.
+
+Args:
+    name (str): The name of the attribute to return.
+
+Returns:
+    object: The value of the requested attribute, or raises an AttributeError if not found.
+Raises:
+    DeprecationWarning: If the requested attribute is deprecated and will be removed in a future version of Flask."
+True,"""""""
+Returns the name of the session cookie.
+
+This method is deprecated and will be removed in Flask 2.3. Instead, use
+`app.config[\'SESSION_COOKIE_NAME\"`.
+
+Args:
+    None
+
+Returns:
+    str: The name of the session cookie.
+"""""""
+True,"""""""
+Deprecation Notice:
+
+The `session_cookie_name` method is deprecated and will be removed in Flask 2.3.
+Use the \'SESSION_COOKIE_NAME\' configuration option in \'app.config\' instead.
+
+Parameters:
+value (str): The new session cookie name.
+
+Returns:
+None
+"""""""
+True,"""""""
+Deprecation Notice:
+
+The `use_x_sendfile` method is deprecated and will be removed in Flask 2.3.
+Instead, use the \'USE_X_SENDFILE\' configuration option in the application\'s
+configuration dictionary.
+
+Returns:
+    bool: The value of the \'USE_X_SENDFILE\' configuration option.
+
+Raises:
+    DeprecationWarning: If the \'use_x_sendfile\' method is called.
+"""""""
+True,"""""""
+Returns the JSON encoder class for this application.
+
+This method is deprecated in favor of customizing \'app.json_provider_class\' or \'app.json\'.
+The `DeprecationWarning` will be raised when calling this function.
+ 
+Args:
+    None
+ 
+Returns:
+    t.Type[json.JSONEncoder]: The JSON encoder class.
+"""""""
+True,"""""""
+Deprecation Warning: `json_encoder` is deprecated and will be removed in Flask 2.3.
+Customize `json_provider_class` or `json` instead.
+
+Args:
+    value (t.Type[json.JSONEncoder]): The new JSON encoder class to use.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Returns the JSON decoder class.
+
+This function returns the JSON decoder class used by the application. It is deprecated in favor of customizing \'app.json_provider_class\' or \'app.json\'. 
+
+Parameters:
+    None
+
+Returns:
+    t.Type[json.JSONDecoder]: The JSON decoder class.
+
+Raises:
+    DeprecationWarning: If \'app.json_decoder\' is called, it will raise a deprecation warning.
+"""""""
+True,"""""""
+Decodes JSON data using the provided decoder.
+
+This function is deprecated in Flask 2.3 and will be removed.
+Instead, customize `app.json_provider_class` or `app.json`.
+
+Args:
+    value (t.Type[json.JSONDecoder]): The JSON decoder to use.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Propagates exceptions to the application\'s context.
+
+This function checks the value of `PROPAGATE_EXCEPTIONS` in the Flask configuration.
+If it exists, its value is returned. Otherwise, the function returns whether the application is running in testing or debug mode.
+
+Deprecation Warning: This method is deprecated and will be removed in Flask 2.3. It\'s recommended to use a different approach for exception propagation.
+
+Args:
+    None
+
+Returns:
+    bool: Whether exceptions should be propagated to the application\'s context.
+"""""""
+False,"def make_config(
+    """"""
+    Creates a configuration object for the application.
+
+    Args:
+        instance_relative (bool): If True, uses the instance\'s path as the root path.
+            Defaults to False.
+
+    Returns:
+        Config: The created configuration object.
+    """"""
+    root_path = self.root_path
+    if instance_relative:
+        root_path = self.instance_path
+    defaults = dict(self.default_config)
+    defaults[""ENV""] = os.environ.get(""FLASK_ENV"") or ""production""
+    defaults[""DEBUG""] = get_debug_flag()
+    return self.config_class(root_path, defaults)"
+True,"""""""
+Returns the value of `TEMPLATES_AUTO_RELOAD` from the application configuration.
+
+If `TEMPLATES_AUTO_RELOAD` is set, its value is returned. Otherwise, the value of `debug` is used as a fallback.
+
+Deprecated since Flask 2.3 in favor of using `TEMPLATES_AUTO_RELOAD` in `app.config`.
+
+Args:
+    None
+
+Returns:
+    bool: The value of `TEMPLATES_AUTO_RELOAD` or `debug` if not set.
+"""""""
+False,"""""""
+Deprecation Notice:
+
+    The `templates_auto_reload` method is deprecated and will be removed in Flask 2.3.
+    Use the \'TEMPLATES_AUTO_RELOAD\' configuration option instead.
+
+    Args:
+        value (bool): Whether to enable or disable template auto-reload.
+
+    Returns:
+        None
+""""""
+def templates_auto_reload(self, value: bool) -> None:
+import warnings
+
+warnings.warn(
+    ""\'templates_auto_reload\' is deprecated and will be removed in Flask 2.3.""
+    "" Use \'TEMPLATES_AUTO_RELOAD\' in \'app.config\' instead."",
+    DeprecationWarning,
+    stacklevel=2,
+)
+self.config[""TEMPLATES_AUTO_RELOAD""] = value"
+True,"""""""
+Returns the environment variable as a string.
+
+Deprecation Warning: This method is deprecated and will be removed in Flask 2.3.
+Use `app.debug` instead.
+
+Args:
+    None
+
+Returns:
+    str: The environment variable value.
+
+Raises:
+    DeprecationWarning: If the \'app.env\' method is called.
+"""""""
+True,"""""""
+Deprecation Warning: `env` method is deprecated and will be removed in Flask 2.3.
+Use `debug` attribute instead.
+
+Args:
+    value (str): The environment variable to set.
+
+Returns:
+    None
+"""""""
+False,"```
+Run the Flask Development Server.
+
+### Parameters
+
+- `host`: The host IP address or hostname to bind to (default: None)
+- `port`: The port number to use for the server (default: None)
+- `debug`: Whether to enable debug mode (default: None, will override other sources)
+- `load_dotenv`: Whether to load environment variables from a .env file (default: True)
+- `options`: Additional options for the server (default: {})
+
+### Returns
+
+None. This function runs the Flask development server and does not return any value.
+
+### Notes
+
+This function is used to run the Flask development server. It takes several parameters, including host, port, debug mode, and environment variables from a .env file. The `debug` parameter can override other sources of debug information. If no host or port are provided, it will use the default values. The `options` dictionary can be used to customize the behavior of the server.
+
+### Example Usage
+
+```python
+app = Flask(__name__)
+app.run(host=""0.0.0.0"", port=5000)
+```
+
+This example runs the Flask development server on host ""0.0.0.0"" and port 5000."
+True,"""""""
+Deprecation Warning: before_first_request function is deprecated and will be removed in Flask 2.3.
+ 
+   To avoid deprecation warnings, run setup code while creating the application instead.
+
+   Parameters:
+       f (T_before_first_request): The function to be executed before the first request.
+
+   Returns:
+       T_before_first_request: The input function for appending to self.before_first_request_funcs.
+
+   Note:
+       This function is deprecated and should not be used in new applications. Instead, run setup code while creating the application.
+"""""""
+False,"""""""
+Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+This method is deprecated in favor of a more efficient implementation. It should not be used in new code.
+
+Parameters
+self (object): The instance of the class that this method belongs to.
+
+Returns
+Response: The response from the dispatching process.
+""""""
+def full_dispatch_request(self) -> Response:
+    """"""
+    Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+    # Run before_first_request functions if this is the thread\'s first request.
+    # Inlined to avoid a method call on subsequent requests.
+    # This is deprecated, will be removed in Flask 2.3.
+    if not self._got_first_request:
+        with self._before_request_lock:
+            if not self._got_first_request:
+                for func in self.before_first_request_funcs:
+                    self.ensure_sync(func)()
+
+    self._got_first_request = True
+
+    try:
+        request_started.send(self)
+        rv = self.preprocess_request()
+        if rv is None:
+            rv = self.dispatch_request()
+    except Exception as e:
+        rv = self.handle_user_exception(e)
+    return self.finalize_request(rv)"
+True,"""""""
+Returns the JSON encoder class, deprecation warning if applicable.
+
+This function is deprecated and will be removed in Flask 2.3. It\'s recommended to customize \'app.json_provider_class\' or \'app.json\' instead.
+
+Args:
+    None
+
+Returns:
+    t.Union[t.Type[json.JSONEncoder], None]: The JSON encoder class or None.
+"""""""
+True,"""""""
+Deprecation Warning: json_encoder function is deprecated and will be removed in Flask 2.3.
+ 
+To customize the JSON encoding behavior, use either \'app.json_provider_class\' or \'app.json\' instead.
+
+Args:
+    value (Union[Type[JSONEncoder], None]): The JSON encoder class to use. Defaults to None.
+
+Returns:
+    None
+"""""""
+False,"""""""
+Decodes JSON data.
+
+This function returns the instance of `JSONDecoder` class, which is used to decode JSON data.
+However, due to deprecation, it\'s recommended to customize \'app.json_provider_class\' or \'app.json\' instead.
+
+Returns:
+    t.Union[t.Type[json.JSONDecoder], None]: The instance of `JSONDecoder` class or None if not available."
+True,"""""""
+Decodes JSON values.
+
+This function is deprecated and will be removed in Flask 2.3.
+Instead, customize `app.json_provider_class` or `app.json`.
+
+Args:
+    value (t.Union[t.Type[json.JSONDecoder], None]): The JSON decoder to use.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Raises an AssertionError if the setup method has already been registered.
+
+If the setup method has been called at least once, this function will raise
+an AssertionError with a message indicating that further calls to the setup
+method will not be applied consistently. This is intended to prevent changes
+to imports, decorators, functions, etc. from being made after registration.
+
+Args:
+    f_name (str): The name of the setup method that was called.
+
+Raises:
+    AssertionError: If the setup method has already been registered.
+"""""""
+True,"""""""
+Deprecation Notice:
+
+The `before_app_first_request` function is deprecated and will be removed in Flask 2.3.
+Use the `record_once` method instead to run setup code when registering a blueprint.
+
+Parameters:
+f (T_before_first_request): The function to register for before first request.
+
+Returns:
+T_before_first_request: The registered function.
+
+Raises:
+DeprecationWarning: If the function is deprecated and should be replaced with `record_once`.
+"""""""
+False,"""""""
+Tests the session path configuration for a Flask application.
+
+This function tests that the `APPLICATION_ROOT` is correctly set as the
+session path. It does this by updating the app\'s config, creating an index
+route with a test session value, and then making a GET request to the root
+URL of the app. The response headers are checked to ensure that the correct
+Cookie is being set.
+
+Args:
+    app (Flask): The Flask application instance.
+    client (requests.Session): A requests session object for making HTTP requests.
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the expected Cookie header value is not found in the response."
+False,"""""""
+Test session using server name and port.
+
+This function tests the functionality of Flask\'s session handling when using a server name and port.
+It updates the session with a value, sends a GET request to the root URL, and checks if the `Set-Cookie` header contains the expected domain information.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (requests Session): The requests session instance.
+
+Returns:
+    None
+""""""
+def test_session_using_server_name_and_port(app, client):
+    app.config.update(SERVER_NAME=""example.com:8080"")
+
+    @app.route(""/"")
+    def index():
+        flask.session[""testing""] = 42
+        return ""Hello World""
+
+    rv = client.get(""/"", ""http://example.com:8080/"")
+    cookie = rv.headers[""set-cookie""].lower()
+    # or condition for Werkzeug < 2.3
+    assert ""domain=example.com"" in cookie or ""domain=.example.com"" in cookie"
+True,"""""""
+Flask Session Initialization and Response Generation
+
+This function initializes a Flask session variable \'testing\' with value 42 and returns a string response.
+
+Parameters:
+None
+
+Returns:
+str: A greeting message ""Hello World""
+
+Side Effects:
+- Initializes the Flask session variable \'testing\' with value 42
+"""""""
+False,"""""""
+Test session using server name, port and path.
+
+This function tests the creation of a Flask session using the `server_name`, 
+`application_root` configuration options. It verifies that the session is 
+correctly set with the expected domain, path, and HTTP-only flags in the 
+set-cookie header.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (requests Session): The requests session instance.
+
+Returns:
+    None
+""""""
+def test_session_using_server_name_port_and_path(app, client):"
+True,"""""""
+Flask Session Initialization and Response Generation
+
+This function initializes a Flask session variable \'testing\' with value 42 and returns a string response.
+
+Parameters:
+None
+
+Returns:
+str: A greeting message ""Hello World""
+
+Side Effects:
+- Initializes the Flask session variable \'testing\' with value 42
+"""""""
+True,"""""""
+Test session warning for localhost.
+
+This function tests the behavior of Flask\'s session warnings when using a local server.
+It updates the session with a test value, sends a request to the index route,
+and verifies that the correct warning is raised and its message matches the expected value.
+
+Parameters:
+    recwarn (WarningRegistry): The registry of warnings to be popped from.
+    app (Flask application instance): The Flask application instance.
+    client (TestClient): The test client for making requests to the application.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Flask Session Test Function
+
+This function tests the functionality of Flask\'s session management.
+It sets a test value in the session and returns a success message.
+
+Returns:
+    str: A success message indicating that the test was run successfully.
+
+Note:
+    This function should be used as part of a larger application to test session management.
+"""""""
+True,"""""""
+Test session IP warning.
+
+This function tests the behavior of Flask when setting a cookie with an IP address as its domain.
+It verifies that a UserWarning is raised and that the warning message contains the expected text.
+
+Parameters:
+    recwarn (warnings.Warnings): The warnings registry to use for this test.
+    app (Flask application instance): The Flask application instance to use for this test.
+    client (requests.Session): The requests session to use for making HTTP requests.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Flask Session Test Function
+
+This function tests the functionality of Flask\'s session management.
+It sets a test value in the session and returns a success message.
+
+Returns:
+    str: A success message indicating that the test was run successfully.
+
+Note:
+    This function should be used as part of a larger application to test session management.
+"""""""
+False,"""""""
+Tests the behavior of Flask\'s session object when storing special types such as bytes, Markup objects, and UUIDs.
+
+This function tests that these types are stored correctly and can be retrieved later.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (Client): The client instance used for testing.
+
+Returns:
+    None
+""""""
+def test_session_special_types(app, client):
+    """"""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content).
+""""""
+        flask.session[""t""] = (1, 2, 3)
+        flask.session[""b""] = b""\\xff""
+        flask.session[""m""] = flask.Markup(""<html>"")
+        flask.session[""u""] = the_uuid
+        flask.session[""d""] = now
+        flask.session[""t_tag""] = {"" t"": ""not-a-tuple""}
+        flask.session[""di_t_tag""] = {"" t__"": ""not-a-tuple""}
+        flask.session[""di_tag""] = {"" di"": ""not-a-dict""}
+        return """", 204"
+False,"""""""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content)."
+True,"""""""
+Test the functionality of the `flask.flash` function.
+
+This test suite checks that the `flask.flash` function correctly stores and retrieves
+messages with different categories. It also tests that messages can be filtered by category.
+
+The test suite consists of several routes, each testing a specific scenario:
+
+- `/`: Tests flashing a message without specifying a category.
+- `/test/`: Tests flashing multiple messages with different categories.
+- `/test_with_categories/`: Tests flashing a message with a category and retrieving it.
+- `/test_filter/`: Tests filtering messages by category.
+- `/test_filters/`: Tests filtering messages by multiple categories.
+- `/test_filters_without_returning_categories/`: Tests filtering messages without returning categories.
+
+Each test uses the `app.test_client()` to simulate a request to the route, ensuring that
+the flashed messages are properly cleaned after each test.
+
+Note: Make sure to set `app.testing=True` before running these tests, as otherwise,
+AssertionErrors in view functions will cause a 500 response instead of propagating exceptions.
+"""""""
+True,"""""""
+Flask Flash Messages Function
+
+This function utilizes Flask\'s flash messaging system to display messages to the user.
+It takes advantage of the `flash` method provided by Flask, which can be used to set and retrieve
+messages for different types of notifications (e.g., success, error, warning).
+
+Parameters:
+    None
+
+Returns:
+    str: An empty string indicating the function has completed its task.
+
+Notes:
+- The first call to `flask.flash(""Hello World"")` sets a default message type as \'success\'.
+- The second call to `flask.flash(""Hello World"", ""error"")` overrides the previous message with an error type.
+- The third call to `flask.flash(flask.Markup(""<em>Testing</em>""), ""warning"")` sets a warning message containing HTML markup.
+"""""""
+False,"""""""
+Tests that the `get_flashed_messages` function returns a list of flashed messages.
+
+This test case checks if the `get_flashed_messages` function correctly retrieves and returns a list of flashed messages.
+It asserts that the returned list contains the expected messages, including HTML markup.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution of the test.
+
+Raises:
+    AssertionError: If the returned list does not match the expected output."
+True,"""""""
+Tests the functionality of getting flashed messages with categories.
+
+This function tests the `flask.get_flashed_messages(with_categories=True)` method, 
+which returns a list of tuples containing the category and message. The test 
+asserts that the length of the returned list is 3 and that it contains the expected
+messages with their respective categories.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution.
+"""""""
+False,"""""""
+Tests the functionality of `flask.get_flashed_messages` with category filtering.
+
+This function tests that the `get_flashed_messages` method returns a list of
+flashed messages, filtered by categories. The test case checks that the
+filtered messages match the expected output.
+
+Parameters:
+    None
+
+Returns:
+    A string indicating whether the test passed or failed.
+""""""
+def test_filters():"
+True,"""""""
+Tests the functionality of getting flashed messages with a category filter.
+
+This function tests that the `flask.get_flashed_messages` method returns two messages
+when called with a category filter. The first message is expected to be ""Hello World""
+and the second message is expected to be an HTML-marked string ""<em>Testing</em>"".
+
+Args:
+    None
+
+Returns:
+    str: An empty string, indicating successful test execution.
+"""""""
+True,"""""""
+Renders the first request to an application.
+
+This function simulates a client making a GET request to the root URL of the application.
+It asserts that the `debug` attribute is set to True, and that the response from the server matches the expected value.
+Additionally, it tests that attempting to add a new route after the first request raises an AssertionError with a specific message.
+
+Args:
+    app (Flask application): The Flask application instance being tested.
+    client (requests.Session): A requests session object used to simulate the client\'s request.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Request Functions for Application Testing
+
+This function tests the application\'s behavior when making requests before and after the first request.
+
+Parameters:
+app (object): The application object to be tested.
+client (object): The client object used to make HTTP requests.
+
+Returns:
+None
+"""""""
+True,"""""""
+Adds 42 to the \'got\' list.
+
+This function is not intended for external use and should only be accessed internally within the application.
+"""""""
+True,"""""""
+Concurrently tests the application\'s routing functionality by making a request to the root URL while another thread is asserting that a value was appended to the `got` list.
+
+This function uses pytest\'s deprecated_call context manager to ensure that the `foo` function, which appends a value to the `got` list, is called before the first request is made. It then creates a new thread that runs the `get_and_assert` function in parallel with the main thread.
+
+The `get_and_assert` function makes a GET request to the root URL and asserts that the value appended to the `got` list matches the expected value. The main thread waits for the thread to finish before asserting that the application\'s `got_first_request` attribute is set to True.
+
+This test ensures that the application\'s routing functionality works correctly even when multiple threads are making requests concurrently.
+"""""""
+True,"""""""
+Returns the result of appending 42 to the \'got\' list after a 200ms delay.
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    None
+
+Example:
+    >>> get_and_asse()
+"""""""
+False,"""""""
+Tests the functionality of the get method on the client object.
+
+This test case checks if the get method returns a list containing the expected value when called with the root URL (""/"").
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the returned list does not match the expected output.
+""""""
+
+client.get(""/"")
+assert got == [42]
+
+""""""
+Tests the functionality of threading in Python.
+
+This test case checks if the Thread class can be instantiated correctly and if it can target a specific function.
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the thread is not created successfully or if it does not target the expected function.
+""""""
+
+t = Thread(target=  # <--- Missing keyword \'self\'"
+False,"""""""
+Returns the value of a deprecated attribute.
+
+If the requested attribute is `_app_ctx_stack` or `_request_ctx_stack`, it returns its value and issues a deprecation warning. Otherwise, it raises an `AttributeError`.
+
+Args:
+    name (str): The name of the attribute to return.
+
+Returns:
+    object: The value of the requested attribute, or raises an AttributeError if not found.
+Raises:
+    DeprecationWarning: If the requested attribute is deprecated and will be removed in a future version of Flask."
+True,"""""""
+Returns an instance of the Logger class.
+
+This method is used to initialize and return a new logger object. The logger object is created using the `create_logger` function, which takes the current object (`self`) as an argument.
+
+Args:
+    self: The current object.
+
+Returns:
+    logging.Logger: An instance of the Logger class.
+"""""""
+True,"""""""
+Returns an instance of Jinja2\'s Environment class.
+
+This method is a wrapper around `create_jinja_environment` and provides a more Pythonic interface for creating a new Jinja environment. The returned environment can be used to compile templates, render templates with data, and perform other template-related tasks.
+
+Note: This method does not create a new environment instance; it simply delegates the creation to the underlying `create_jinja_environment` method.
+"""""""
+False,"""""""
+Propagates exceptions to the application\'s context.
+
+This function checks the value of `PROPAGATE_EXCEPTIONS` in the Flask configuration.
+If it exists, its value is returned. Otherwise, the function returns whether the application is running in testing or debug mode.
+
+Deprecation Warning: This method is deprecated and will be removed in Flask 2.3. It\'s recommended to use a different approach for exception propagation.
+
+Args:
+    None
+
+Returns:
+    bool: Whether exceptions should be propagated to the application\'s context.
+""""""
+def got_first_request(self) -> bool:
+    """"""
+    Checks the value of `PROPAGATE_EXCEPTIONS` in the Flask configuration and returns its value or whether the application is running in testing or debug mode.
+
+    Deprecation Warning: This method is deprecated and will be removed in Flask 2.4.
+    """"""
+    import warnings
+
+    warnings.warn(
+        ""\'got_first_request\' is deprecated and will be removed in Flask 2.4."",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    return self._got_first_request"
+False,"```python
+def run(
+    host: t.Optional[str] = None,
+    port: t.Optional[int] = None,
+    debug: t.Optional[bool] = None,
+    load_dotenv: bool = True,
+    **options: t.Any,
+) -> None:
+    """"""
+    Run the Flask development server.
+
+    This method is used to start a Flask development server. It takes several
+    optional parameters, including `host`, `port`, and `debug`. If these
+    parameters are not provided, they will be set based on the configuration
+    of the application.
+
+    Args:
+        host: The hostname or IP address to bind to. Defaults to None.
+        port: The port number to use. Defaults to None.
+        debug: A boolean indicating whether to enable debug mode. Defaults to None.
+        load_dotenv: A boolean indicating whether to load environment variables
+            from a .env file. Defaults to True.
+        **options: Additional keyword arguments to pass to the `run_simple`
+            function.
+
+    Returns:
+        None
+
+    Raises:
+        ValueError: If an invalid port number is provided.
+    """"""
+```"
+False,"""""""
+Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+This method is deprecated in favor of a more efficient implementation. It should not be used in new code.
+
+Parameters
+self (object): The instance of the class that this method belongs to.
+
+Returns
+Response: The response from the dispatching process.
+""""""
+def full_dispatch_request(self) -> Response:
+    """"""
+    Dispatches the full request, including running before_first_request functions and handling exceptions.
+
+    This method is deprecated in favor of a more efficient implementation. It should not be used in new code.
+
+    Parameters
+    self (object): The instance of the class that this method belongs to.
+
+    Returns
+    Response: The response from the dispatching process.
+    """"""
+    self._got_first_request = True
+
+    try:
+        request_started.send(self)
+        rv = self.preprocess_request()
+        if rv is None:
+            rv = self.dispatch_request()
+    except Exception as e:
+        rv = self.handle_user_exception(e)
+    return self.finalize_request(rv)"
+True,"""""""
+Initialize a new instance of the class.
+
+Parameters:
+    name (str): The name of the application or module.
+    import_name (str): The import name of the application or module.
+    static_folder (t.Optional[t.Union[str, os.PathLike]], optional): The path to the static folder. Defaults to None.
+    static_url_path (t.Optional[str], optional): The URL path for static files. Defaults to None.
+    template_folder (t.Optional[t.Union[str, os.PathLike]], optional): The path to the template folder. Defaults to None.
+    url_prefix (t.Optional[str], optional): The prefix for URLs. Defaults to None.
+    subdomain (t.Optional[str], optional): The subdomain for URLs. Defaults to None.
+    url_defaults (t.Optional[dict], optional): Default values for URL parameters. Defaults to None.
+    root_path (t.Optional[str], optional): The root path of the application or module. Defaults to None.
+    cli_group (t.Optional[str], optional): The CLI group name. Defaults to _sentinel.
+
+Raises:
+    ValueError: If \'name\' is empty or contains a dot \'.\' character.
+
+Attributes:
+    name (str): The name of the application or module.
+    url_prefix (str): The prefix for URLs.
+    subdomain (str): The subdomain for URLs.
+    deferred_functions (list): A list of deferred functions.
+    url_values_defaults (dict): Default values for URL parameters.
+    cli_group (str): The CLI group name.
+    _blueprints (list): A list of blueprints and their configurations.
+
+Note:
+This function initializes a new instance of the class, setting up various attributes such as `name`, `url_prefix`, `subdomain`, and more. It also raises a ValueError if the \'name\' parameter is empty or contains a dot \'.\' character.
+"""""""
+True,"""""""
+Raises an AssertionError if the setup method has already been registered.
+
+If the setup method has been called at least once, this function will raise
+an AssertionError with a message indicating that further calls to the setup
+method will not be applied consistently. This is intended to prevent changes
+to imports, decorators, functions, etc. from being made after registration.
+
+Args:
+    f_name (str): The name of the setup method that was called.
+
+Raises:
+    AssertionError: If the setup method has already been registered.
+"""""""
+False,"def register(self, app: ""Flask"", options: dict) -> None:
+    """"""
+    Registers the current class instance as a Blueprint in the given Flask application.
+
+    Args:
+        app (Flask): The Flask application to register with.
+        options (dict): A dictionary of options for the registration process.
+
+    Raises:
+        ValueError: If a name conflict occurs while registering the Blueprint.
+
+    Returns:
+        None
+    """"""
+    # ... (rest of the code remains the same)"
+False,"def test_session_path(app, client):
+    """"""
+    Initializes a Flask session variable \'testing\' with value 42 and returns a string response.
+
+    Parameters:
+        None
+
+    Returns:
+        str: A greeting message ""Hello World""
+
+    Side Effects:
+        - Initializes the Flask session variable \'testing\' with value 42
+    """"""
+    app.config.update(APPLICATION_ROOT=""/foo"")
+
+    @app.route(""/"")
+    def index():
+        flask.session[""testing""] = 42
+        return ""Hello World""
+
+    rv = client.get(""/"", ""http://example.com:8080/foo"")
+    assert ""path=/foo"" in rv.headers[""set-cookie""].lower()"
+False,"""""""
+Tests the behavior of Flask\'s session object when storing special types such as bytes, Markup objects, and UUIDs.
+
+This function tests that these types are stored correctly and can be retrieved later.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (Client): The client instance used for testing.
+
+Returns:
+    None
+""""""
+def test_session_special_types(app, client):
+    """"""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content).
+""""""
+        flask.session[""t""] = (1, 2, 3)
+        flask.session[""b""] = b""\\xff""
+        flask.session[""m""] = Markup(""<html>"")
+        flask.session[""u""] = the_uuid
+        flask.session[""d""] = now
+        flask.session[""t_tag""] = {"" t"": ""not-a-tuple""}
+        flask.session[""di_t_tag""] = {"" t__"": ""not-a-tuple""}
+        flask.session[""di_tag""] = {"" di"": ""not-a-dict""}
+        return """", 204"
+False,"""""""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, Markup object, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `Markup` object is used to represent HTML content.
+- The `uuid` variable is assumed to be defined elsewhere in the codebase.
+- The `now` variable is assumed to be a datetime object representing the current time.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204 (No Content)."
+True,"""""""
+Test the functionality of the `flask.flash` function.
+
+This test suite checks that the `flask.flash` function correctly stores and retrieves
+messages with different categories. It also tests that messages can be filtered by category.
+
+The test suite consists of several routes, each testing a specific scenario:
+
+- `/`: Tests flashing a message without specifying a category.
+- `/test/`: Tests flashing multiple messages with different categories.
+- `/test_with_categories/`: Tests flashing a message with a category and retrieving it.
+- `/test_filter/`: Tests filtering messages by category.
+- `/test_filters/`: Tests filtering messages by multiple categories.
+- `/test_filters_without_returning_categories/`: Tests filtering messages without returning categories.
+
+Each test uses the `app.test_client()` to simulate a request to the route, ensuring that
+the flashed messages are properly cleaned after each test.
+
+Note: Make sure to set `app.testing=True` before running these tests, as otherwise,
+AssertionErrors in view functions will cause a 500 response instead of propagating exceptions.
+"""""""
+True,"""""""
+Flask Flash Messages Function
+
+This function utilizes Flask\'s flash messaging system to display messages to the user.
+It takes advantage of the `flash` method provided by Flask, which can be used to set and retrieve
+messages for different types of notifications (e.g., success, error, warning).
+
+Parameters:
+    None
+
+Returns:
+    str: An empty string indicating the function has completed its task.
+
+Notes:
+- The first call to `flask.flash(""Hello World"")` sets a default message type as \'success\'.
+- The second call to `flask.flash(""Hello World"", ""error"")` overrides the previous message with an error type.
+- The third call to `flask.flash(flask.Markup(""<em>Testing</em>""), ""warning"")` sets a warning message containing HTML markup.
+"""""""
+False,"""""""
+Tests that the `get_flashed_messages` function returns a list of flashed messages.
+
+This test case checks if the `get_flashed_messages` function correctly retrieves and returns a list of flashed messages.
+It asserts that the returned list contains the expected messages, including HTML markup.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution of the test.
+
+Raises:
+    AssertionError: If the returned list does not match the expected output."
+True,"""""""
+Tests the functionality of getting flashed messages with categories.
+
+This function tests the `flask.get_flashed_messages(with_categories=True)` method, 
+which returns a list of tuples containing the category and message. The test 
+asserts that the length of the returned list is 3 and that it contains the expected
+messages with their respective categories.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution.
+"""""""
+False,"""""""
+Tests the functionality of the `get_flashed_messages` function from Flask, 
+specifically when using category filters.
+
+This test case checks that the function returns a list of messages with their respective categories,
+and that it correctly handles the \'with_categories\' parameter.
+
+Parameters:
+- None
+
+Returns:
+- A string indicating whether the test passed or failed.
+""""""
+def test_filters():
+    messages = flask.get_flashed_messages(
+        category_filter=[""message"", ""warning""], with_categories=True
+    )
+    assert list(messages) == [
+        (""message"", ""Hello World""),
+        (""warning"", Markup(""<em>Testing</em>"")),
+    ]
+    return """""
+True,"""""""
+Tests the functionality of getting flashed messages with a category filter.
+
+This function tests that the `flask.get_flashed_messages` method returns two messages
+when called with a category filter. The first message is expected to be ""Hello World""
+and the second message is expected to be an HTML-marked string ""<em>Testing</em>"".
+
+Args:
+    None
+
+Returns:
+    str: An empty string, indicating successful test execution.
+"""""""
+False,"""""""
+Returns the value of a deprecated attribute.
+
+If the requested attribute is `_app_ctx_stack` or `_request_ctx_stack`, it returns its value and issues a deprecation warning. Otherwise, it raises an `AttributeError`.
+
+Args:
+    name (str): The name of the attribute to return.
+
+Returns:
+    object: The value of the requested attribute, or raises an AttributeError if not found.
+Raises:
+    DeprecationWarning: If the requested attribute is deprecated and will be removed in a future version of Flask."
+False,"""""""
+Returns whether signals are available.
+
+This function raises an `AttributeError` if the requested attribute is not \'signals_available\'.
+If \'signals_available\' is requested, it returns `True` and issues a deprecation warning.
+
+Args:
+    name (str): The name of the attribute to check for availability.
+
+Returns:
+    t.Any: Whether signals are available or the requested attribute value.
+Raises:
+    AttributeError: If the requested attribute does not exist.
+    DeprecationWarning: If \'signals_available\' is requested, indicating deprecation."

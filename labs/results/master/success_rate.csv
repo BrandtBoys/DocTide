@@ -1,0 +1,2325 @@
+Success,Comment
+True,"""""""
+Returns the value of the requested attribute, or raises an AttributeError if it does not exist.
+
+The function is used to handle special attributes that are deprecated and will be removed in future versions of Flask.
+It provides a way to access these attributes while still raising a warning about their deprecation.
+
+Attributes:
+    - `_app_ctx_stack`: The application context stack. (Deprecated)
+    - `_request_ctx_stack`: The request context stack. (Deprecated)
+    - `escape`: A function for escaping HTML characters. (Deprecated, use markupsafe.escape instead)
+    - `Markup`: A class for representing unescaped HTML. (Deprecated, use markupsafe.Markup instead)
+    - `signals_available`: Always returns True, as signals are always available.
+
+Raises:
+    AttributeError: If the requested attribute does not exist.
+"""""""
+False,"def make_response(self, rv: ft.ResponseReturnValue) -> Response:
+    """"""
+    Creates a response object from the given view function result.
+
+    The response object is created based on the type of the view function result.
+    If the result is a tuple, it is unpacked into body, status, and headers.
+    If the result is None, a TypeError is raised.
+    If the result is not an instance of the response class, it is converted to
+    the correct type.
+
+    Args:
+        rv: The view function result.
+
+    Returns:
+        A Response object.
+
+    Raises:
+        TypeError: If the view function did not return a valid response tuple,
+            or if the result is None.
+    """""""
+True,"""""""
+Saves a session cookie to the client's browser.
+
+This method sets a session cookie based on the provided `app`, `session`, and `response` objects.
+It determines the necessary cookie attributes (name, domain, path, secure, samesite, httponly) using
+the `get_cookie_name`, `get_cookie_domain`, `get_cookie_path`, `get_cookie_secure`, 
+`get_cookie_samesite`, and `get_cookie_httponly` methods.
+
+If the session was accessed at all, it adds a ""Vary: Cookie"" header to the response.
+If the session is empty or modified to be empty, it removes the cookie from the response.
+Otherwise, it sets the cookie with the determined attributes and adds a ""Vary: Cookie"" header.
+
+Parameters:
+app (Flask): The Flask application instance.
+session (SessionMixin): The session object being saved.
+response (Response): The HTTP response object.
+
+Returns:
+None
+"""""""
+True,"""""""
+Test session vary cookie functionality.
+
+This function tests the behavior of Flask's session object when
+varying headers. It checks that the 'Vary' header is set correctly
+for different routes and scenarios.
+
+Parameters:
+app (Flask application): The Flask application instance.
+client (requests Session): The requests client instance.
+
+Returns:
+None
+
+Tests:
+
+- /set: Tests setting a value in the session and verifying the 'Vary'
+  header is not set.
+- /get: Tests getting a value from the session and verifying the 'Vary'
+  header is not set.
+- /getitem: Tests getting a value from the session using indexing and
+  verifying the 'Vary' header is not set.
+- /setdefault: Tests setting a default value in the session and verifying
+  the 'Vary' header is not set.
+- /clear: Tests clearing the session and verifying the 'Vary' header is
+  not set.
+- /vary-cookie-header-set: Tests varying the 'Cookie' header when setting
+  a value in the session.
+- /vary-header-set: Tests varying multiple headers when setting a value
+  in the session.
+- /no-vary-header: Tests that no 'Vary' header is set for this route.
+
+Note:
+The `expect` function is used to test each route. It sends a GET request
+to the specified path and verifies the 'Vary' header is set correctly.
+If the expected value is not provided, it checks that the 'Vary' header
+is not present at all.
+"""""""
+True,"""""""
+Clears the Flask session.
+
+This function uses the `flask.session.clear()` method to remove all items from the current session. It returns an empty string, indicating that no data was cleared.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating success
+"""""""
+True,"""""""
+Tests the behavior of session refresh with the Vary header.
+
+This test suite verifies that when a user navigates to a login page and then
+refreshes their session, the server responds with a Vary: Cookie header.
+Additionally, it checks that this behavior is consistent even when navigating
+to an ignored route.
+
+Args:
+    app (Flask application): The Flask application instance.
+    client (TestClient): A TestClient instance for making HTTP requests.
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the Vary header does not match the expected value.
+"""""""
+True,"""""""
+Login Function.
+
+This function sets the user ID in the session to 1 and makes the session permanent.
+ 
+Parameters:
+None
+ 
+Returns:
+An empty string indicating successful login.
+ 
+Raises:
+None
+ 
+Notes:
+This function is a placeholder for actual authentication logic. It should be replaced with a secure method of verifying user credentials.
+"""""""
+True,"""""""
+This function is intentionally left empty and does not perform any meaningful operation. It is intended to be an example of a function that returns an empty string.
+
+Returns:
+    str: An empty string, indicating that no value was returned by this function.
+"""""""
+True,"""""""
+Returns the value of the requested attribute, or raises an AttributeError if it does not exist.
+
+This function is used to handle special attributes that are deprecated and will be removed in future versions of Flask.
+It provides a way to access these attributes while still raising a warning about their deprecation.
+
+Attributes:
+    - `_app_ctx_stack`: The application context stack. (Deprecated)
+    - `_request_ctx_stack`: The request context stack. (Deprecated)
+    - `escape`: A function for escaping HTML characters. (Deprecated, use markupsafe.escape instead)
+    - `Markup`: A class for representing unescaped HTML. (Deprecated, use markupsafe.Markup instead)
+    - `signals_available`: Always returns True, as signals are always available.
+
+Raises:
+    AttributeError: If the requested attribute does not exist.
+"""""""
+True,"""""""
+Initialize the application.
+
+This method is called when an instance of this class is created. It takes in various parameters to configure the application's URL structure.
+
+Parameters:
+app (Flask): The Flask application instance.
+path (str): The root path of the application. Defaults to ""/"".
+base_url (Optional[str]): The base URL of the application. If provided, subdomain and url_scheme cannot be used. Defaults to None.
+subdomain (Optional[str]): The subdomain of the application. If provided with a base_url, it will override the base_url. Defaults to None.
+url_scheme (Optional[str]): The scheme of the URL. If not provided, it will use the preferred scheme from the Flask configuration. Defaults to None.
+
+Returns:
+None
+"""""""
+False,"""""""
+Initialize the documentation assistant.
+
+This function initializes a new instance of the documentation assistant, 
+setting default values for its attributes and calling the parent class's constructor.
+
+Args:
+    *args: Variable length argument list containing any additional arguments.
+    **kwargs: Keyworded arguments containing any additional keyword arguments.
+
+Returns:
+    None
+""""""
+def __init__(self, *args: t.Any, **kwargs: t.Any) -> None:
+    super().__init__(*args, **kwargs)
+    self.preserve_context = False
+    self._new_contexts: t.List[t.ContextManager[t.Any]] = []
+    self._context_stack = ExitStack()
+    self.environ_base = {
+        ""REMOTE_ADDR"": ""127.0.0.1"",
+        ""HTTP_USER_AGENT"": f""werkzeug/{werkzeug.__version__}"",
+    }"
+False,"""""""
+Yields a new session object for the given test request context.
+
+This function is used to create and manage sessions in a test environment.
+It handles the creation of cookies and updates them based on the response headers.
+
+Args:
+    *args: Variable arguments passed to the test request context.
+    **kwargs: Keyword arguments passed to the test request context.
+
+Returns:
+    A generator yielding session objects, or None if no session is created.
+""""""
+def session_transaction(
+        self, 
+        *args: t.Any, 
+        **kwargs: t.Any
+    ) -> t.Generator[SessionMixin, None, None]:"
+True,"""""""
+Opens a new test request.
+
+This method is used to create a new test request, which can be used to simulate HTTP requests and responses.
+It takes several keyword arguments that control the behavior of the request:
+
+- `buffered`: If True, the response will be buffered. Otherwise, it will be sent immediately.
+- `follow_redirects`: If True, redirects will be followed.
+
+If no request is provided, one will be created from the given arguments and keyword arguments.
+
+Returns:
+    TestResponse: The response object for the test request.
+"""""""
+True,"""""""
+    Enters the context of a Flask client.
+
+    This method is used to create a new context for the Flask client. It sets the `preserve_context` attribute to `True`, 
+    indicating that subsequent invocations will preserve the current context. If an attempt is made to nest client invocations, 
+    a RuntimeError is raised.
+
+    Returns:
+        The instance of the FlaskClient class, allowing for method chaining.
+    
+    Raises:
+        RuntimeError: If an attempt is made to nest client invocations.
+"""""""
+True,"""""""
+Closes the context stack and sets preserve_context to False.
+
+This method is called when the exception handling context is exited. It ensures that the context is properly cleaned up by closing the context stack, which helps prevent resource leaks. The `preserve_context` flag is also set to False to indicate that the current context should not be preserved for future use.
+
+Args:
+    exc_type (type): The type of the exception that was raised.
+    exc_value (BaseException): The value of the exception that was raised.
+    tb (TracebackType): The traceback object associated with the exception.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Initialize a new instance of the class.
+
+Args:
+    app (Flask): The Flask application instance.
+    **kwargs (t.Any): Additional keyword arguments to pass to the superclass's __init__ method.
+
+Returns:
+    None
+"""""""
+False,"""""""
+Raises a RuntimeError indicating that the session is unavailable due to an unconfigured secret key.
+
+Args:
+    *args: Variable length argument list.
+    **kwargs: Arbitrary keyword arguments.
+
+Returns:
+    te.NoReturn: An exception indicating that the function cannot be continued due to an error."
+True,"""""""
+Creates and returns a null session instance for the given Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    NullSession: A null session instance.
+"""""""
+True,"""""""
+Returns the name of the cookie used to store session data in a Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str: The name of the session cookie.
+"""""""
+False,"def get_cookie_domain(self, app: ""Flask"") -> t.Optional[str]:
+    """"""
+    Returns the session cookie domain for a given Flask application.
+
+    If the domain is not set or invalid (e.g., an IP address), returns None.
+    Otherwise, sets the domain in the application's configuration and returns it.
+
+    :param app: The Flask application instance
+    :return: The session cookie domain as a string, or None if invalid
+    """"""
+    rv = app.config[""SESSION_COOKIE_DOMAIN""]
+
+    # set explicitly, or cached from SERVER_NAME detection
+    # if False, return None
+    if rv is not None:
+        return rv if rv else None
+
+    rv = app.config[""SERVER_NAME""]
+
+    # server name not set, cache False to return none next time
+    if not rv:
+        app.config[""SESSION_COOKIE_DOMAIN""] = False
+        return None
+
+    # chop off the port which is usually not supported by browsers
+    # remove any leading '.' since we'll add that later
+    rv = rv.rsplit("":"", 1)[0].lstrip(""."")
+
+    if ""."" not in rv:
+        # Chrome doesn't allow names without a '.'. This should only
+        # come up with localhost. Hack around this by not setting
+        # the name, and show a warning.
+        warnings.warn(
+            f""{rv!r} is not a valid cookie domain, it must contain""
+            "" a '.'. Add an entry to your hosts file, for example""
+            f"" '{rv}.localdomain', and use that instead.""
+        )
+        app.config[""SESSION_COOKIE_DOMAIN""] = False
+        return None
+
+    ip = is_ip(rv)
+
+    if ip:
+        warnings.warn(
+            ""The session cookie domain is an IP address. This may not work""
+            "" as intended in some browsers. Add an entry to your hosts""
+            ' file, for example ""localhost.localdomain"", and use that'
+            "" instead.""
+        )
+
+    # if this is not an ip and app is mounted at the root, allow subdomain
+    # matching by adding a '.' prefix
+    if self.get_cookie_path(app) == ""/"" and not ip:
+        rv = f"".{rv}""
+
+    app.config[""SESSION_COOKIE_DOMAIN""] = rv
+    return rv"
+True,"""""""
+Returns the path of the cookie used by a Flask application.
+
+If 'SESSION_COOKIE_PATH' is set in the application's configuration,
+its value will be returned. Otherwise, the value of
+'APPLICATION_ROOT' will be used as a fallback.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str: The path of the cookie.
+"""""""
+True,"""""""
+Returns whether the session cookie is set to be HTTP-only in the given Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    bool: True if the session cookie is HTTP-only, False otherwise.
+"""""""
+True,"""""""
+Returns whether the session cookie is secure.
+
+This method checks if the `SESSION_COOKIE_SECURE` configuration variable
+is set to True in the Flask application's configuration. If it is, the
+session cookie will be transmitted over a secure protocol (HTTPS).
+
+Args:
+    app: The Flask application instance.
+
+Returns:
+    bool: Whether the session cookie is secure.
+"""""""
+True,"""""""
+Returns the value of the `SESSION_COOKIE_SAMESITE` configuration option from the provided Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str: The value of the `SESSION_COOKIE_SAMESITE` configuration option.
+"""""""
+True,"""""""
+Returns the expiration time of a Flask session.
+
+If the session is permanent, returns the current UTC time plus the permanent session lifetime.
+Otherwise, returns None.
+
+Args:
+    self: The instance of the class that this method belongs to (not used in this implementation).
+    app: A Flask application object.
+    session: A SessionMixin object representing the session.
+
+Returns:
+    datetime: The expiration time of the session, or None if the session is not permanent.
+"""""""
+False,"""""""
+Determines whether a cookie should be set based on the Flask application's configuration.
+
+Args:
+    - `app`: The Flask application instance.
+    - `session`: A SessionMixin object representing the current session.
+
+Returns:
+    bool: True if a cookie should be set, False otherwise."
+True,"""""""
+Opens a new session for the given Flask application and request.
+
+Args:
+    - `app`: The Flask application instance.
+    - `request`: The HTTP request object.
+
+Returns:
+    An optional SessionMixin object, indicating whether a session was successfully opened. If not implemented by subclasses, raises NotImplementedError.
+
+Raises:
+    NotImplementedError: If the method is not implemented by subclasses.
+"""""""
+True,"""""""
+Saves a session.
+
+This method is intended to be overridden by subclasses. It takes in the Flask application,
+the session object, and the response object as parameters. The implementation of this
+method should be provided by the subclass.
+
+Parameters:
+app (Flask): The Flask application instance.
+session (SessionMixin): The session object.
+response (Response): The response object.
+
+Returns:
+None
+
+Raises:
+NotImplementedError: This method is intended to be overridden and should not be called directly.
+"""""""
+True,"""""""
+Returns a signing serializer for the provided Flask application.
+
+If the application's secret key is not set, returns None. Otherwise, creates a
+URLSafeTimedSerializer instance with the secret key and additional configuration
+from the application's settings.
+
+Args:
+    app (Flask): The Flask application to generate the serializer for.
+Returns:
+    URLSafeTimedSerializer: The generated signing serializer, or None if the
+        application's secret key is not set.
+"""""""
+True,"""""""
+Opens a new session for the given Flask application and request.
+
+Args:
+    app (Flask): The Flask application instance.
+    request (Request): The HTTP request object.
+
+Returns:
+    t.Optional[SecureCookieSession]: The opened session, or None if creation fails.
+"""""""
+True,"""""""
+Saves a session cookie to the client's browser.
+
+This method sets a session cookie based on the provided `app`, `session`, and `response` objects.
+It determines the necessary cookie attributes (name, domain, path, secure, samesite, httponly) using
+the `get_cookie_name`, `get_cookie_domain`, `get_cookie_path`, `get_cookie_secure`, 
+`get_cookie_samesite`, and `get_cookie_httponly` methods.
+
+Parameters:
+app (Flask): The Flask application instance.
+session (SessionMixin): The session object being saved.
+response (Response): The HTTP response object.
+
+Returns:
+None
+"""""""
+True,"""""""
+Test session using server name.
+
+This function tests the functionality of Flask's session handling when using a server name.
+It updates the session with a value and then checks if the session is correctly set for the domain specified by the `SERVER_NAME` configuration variable.
+
+Parameters:
+app (Flask application): The Flask application instance to use for testing.
+client (requests Session): A requests session object used to make HTTP requests.
+
+Returns:
+None
+"""""""
+False,"""""""
+Test session using server name and port.
+
+This function tests the functionality of Flask's session handling when using a server name and port.
+It updates the session with a value, sends a GET request to the root URL, and checks if the `Set-Cookie` header contains the expected domain information.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (requests Session): The requests session instance.
+
+Returns:
+    None
+""""""
+def test_session_using_server_name_and_port(app, client):
+    app.config.update(SERVER_NAME=""example.com:8080"")
+
+    @app.route(""/"")
+    def index():
+        flask.session[""testing""] = 42
+        return ""Hello World""
+
+    rv = client.get(""/"", ""http://example.com:8080/"")
+    cookie = rv.headers[""set-cookie""].lower()
+    # or condition for Werkzeug < 2.3
+    assert ""domain=example.com"" in cookie or ""domain=.example.com"" in cookie"
+True,"""""""
+Flask Session Initialization and Response Generation
+
+This function initializes a Flask session variable 'testing' with value 42 and returns a string response.
+
+Parameters:
+None
+
+Returns:
+str: A greeting message ""Hello World""
+
+Side Effects:
+- Initializes the Flask session variable 'testing' with value 42
+"""""""
+False,"""""""
+Test session using server name, port and path.
+
+This function tests the creation of a Flask session using the `server_name`, 
+`application_root` configuration options. It verifies that the session is 
+correctly set with the expected domain, path, and HTTP-only flags in the 
+set-cookie header.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (requests Session): The requests session instance.
+
+Returns:
+    None
+""""""
+def test_session_using_server_name_port_and_path(app, client):"
+True,"""""""
+Flask Session Initialization and Response Generation
+
+This function initializes a Flask session variable 'testing' with value 42 and returns a string response.
+
+Parameters:
+None
+
+Returns:
+str: A greeting message ""Hello World""
+
+Side Effects:
+- Initializes the Flask session variable 'testing' with value 42
+"""""""
+True,"""""""
+Test session warning for localhost.
+
+This function tests the behavior of Flask's session warnings when using a local server.
+It updates the session with a test value, sends a request to the index route,
+and verifies that the correct warning is raised and its message matches the expected value.
+
+Parameters:
+    recwarn (WarningRegistry): The registry of warnings to be popped from.
+    app (Flask application instance): The Flask application instance.
+    client (TestClient): The test client for making requests to the application.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Flask Session Test Function
+
+This function tests the functionality of Flask's session management.
+It sets a test value in the session and returns a success message.
+
+Returns:
+    str: A success message indicating that the test was run successfully.
+
+Note:
+    This function should be used as part of a larger application to test session management.
+"""""""
+True,"""""""
+Test session IP warning.
+
+This function tests the behavior of Flask when setting a cookie with an IP address as its domain.
+It verifies that a UserWarning is raised and that the warning message contains the expected text.
+
+Parameters:
+    recwarn (warnings.Warnings): The warnings registry to use for this test.
+    app (Flask application instance): The Flask application instance to use for this test.
+    client (requests.Session): The requests session to use for making HTTP requests.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Flask Session Test Function
+
+This function tests the functionality of Flask's session management.
+It sets a test value in the session and returns a success message.
+
+Returns:
+    str: A success message indicating that the test was run successfully.
+
+Note:
+    This function should be used as part of a larger application to test session management.
+"""""""
+True,"""""""
+Test session special types.
+
+This function tests the behavior of Flask's session object when storing
+special types such as bytes, Markup objects, and UUIDs. It verifies that
+these types are stored correctly and can be retrieved from the session.
+
+Parameters:
+app (Flask application): The Flask application instance.
+client (Client): The Client instance used for testing.
+
+Returns:
+None
+"""""""
+True,"""""""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, markup, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `flask.session` object is used to store and retrieve session data.
+- The `the_uuid`, `now` variables are assumed to be defined elsewhere in the application.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204.
+"""""""
+False,"""""""
+Test the functionality of the Flask flash messaging system.
+
+This test suite covers various scenarios, including:
+
+- Flashing messages with different categories
+- Filtering flashed messages by category
+- Retrieving flashed messages with and without categories
+
+The tests ensure that the flash messaging system behaves as expected in different situations.
+""""""
+
+def test_extended_flashing(app):
+    # Be sure app.testing=True below, else tests can fail silently.
+    #
+    # Specifically, if app.testing is not set to True, the AssertionErrors
+    # in the view functions will cause a 500 response to the test client
+    # instead of propagating exceptions."
+True,"""""""
+Flashes messages to the user with different types of flash messages.
+
+This function uses Flask's built-in `flash` method to display messages
+to the user. The first argument is the message itself, and the second
+argument (optional) specifies the type of flash message.
+
+Available types:
+- 'info': displays a success or info message.
+- 'warning': displays a warning message.
+- 'error': displays an error message.
+
+Example usage:
+
+    index()
+"""""""
+True,"""""""
+Tests that the `get_flashed_messages` function returns a list of flashed messages.
+
+This test case checks if the `get_flashed_messages` function correctly retrieves and returns a list of flashed messages.
+It asserts that the returned list contains the expected messages, including HTML markup.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution of the test.
+
+Raises:
+    AssertionError: If the returned list does not match the expected output.
+"""""""
+True,"""""""
+Tests the functionality of getting flashed messages with categories.
+
+This function tests the `flask.get_flashed_messages(with_categories=True)` method, 
+which returns a list of tuples containing message category and corresponding message. 
+
+It asserts that the length of the returned list is 3 and checks if it contains the expected messages.
+"""""""
+False,"""""""
+Tests the functionality of `flask.get_flashed_messages` with category filtering.
+
+This function tests that the `get_flashed_messages` method returns a list of
+flashed messages, filtered by categories. The test case checks that the
+filtered messages match the expected output.
+
+Parameters:
+    None
+
+Returns:
+    A string indicating whether the test passed or failed.
+""""""
+def test_filters():"
+False,"""""""
+Tests the functionality of getting flashed messages with a category filter.
+
+This function tests that the `flask.get_flashed_messages` method returns two messages
+when called with a category filter. The first message is expected to be ""Hello World""
+and the second message is expected to be an HTML-marked string ""<em>Testing</em>"".
+""""""
+
+def test_filters2():
+    messages = flask.get_flashed_messages(category_filter=[""message"", ""warning""])
+    assert len(messages) == 2
+    assert messages[0] == ""Hello World""
+    assert messages[1] == flask.Markup(""<em>Testing</em>"")
+    return """""
+True,"""""""
+Renders the first request to an application.
+
+This function simulates a client making a GET request to the root URL of the application.
+It asserts that the `debug` attribute is set to True, and that the response from the server matches the expected value.
+Additionally, it tests that attempting to add a new route after the first request raises an AssertionError with a specific message.
+
+Args:
+    app (Flask application): The Flask application instance being tested.
+    client (requests.Session): A requests session object used to simulate the client's request.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Request Functions for Application Testing
+
+This function tests the application's behavior when making requests before and after the first request.
+
+Parameters:
+app (object): The application object to be tested.
+client (object): The client object used to make HTTP requests.
+
+Returns:
+None
+"""""""
+True,"""""""
+Adds 42 to the 'got' list.
+
+This function is not intended for external use and should only be accessed internally within the application.
+"""""""
+True,"""""""
+Concurrently tests the application's routing functionality by making a request to the root URL while another thread is asserting that a value was appended to the `got` list.
+
+This function uses pytest's deprecated_call context manager to ensure that the `foo` function, which appends a value to the `got` list, is called before the first request is made. It then creates a new thread that runs the `get_and_assert` function in parallel with the main thread.
+
+The `get_and_assert` function makes a GET request to the root URL and asserts that the value appended to the `got` list matches the expected value. The main thread waits for the thread to finish before asserting that the application's `got_first_request` attribute is set to True.
+
+This test ensures that the application's routing functionality works correctly even when multiple threads are making requests concurrently.
+"""""""
+True,"""""""
+Returns the result of appending 42 to the 'got' list after a 200ms delay.
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    None
+
+Example:
+    >>> get_and_asse()
+"""""""
+False,"""""""
+Tests the functionality of the get method on the client object.
+
+This test case checks if the get method returns a list containing the expected value when called with the root URL (""/"").
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the returned list does not match the expected output.
+""""""
+
+client.get(""/"")
+assert got == [42]
+
+""""""
+Tests the functionality of threading in Python.
+
+This test case checks if the Thread class can be instantiated correctly and if it can target a specific function.
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the thread is not created successfully or if it does not target the expected function.
+""""""
+
+t = Thread(target=  # <--- Missing keyword 'self'"
+True,"""""""
+Returns the value of the requested attribute, or raises an AttributeError if it does not exist.
+
+This function is used to handle special attributes that are deprecated and will be removed in future versions of Flask.
+It provides a way to access these attributes while still raising a warning about their deprecation.
+
+Attributes:
+    - `_app_ctx_stack`: The application context stack. (Deprecated)
+    - `_request_ctx_stack`: The request context stack. (Deprecated)
+    - `escape`: A function for escaping HTML characters. (Deprecated, use markupsafe.escape instead)
+    - `Markup`: A class for representing unescaped HTML. (Deprecated, use markupsafe.Markup instead)
+    - `signals_available`: Always returns True, as signals are always available.
+
+Raises:
+    AttributeError: If the requested attribute does not exist.
+"""""""
+True,"""""""
+Raises a RuntimeError indicating that the session is unavailable due to an unconfigured secret key.
+
+Args:
+    *args: Variable length argument list.
+    **kwargs: Arbitrary keyword arguments.
+
+Returns:
+    None, as this function does not return any value. Instead, it raises a RuntimeError with a descriptive error message.
+
+Raises:
+    RuntimeError: If the session is unavailable because no secret key was set.
+"""""""
+True,"""""""
+Creates and returns a null session instance for the given Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    NullSession: A null session instance.
+
+Raises:
+    TypeError: If the provided `app` is not an instance of Flask.
+
+Note:
+This method creates a new instance of the `NullSession` class, which does not store any data. It is intended for use in testing or other scenarios where no session data needs to be stored.
+"""""""
+False,"""""""
+Returns the name of the cookie used to store session data in a Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str: The name of the session cookie."
+True,"""""""
+Returns the domain of the session cookie from a given Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str | None: The domain of the session cookie, or None if not set.
+"""""""
+False,"""""""
+Returns the path of the cookie used by a Flask application.
+
+If 'SESSION_COOKIE_PATH' is set in the application's configuration,
+its value will be returned. Otherwise, the value of
+'APPLICATION_ROOT' will be used as a fallback.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str: The path of the cookie.
+""""""
+def get_cookie_path(self, app: Flask) -> str:"
+False,"""""""
+Returns whether the session cookie is set to be HTTP-only in the given Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    bool: True if the session cookie is HTTP-only, False otherwise."
+True,"""""""
+Returns whether the session cookie is secure.
+
+This method checks if the `SESSION_COOKIE_SECURE` configuration variable
+is set to True in the Flask application's configuration. If it is, the
+session cookie will be transmitted over a secure protocol (HTTPS).
+
+Args:
+    app: The Flask application instance.
+
+Returns:
+    bool: Whether the session cookie is secure.
+"""""""
+False,"def get_cookie_samesite(self, app: Flask) -> str:
+    """"""
+    Returns the value of the `SESSION_COOKIE_SAMESITE` configuration option from the provided Flask application.
+
+    Args:
+        app (Flask): The Flask application instance.
+
+    Returns:
+        str: The value of the `SESSION_COOKIE_SAMESITE` configuration option.
+    """""""
+False,"""""""
+Returns the expiration time of a Flask session.
+
+If the session is permanent, returns the current UTC time plus the permanent session lifetime.
+Otherwise, returns None.
+
+Args:
+    self: The instance of the class that this method belongs to (not used in this implementation).
+    app: A Flask application object.
+    session: A SessionMixin object representing the session.
+
+Returns:
+    datetime: The expiration time of the session, or None if the session is not permanent."
+False,"""""""
+Determines whether a cookie should be set based on the session's modification status and configuration.
+
+Args:
+    - `app`: The Flask application instance.
+    - `session`: The session mixin instance.
+
+Returns:
+    bool: True if a cookie should be set, False otherwise."
+True,"""""""
+Opens a new session for the given Flask application and request.
+
+Args:
+    - `app`: The Flask application instance.
+    - `request`: The HTTP request object.
+
+Returns:
+    An optional SessionMixin object, indicating whether a session was successfully opened. If not implemented by subclasses, raises NotImplementedError.
+
+Raises:
+    NotImplementedError: If the method is not implemented by subclasses.
+"""""""
+False,"""""""
+Saves a session by overriding the implementation of this method in subclasses.
+
+Parameters
+----------
+app : Flask
+    The Flask application instance.
+session : SessionMixin
+    The session object.
+response : Response
+    The response object.
+
+Returns
+-------
+None
+
+Raises
+------
+NotImplementedError
+    This method is intended to be overridden and should not be called directly."
+False,"""""""
+Returns a signing serializer for the provided Flask application.
+
+If the application's secret key is not set, returns None. Otherwise, creates a
+URLSafeTimedSerializer instance with the secret key and additional configuration
+from the application's settings.
+
+Args:
+    app (Flask): The Flask application to generate the serializer for.
+Returns:
+    URLSafeTimedSerializer: The generated signing serializer, or None if the
+        application's secret key is not set."
+False,"""""""
+Opens a new session for the given Flask application and request.
+
+Args:
+    app (Flask): The Flask application instance.
+    request (Request): The HTTP request object.
+
+Returns:
+    SecureCookieSession | None: The opened session, or None if creation fails."
+True,"""""""
+Saves a session cookie to the client's browser.
+
+This method sets a session cookie based on the provided `app`, `session`, and `response` objects.
+It determines the necessary cookie attributes (name, domain, path, secure, samesite, httponly) using
+the `get_cookie_name`, `get_cookie_domain`, `get_cookie_path`, `get_cookie_secure`, 
+`get_cookie_samesite`, and `get_cookie_httponly` methods.
+
+Parameters:
+    app (Flask): The Flask application instance.
+    session (SessionMixin): The session object being saved.
+    response (Response): The HTTP response object.
+
+Returns:
+    None
+"""""""
+False,"""""""
+Initialize the application.
+
+This method is called when an instance of this class is created. It takes in various parameters to configure the application's URL structure.
+
+Parameters:
+app (Flask): The Flask application instance.
+path (str): The root path of the application. Defaults to ""/"".
+base_url (Optional[str]): The base URL of the application. If provided, subdomain and url_scheme cannot be used. Defaults to None.
+subdomain (Optional[str]): The subdomain of the application. If provided with a base_url, it will override the base_url. Defaults to None.
+url_scheme (Optional[str]): The scheme of the URL. If not provided, it will use the preferred scheme from the Flask configuration. Defaults to None.
+
+Returns:
+None
+
+Raises:
+AssertionError: If ""subdomain"" or ""url_scheme"" is passed with ""base_url"".
+
+Note:
+- This method modifies the `app` instance by setting its `APPLICATION_ROOT` and `PREFERRED_URL_SCHEME`.
+- It also updates the `path` parameter based on the provided `base_url`, `subdomain`, and `url_scheme`."
+False,"""""""
+Initialize the documentation assistant.
+
+This function initializes a new instance of the documentation assistant, 
+setting default values for its attributes and calling the parent class's constructor.
+
+Args:
+    *args: Variable length argument list containing any additional arguments.
+    **kwargs: Keyworded arguments containing any additional keyword arguments.
+
+Returns:
+    None
+""""""
+def __init__(self, *args: t.Any, **kwargs: t.Any) -> None:
+    super().__init__(*args, **kwargs)
+    self.preserve_context = False
+    self._new_contexts: list[t.ContextManager[t.Any]] = []
+    self._context_stack = ExitStack()
+    self.environ_base = {
+        ""REMOTE_ADDR"": ""127.0.0.1"",
+        ""HTTP_USER_AGENT"": f""werkzeug/{werkzeug.__version__}"",
+    }"
+True,"""""""
+Yield a session object for the current test request context.
+
+This function is used to create and manage sessions for testing purposes.
+It checks if cookies are enabled, sets up the WSGI context, opens a new session,
+and saves it after use. If the session backend fails to open a session, a
+RuntimeError is raised.
+
+Args:
+    *args: Variable length argument list containing any arguments passed to the test request context.
+    **kwargs: Keyworded arguments for the test request context.
+
+Returns:
+    A generator yielding SessionMixin objects.
+"""""""
+True,"""""""
+Opens a new test request.
+
+This method is used to create a new test request, which can be used to simulate HTTP requests and responses.
+It takes several keyword arguments that control the behavior of the request:
+
+- `buffered`: If True, the response will be buffered. Otherwise, it will be sent immediately.
+- `follow_redirects`: If True, redirects will be followed.
+
+If no request is provided, one will be created from the given arguments and keyword arguments.
+
+Returns:
+    TestResponse: The response object for the test request.
+
+Raises:
+    ValueError: If the request cannot be created from the given arguments and keyword arguments.
+"""""""
+True,"""""""
+Enters the context of a Flask client.
+
+This method is used to create a new context for the Flask client. It sets the `preserve_context` attribute to `True`, 
+indicating that subsequent invocations will preserve the current context. If an attempt is made to nest client invocations, 
+a RuntimeError is raised.
+
+Returns:
+    The instance of the FlaskClient class, allowing for method chaining.
+    
+Raises:
+    RuntimeError: If an attempt is made to nest client invocations.
+"""""""
+True,"""""""
+Closes the context stack and sets preserve_context to False.
+
+This method is called when the exception handling context is exited. It ensures that the context is properly cleaned up by closing the context stack, which helps prevent resource leaks. The `preserve_context` flag is also set to False to indicate that the current context should not be preserved for future use.
+
+Args:
+    exc_type (type): The type of the exception that was raised.
+    exc_value (BaseException): The value of the exception that was raised.
+    tb (TracebackType): The traceback object associated with the exception.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Initialize a new instance of the class.
+
+Args:
+    app (Flask): The Flask application instance.
+    **kwargs (t.Any): Additional keyword arguments to pass to the superclass's __init__ method.
+
+Returns:
+    None
+"""""""
+False,"def test_session_path(app, client):
+    """"""
+    Test session using server name.
+
+    This function tests the functionality of Flask's session handling when using a server name.
+    It updates the session with a value and then checks if the session is correctly set for the domain specified by the `SERVER_NAME` configuration variable.
+
+    Parameters:
+        app (Flask application): The Flask application instance to use for testing.
+        client (requests Session): A requests session object used to make HTTP requests.
+
+    Returns:
+        None
+    """""""
+True,"""""""
+Tests the behavior of Flask's session object when storing special types such as bytes, Markup objects, and UUIDs.
+
+This function tests that these types are stored correctly and can be retrieved from the session.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (Client): The Client instance used for testing.
+
+Returns:
+    None
+"""""""
+False,"""""""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, markup, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `flask.session` object is used to store and retrieve session data.
+- The `the_uuid`, `now` variables are assumed to be defined elsewhere in the application.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204."
+False,"def test_extended_flashing(app):
+    """"""
+    Tests the functionality of flashing messages to the user with different types of flash messages.
+
+    This function uses Flask's built-in `flash` method to display messages
+    to the user. The first argument is the message itself, and the second
+    argument (optional) specifies the type of flash message.
+
+    Available types:
+    - 'info': displays a success or info message.
+    - 'warning': displays a warning message.
+    - 'error': displays an error message.
+
+    Example usage:
+
+        index()
+""""""
+    flask.flash(""Hello World"")
+    flask.flash(""Hello World"", ""error"")
+    flask.flash(Markup(""<em>Testing</em>""), ""warning"")
+    return """""
+True,"""""""
+Flashes messages to the user with different types of flash messages.
+
+This function uses Flask's built-in `flash` method to display messages
+to the user. The first argument is the message itself, and the second
+argument (optional) specifies the type of flash message.
+
+Available types:
+- 'info': displays a success or info message.
+- 'warning': displays a warning message.
+- 'error': displays an error message.
+
+Example usage:
+
+    index()
+"""""""
+False,"""""""
+Tests that the `get_flashed_messages` function returns a list of flashed messages.
+
+This test case checks if the `get_flashed_messages` function correctly retrieves and returns a list of flashed messages.
+It asserts that the returned list contains the expected messages, including HTML markup.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution of the test.
+
+Raises:
+    AssertionError: If the returned list does not match the expected output."
+True,"""""""
+Tests the functionality of getting flashed messages with categories.
+
+This function tests the `flask.get_flashed_messages(with_categories=True)` method, 
+which returns a list of tuples containing message category and corresponding message. 
+
+It asserts that the length of the returned list is 3 and checks if it contains the expected messages.
+"""""""
+False,"""""""
+Tests the functionality of the `get_flashed_messages` function from Flask, 
+specifically when using category filters.
+
+This test case checks that the function returns a list of messages with their respective categories,
+and that it correctly handles the 'with_categories' parameter.
+
+Parameters:
+- None
+
+Returns:
+- A string indicating whether the test passed or failed.
+""""""
+def test_filters():
+    messages = flask.get_flashed_messages(
+        category_filter=[""message"", ""warning""], with_categories=True
+    )
+    assert list(messages) == [
+        (""message"", ""Hello World""),
+        (""warning"", Markup(""<em>Testing</em>"")),
+    ]
+    return """""
+True,"""""""
+Tests the functionality of getting flashed messages with a category filter.
+
+This function tests that the `flask.get_flashed_messages` method returns two messages
+when called with a category filter. The first message is expected to be ""Hello World""
+and the second message is expected to be an HTML-marked string ""<em>Testing</em>"".
+"""""""
+True,"""""""
+Returns the value of the requested attribute, or raises an AttributeError if it does not exist.
+
+This function is used to handle special attributes that are deprecated and will be removed in future versions of Flask.
+It provides a way to access these attributes while still raising a warning about their deprecation.
+
+Attributes:
+    - `_app_ctx_stack`: The application context stack. (Deprecated)
+    - `_request_ctx_stack`: The request context stack. (Deprecated)
+    - `escape`: A function for escaping HTML characters. (Deprecated, use markupsafe.escape instead)
+    - `Markup`: A class for representing unescaped HTML. (Deprecated, use markupsafe.Markup instead)
+    - `signals_available`: Always returns True, as signals are always available.
+
+Raises:
+    AttributeError: If the requested attribute does not exist.
+"""""""
+True,"""""""
+Raises a RuntimeError indicating that the session is unavailable due to an unconfigured secret key.
+
+Args:
+    *args: Variable length argument list.
+    **kwargs: Arbitrary keyword arguments.
+
+Returns:
+    None, as this function does not return any value. Instead, it raises a RuntimeError with a descriptive error message.
+
+Raises:
+    RuntimeError: If the session is unavailable because no secret key was set.
+"""""""
+True,"""""""
+Creates and returns a null session instance for the given Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    NullSession: A null session instance.
+
+Raises:
+    TypeError: If the provided `app` is not an instance of Flask.
+
+Note:
+This method creates a new instance of the `NullSession` class, which does not store any data. It is intended for use in testing or other scenarios where no session data needs to be stored.
+"""""""
+False,"""""""
+Returns the name of the cookie used to store session data in a Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str: The name of the session cookie."
+True,"""""""
+Returns the domain of the session cookie from a given Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str | None: The domain of the session cookie, or None if not set.
+"""""""
+False,"""""""
+Returns the path of the cookie used by a Flask application.
+
+If 'SESSION_COOKIE_PATH' is set in the application's configuration,
+its value will be returned. Otherwise, the value of
+'APPLICATION_ROOT' will be used as a fallback.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str: The path of the cookie.
+""""""
+def get_cookie_path(self, app: ""Flask"") -> str:"
+False,"""""""
+Returns whether the session cookie is set to be HTTP-only in the given Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    bool: True if the session cookie is HTTP-only, False otherwise."
+True,"""""""
+Returns whether the session cookie is secure.
+
+This method checks if the `SESSION_COOKIE_SECURE` configuration variable
+is set to True in the Flask application's configuration. If it is, the
+session cookie will be transmitted over a secure protocol (HTTPS).
+
+Args:
+    app: The Flask application instance.
+
+Returns:
+    bool: Whether the session cookie is secure.
+"""""""
+True,"""""""
+Returns the value of the `SESSION_COOKIE_SAMESITE` configuration option from the provided Flask application.
+
+Args:
+    app (Flask): The Flask application instance.
+
+Returns:
+    str: The value of the `SESSION_COOKIE_SAMESITE` configuration option.
+"""""""
+False,"""""""
+Returns the expiration time of a Flask session.
+
+If the session is permanent, returns the current UTC time plus the permanent session lifetime.
+Otherwise, returns None.
+
+Args:
+    app: A Flask application object.
+    session: A SessionMixin object representing the session.
+
+Returns:
+    datetime: The expiration time of the session, or None if the session is not permanent."
+False,"""""""
+Determines whether a cookie should be set based on the Flask application's configuration.
+
+Args:
+    - `app`: The Flask application instance.
+    - `session`: A SessionMixin object representing the current session.
+
+Returns:
+    bool: True if a cookie should be set, False otherwise."
+False,"""""""
+Opens a new session for the given Flask application and request.
+
+Args:
+    - `app`: The Flask application instance.
+    - `request`: The HTTP request object.
+
+Returns:
+    An optional SessionMixin object, indicating whether a session was successfully opened. If not implemented by subclasses, raises NotImplementedError.
+
+Raises:
+    NotImplementedError: If the method is not implemented by subclasses."
+False,"""""""
+Saves a session.
+
+This method is intended to be overridden by subclasses. It takes in the Flask application,
+the session object, and the response object as parameters. The implementation of this
+method should be provided by the subclass.
+
+Parameters:
+app (Flask): The Flask application instance.
+session (SessionMixin): The session object.
+response (Response): The response object.
+
+Returns:
+None
+
+Raises:
+NotImplementedError: This method is intended to be overridden and should not be called directly."
+False,"""""""
+Returns a signing serializer for the provided Flask application.
+
+If the application's secret key is not set, returns None. Otherwise, creates a
+URLSafeTimedSerializer instance with the secret key and additional configuration
+from the application's settings.
+
+Args:
+    app (Flask): The Flask application to generate the serializer for.
+Returns:
+    URLSafeTimedSerializer: The generated signing serializer, or None if the
+        application's secret key is not set."
+False,"""""""
+Opens a new session for the given Flask application and request.
+
+Args:
+    app (Flask): The Flask application instance.
+    request (Request): The HTTP request object.
+
+Returns:
+    t.Optional[SecureCookieSession]: The opened session, or None if creation fails."
+True,"""""""
+Saves a session cookie to the client's browser.
+
+This method sets a session cookie based on the provided `app`, `session`, and `response` objects.
+It determines the necessary cookie attributes (name, domain, path, secure, samesite, httponly) using
+the `get_cookie_name`, `get_cookie_domain`, `get_cookie_path`, `get_cookie_secure`, 
+`get_cookie_samesite`, and `get_cookie_httponly` methods.
+
+Parameters:
+    app (Flask): The Flask application instance.
+    session (SessionMixin): The session object being saved.
+    response (Response): The HTTP response object.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Initialize the application.
+
+This method is called when an instance of this class is created. It takes in various parameters to configure the application's URL structure.
+
+Parameters:
+app (Flask): The Flask application instance.
+path (str): The root path of the application. Defaults to ""/"".
+base_url (Optional[str]): The base URL of the application. If provided, subdomain and url_scheme cannot be used. Defaults to None.
+subdomain (Optional[str]): The subdomain of the application. If provided with a base_url, it will override the base_url. Defaults to None.
+url_scheme (Optional[str]): The scheme of the URL. If not provided, it will use the preferred scheme from the Flask configuration. Defaults to None.
+
+Returns:
+None
+
+Raises:
+AssertionError: If ""subdomain"" or ""url_scheme"" is passed with ""base_url"".
+
+Note:
+- This method modifies the `app` instance and its configuration.
+- It uses the `super()` method to call the parent class's constructor, passing in the modified parameters.
+"""""""
+False,"""""""
+Initialize the documentation assistant.
+
+This function initializes a new instance of the documentation assistant, 
+setting default values for its attributes and calling the parent class's constructor.
+
+Args:
+    *args: Variable length argument list containing any additional arguments.
+    **kwargs: Keyworded arguments containing any additional keyword arguments.
+
+Returns:
+    None
+""""""
+def __init__(self, *args: t.Any, **kwargs: t.Any) -> None:
+    super().__init__(*args, **kwargs)
+    self.preserve_context = False
+    self._new_contexts: t.List[t.ContextManager[t.Any]] = []
+    self._context_stack = ExitStack()
+    self.environ_base = {
+        ""REMOTE_ADDR"": ""127.0.0.1"",
+        ""HTTP_USER_AGENT"": f""werkzeug/{werkzeug.__version__}"",
+    }"
+False,"""""""
+Yield a session object for the current test request context.
+
+This function is used to create and manage sessions for testing purposes.
+It checks if cookies are enabled, sets up the WSGI context, opens a new session,
+and saves it after use. If the session backend fails to open a session, a
+RuntimeError is raised.
+
+Args:
+    *args: Variable length argument list containing any arguments passed to the test request context.
+    **kwargs: Keyworded arguments for the test request context.
+
+Returns:
+    A generator yielding SessionMixin objects.
+""""""
+ 
+if cookie_storage is None:
+    raise TypeError(
+        ""Cookies are disabled. Create a client with 'use_cookies=True'.""
+    )
+
+app = self.application
+ctx = app.test_request_context(*args, **kwargs)
+
+if hasattr(self, ""_add_cookies_to_wsgi""):
+    self._add_cookies_to_wsgi(ctx.request.environ)
+else:
+    self.cookie_jar.inject_wsgi(ctx.request.environ)  # type: ignore[union-attr]
+
+with ctx:
+    sess = app.session_interface.open_session(app, ctx.request)
+
+if sess is None:
+    raise RuntimeError(""Session backend did not open a session."")
+
+yield sess
+resp = app.response_class()
+
+if app.session_interface.is_null_session(sess):
+    return
+
+with ctx:
+    app.session_interface.save_session(app, sess, resp)
+
+if hasattr(self, ""_update_cookies_from_response""):
+    try:
+        # Werkzeug>=2.3.3
+        self._update_cookies_from_response(
+            ctx.request.host.partition("":"")[0],
+            ctx.request.path,
+            resp.headers.getlist(""Set-Cookie""),
+        )
+    except TypeError:
+        # Werkzeug>=2.3.0,<2.3.3
+        self._update_cookies_from_response(  # type: ignore[call-arg]
+            ctx.request.host.partition("":"")[0],
+            resp.headers.getlist(""Set-Cookie""),  # type: ignore[arg-type]
+        )
+else:
+    # Werkzeug<2.3.0
+    self.cookie_jar.extract_wsgi(  # type: ignore[union-attr]
+        ctx.request.environ, resp.headers
+    )"
+True,"""""""
+Opens a new test request.
+
+This method is used to create a new test request, which can be used to simulate HTTP requests and responses.
+It takes several keyword arguments that control the behavior of the request:
+
+- `buffered`: If True, the response will be buffered. Otherwise, it will be sent immediately.
+- `follow_redirects`: If True, redirects will be followed.
+
+If no request is provided, one will be created from the given arguments and keyword arguments.
+
+Returns:
+    TestResponse: The response object for the test request.
+
+Raises:
+    ValueError: If the request cannot be created from the given arguments and keyword arguments.
+"""""""
+False,"```
+# Enters the context of a Flask client.
+
+## Parameters
+
+- `self`: The instance of the class, used to access its attributes and methods.
+
+## Returns
+
+The instance of the FlaskClient class, allowing for method chaining.
+
+## Raises
+
+- `RuntimeError`: If an attempt is made to nest client invocations.
+```"
+True,"""""""
+Closes the context stack and sets preserve_context to False.
+
+This method is called when the exception handling context is exited. It ensures that the context is properly cleaned up by closing the context stack, which helps prevent resource leaks. The `preserve_context` flag is also set to False to indicate that the current context should not be preserved for future use.
+
+Args:
+    exc_type (type): The type of the exception that was raised.
+    exc_value (BaseException): The value of the exception that was raised.
+    tb (TracebackType): The traceback object associated with the exception.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Initialize a new instance of the class.
+
+Args:
+    app (Flask): The Flask application instance.
+    **kwargs (t.Any): Additional keyword arguments to pass to the superclass's __init__ method.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Test session using server name.
+
+This function tests the functionality of Flask's session handling when using a server name.
+It updates the session with a value and then checks if the session is correctly set for the domain specified by the `SERVER_NAME` configuration variable.
+
+Parameters:
+app (Flask application): The Flask application instance to use for testing.
+client (requests Session): A requests session object used to make HTTP requests.
+
+Returns:
+None
+"""""""
+False,"""""""
+Test session using server name and port.
+
+This function tests the functionality of Flask's session handling when using a server name and port.
+It updates the session with a value, sends a GET request to the root URL, and checks if the `Set-Cookie` header contains the expected domain information.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (requests Session): The requests session instance.
+
+Returns:
+    None
+""""""
+def test_session_using_server_name_and_port(app, client):
+    app.config.update(SERVER_NAME=""example.com:8080"")
+
+    @app.route(""/"")
+    def index():
+        flask.session[""testing""] = 42
+        return ""Hello World""
+
+    rv = client.get(""/"", ""http://example.com:8080/"")
+    cookie = rv.headers[""set-cookie""].lower()
+    # or condition for Werkzeug < 2.3
+    assert ""domain=example.com"" in cookie or ""domain=.example.com"" in cookie"
+True,"""""""
+Flask Session Initialization and Response Generation
+
+This function initializes a Flask session variable 'testing' with value 42 and returns a string response.
+
+Parameters:
+None
+
+Returns:
+str: A greeting message ""Hello World""
+
+Side Effects:
+- Initializes the Flask session variable 'testing' with value 42
+"""""""
+False,"""""""
+Test session using server name, port and path.
+
+This function tests the creation of a Flask session using the `server_name`, 
+`application_root` configuration options. It verifies that the session is 
+correctly set with the expected domain, path, and HTTP-only flags in the 
+set-cookie header.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (requests Session): The requests session instance.
+
+Returns:
+    None
+""""""
+def test_session_using_server_name_port_and_path(app, client):"
+True,"""""""
+Flask Session Initialization and Response Generation
+
+This function initializes a Flask session variable 'testing' with value 42 and returns a string response.
+
+Parameters:
+None
+
+Returns:
+str: A greeting message ""Hello World""
+
+Side Effects:
+- Initializes the Flask session variable 'testing' with value 42
+"""""""
+True,"""""""
+Test session warning for localhost.
+
+This function tests the behavior of Flask's session warnings when using a local server.
+It updates the session with a test value, sends a request to the index route,
+and verifies that the correct warning is raised and its message matches the expected value.
+
+Parameters:
+    recwarn (WarningRegistry): The registry of warnings to be popped from.
+    app (Flask application instance): The Flask application instance.
+    client (TestClient): The test client for making requests to the application.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Flask Session Test Function
+
+This function tests the functionality of Flask's session management.
+It sets a test value in the session and returns a success message.
+
+Returns:
+    str: A success message indicating that the test was run successfully.
+
+Note:
+    This function should be used as part of a larger application to test session management.
+"""""""
+True,"""""""
+Test session IP warning.
+
+This function tests the behavior of Flask when setting a cookie with an IP address as its domain.
+It verifies that a UserWarning is raised and that the warning message contains the expected text.
+
+Parameters:
+    recwarn (warnings.Warnings): The warnings registry to use for this test.
+    app (Flask application instance): The Flask application instance to use for this test.
+    client (requests.Session): The requests session to use for making HTTP requests.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Flask Session Test Function
+
+This function tests the functionality of Flask's session management.
+It sets a test value in the session and returns a success message.
+
+Returns:
+    str: A success message indicating that the test was run successfully.
+
+Note:
+    This function should be used as part of a larger application to test session management.
+"""""""
+False,"""""""
+Tests the behavior of Flask's session object when storing special types such as bytes, Markup objects, and UUIDs.
+
+This function tests that these types are stored correctly and can be retrieved from the session.
+
+Parameters:
+    app (Flask application): The Flask application instance.
+    client (Client): The Client instance used for testing.
+
+Returns:
+    None
+""""""
+def test_session_special_types(app, client):
+    """"""
+    Dumps session contents into the Flask session.
+
+    This function populates the Flask session with various data types, including a tuple, bytes, markup, UUID, datetime, and dictionaries.
+    The returned value is an empty string and a status code of 204 (No Content).
+
+    Note:
+        - The `flask.session` object is used to store and retrieve session data.
+        - The `the_uuid`, `now` variables are assumed to be defined elsewhere in the application.
+
+    Returns:
+        tuple: A tuple containing an empty string and a status code of 204.
+""""""
+    now = datetime.now(timezone.utc).replace(microsecond=0)
+    the_uuid = uuid.uuid4()
+
+    @app.route(""/"")
+    def dump_session_contents():
+        """"""
+        Populates the Flask session with various data types, including a tuple, bytes, markup, UUID, datetime, and dictionaries.
+
+        The returned value is an empty string and a status code of 204 (No Content).
+
+        Note:
+            - The `flask.session` object is used to store and retrieve session data.
+            - The `the_uuid`, `now` variables are assumed to be defined elsewhere in the application.
+
+        Returns:
+            tuple: A tuple containing an empty string and a status code of 204.
+        """"""
+        flask.session[""t""] = (1, 2, 3)
+        flask.session[""b""] = b""\xff""
+        flask.session[""m""] = flask.Markup(""<html>"")
+        flask.session[""u""] = the_uuid
+        flask.session[""d""] = now
+        flask.session[""t_tag""] = {"" t"": ""not-a-tuple""}
+        flask.session[""di_t_tag""] = {"" t__"": ""not-a-tuple""}
+        flask.session[""di_tag""] = {"" di"": ""not-a-dict""}
+        return """", 204"
+False,"""""""
+Dumps session contents into the Flask session.
+
+This function populates the Flask session with various data types, including a tuple, bytes, markup, UUID, datetime, and dictionaries. The returned value is an empty string and a status code of 204 (No Content).
+
+Note:
+- The `flask.session` object is used to store and retrieve session data.
+- The `the_uuid`, `now` variables are assumed to be defined elsewhere in the application.
+
+Returns:
+    tuple: A tuple containing an empty string and a status code of 204."
+False,"def test_extended_flashing(app):
+    """"""
+    Tests the functionality of flashing messages to the user with different types of flash messages.
+
+    This function uses Flask's built-in `flash` method to display messages
+    to the user. The first argument is the message itself, and the second
+    argument (optional) specifies the type of flash message.
+
+    Available types:
+    - 'info': displays a success or info message.
+    - 'warning': displays a warning message.
+    - 'error': displays an error message.
+
+    Example usage:
+
+        index()
+""""""
+    flask.flash(""Hello World"")
+    flask.flash(""Hello World"", ""error"")
+    flask.flash(flask.Markup(""<em>Testing</em>""), ""warning"")
+    return """""
+True,"""""""
+Flashes messages to the user with different types of flash messages.
+
+This function uses Flask's built-in `flash` method to display messages
+to the user. The first argument is the message itself, and the second
+argument (optional) specifies the type of flash message.
+
+Available types:
+- 'info': displays a success or info message.
+- 'warning': displays a warning message.
+- 'error': displays an error message.
+
+Example usage:
+
+    index()
+"""""""
+False,"""""""
+Tests that the `get_flashed_messages` function returns a list of flashed messages.
+
+This test case checks if the `get_flashed_messages` function correctly retrieves and returns a list of flashed messages.
+It asserts that the returned list contains the expected messages, including HTML markup.
+
+Args:
+    None
+
+Returns:
+    str: An empty string indicating successful execution of the test.
+
+Raises:
+    AssertionError: If the returned list does not match the expected output."
+False,"""""""
+Tests the functionality of getting flashed messages with categories.
+
+This function tests the `flask.get_flashed_messages(with_categories=True)` method, 
+which returns a list of tuples containing message category and corresponding message. 
+
+It asserts that the length of the returned list is 3 and checks if it contains the expected messages.
+""""""
+def test_with_categories():
+    """"""
+    Tests the functionality of getting flashed messages with categories.
+
+    Args:
+        None
+
+    Returns:
+        str: An empty string
+    """""""
+False,"""""""
+Tests the functionality of `flask.get_flashed_messages` with category filtering.
+
+This function tests that the `get_flashed_messages` method returns a list of
+flashed messages, filtered by categories. The test case checks that the
+filtered messages match the expected output.
+
+Parameters:
+    None
+
+Returns:
+    A string indicating whether the test passed or failed.
+""""""
+def test_filters():"
+True,"""""""
+Tests the functionality of getting flashed messages with a category filter.
+
+This function tests that the `flask.get_flashed_messages` method returns two messages
+when called with a category filter. The first message is expected to be ""Hello World""
+and the second message is expected to be an HTML-marked string ""<em>Testing</em>"".
+
+Args:
+    None
+
+Returns:
+    str: An empty string, indicating successful test execution.
+"""""""
+True,"""""""
+Renders the first request to an application.
+
+This function simulates a client making a GET request to the root URL of the application.
+It asserts that the `debug` attribute is set to True, and that the response from the server matches the expected value.
+Additionally, it tests that attempting to add a new route after the first request raises an AssertionError with a specific message.
+
+Args:
+    app (Flask application): The Flask application instance being tested.
+    client (requests.Session): A requests session object used to simulate the client's request.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Request Functions for Application Testing
+
+This function tests the application's behavior when making requests before and after the first request.
+
+Parameters:
+app (object): The application object to be tested.
+client (object): The client object used to make HTTP requests.
+
+Returns:
+None
+"""""""
+True,"""""""
+Adds 42 to the 'got' list.
+
+This function is not intended for external use and should only be accessed internally within the application.
+"""""""
+True,"""""""
+Concurrently tests the application's routing functionality by making a request to the root URL while another thread is asserting that a value was appended to the `got` list.
+
+This function uses pytest's deprecated_call context manager to ensure that the `foo` function, which appends a value to the `got` list, is called before the first request is made. It then creates a new thread that runs the `get_and_assert` function in parallel with the main thread.
+
+The `get_and_assert` function makes a GET request to the root URL and asserts that the value appended to the `got` list matches the expected value. The main thread waits for the thread to finish before asserting that the application's `got_first_request` attribute is set to True.
+
+This test ensures that the application's routing functionality works correctly even when multiple threads are making requests concurrently.
+"""""""
+True,"""""""
+Returns the result of appending 42 to the 'got' list after a 200ms delay.
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    None
+
+Example:
+    >>> get_and_asse()
+"""""""
+False,"""""""
+Tests the functionality of the get method on the client object.
+
+This test case checks if the get method returns a list containing the expected value when called with the root URL (""/"").
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the returned list does not match the expected output.
+""""""
+
+client.get(""/"")
+assert got == [42]
+
+""""""
+Tests the functionality of threading in Python.
+
+This test case checks if the Thread class can be instantiated correctly and if it can target a specific function.
+
+Args:
+    None
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the thread is not created successfully or if it does not target the expected function.
+""""""
+
+t = Thread(target=  # <--- Missing keyword 'self'"
+False,"```
+Find Package Path Function
+
+### Overview
+
+This function determines the path to a Python module or package based on its import name.
+
+### Parameters
+
+- `import_name` (str): The full import name of the module or package.
+
+### Returns
+
+The absolute path to the module or package.
+
+### Raises
+
+- `ValueError`: If the module or package is not found.
+- `ImportError`: If the module or package is not installed.
+
+### Notes
+
+This function uses various methods to find the package path, including:
+
+*   Checking if the module name exists in the Python path
+*   Using PEP 451 loaders to get the package path
+*   Getting the filename of the loader and using it to determine the package path"
+True,"""""""
+Returns a temporary path for modules.
+
+This function creates a new directory at the specified `tmp_path` and prepends it to the system path using `sys.path_prepend`. The returned path is then used as the base for module imports.
+
+Args:
+    tmp_path (Path): The base path where the temporary directory will be created.
+    monkeypatch (object): An object with a method to prepend the system path.
+
+Returns:
+    Path: The temporary path for modules.
+"""""""
+True,"""""""
+Modifies the sys.prefix attribute to use a temporary path for module installation.
+
+Args:
+    modules_tmp_path (str): The temporary path where modules will be installed.
+    monkeypatch (object): An object used to modify the sys module's attributes.
+
+Returns:
+    str: The original temporary path, which is not modified by this function.
+
+Raises:
+    None
+
+Note:
+    This function uses the monkeypatching technique to temporarily modify the sys.prefix attribute. It does not persist these changes across function calls.
+"""""""
+False,"def site_packages(modules_tmp_path, monkeypatch):
+    """"""
+    Creates a temporary directory for Python's site-packages.
+
+    This function creates a new directory structure for Python's site-packages,
+    prepends it to the system path, and returns the root of this new structure.
+    
+    Parameters:
+        modules_tmp_path (Path): The base path where the temporary directory will be created.
+        monkeypatch (object): An object with syspath_prepend method used to prepend the new path.
+
+    Returns:
+        Path: The root of the newly created site-packages directory.
+    """""""
+True,"""""""
+Tests that the Flask application correctly reads configuration from a file with an unusual encoding.
+
+Args:
+    tmp_path (pathlib.Path): A temporary path for creating a test file.
+    encoding (str): The encoding to use in the test file.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Tests the behavior of Flask when a module with an ImportError is passed to its constructor.
+
+Args:
+    modules_tmp_path (pathlib.Path): The temporary path where the ""importerror.py"" file will be created.
+
+Raises:
+    AssertionError: If Flask(import_name) does not raise an ImportError.
+"""""""
+True,"""""""
+Tests the Flask application's instance path.
+
+This function tests that a ValueError is raised when an absolute instance path
+is not provided, and that the instance path can be correctly set using an
+absolute path.
+
+Args:
+    modules_tmp_path (str): The temporary path to the modules.
+
+Returns:
+    None
+
+Raises:
+    ValueError: If the instance path is not absolute.
+"""""""
+True,"""""""
+Tests the behavior of an uninstalled module by creating a temporary configuration file and purging the module.
+
+Args:
+    modules_tmp_path (Path): The path to the temporary modules directory.
+    purge_module (function): A function that takes a module name as input and removes it from the system.
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the instance path of the Flask app does not match the expected value.
+"""""""
+True,"""""""
+Tests the paths of an uninstalled package.
+
+This function creates a temporary Flask application in the provided
+`modules_tmp_path`, writes an `__init__.py` file to it, and then purges
+the module. It then imports the app and asserts that its instance path
+matches the expected value.
+
+Parameters:
+    modules_tmp_path (Path): The base directory for the test.
+    purge_module (function): A function to remove a module from the system.
+
+Returns:
+    None
+
+Raises:
+    AssertionError: If the instance path of the app does not match the expected value.
+"""""""
+True,"""""""
+Test that the instance path of a Flask application is correctly set when the namespace package is uninstalled.
+
+This test creates two namespaces, one for each package being tested. It then purges the modules from these namespaces and asserts that the instance path of the second package's application is correct.
+
+Args:
+    tmp_path (pathlib.Path): A temporary directory used to create project directories.
+    monkeypatch (MonkeyPatch): A MonkeyPatch object used to modify the sys.path.
+    purge_module (function): A function used to purge modules from a namespace.
+
+Returns:
+    None
+"""""""
+False,"def create_namespace(package):
+    """"""
+    Creates a new namespace for the given package.
+
+    This function creates a new directory structure for the provided package,
+    including an __init__.py file that imports Flask and sets up a basic application.
+    
+    Args:
+        package (str): The name of the package to create a namespace for.
+    
+    Returns:
+        str: The path to the newly created project directory.
+    """""""
+True,"""""""
+Test function to verify installed module paths.
+
+This function tests the installation of a Flask application in a temporary directory.
+It creates a `site_app.py` file with a basic Flask app, purges any existing instance,
+and then asserts that the instance path matches the expected value.
+
+Parameters:
+    modules_tmp_path (str): The path to the temporary directory for module files.
+    modules_tmp_path_prefix (str): The prefix for the temporary directory.
+    purge_module (function): A function to purge a module from the site-packages.
+    site_packages (str): The path to the site-packages directory.
+    limit_loader (int): An optional parameter to limit the loader.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Test function to verify the installation of a package.
+
+This function tests the installation of a Flask application in a temporary directory.
+It creates a temporary directory, installs a Flask application, and then verifies that
+the instance path is correctly set.
+
+Parameters:
+limit_loader (bool): Whether to limit the loader.
+modules_tmp_path (Path): The path to the modules tmp directory.
+modules_tmp_path_prefix (str): The prefix for the modules tmp path.
+purge_module (str): The module to purge.
+monkeypatch (object): A monkey patch object.
+
+Returns:
+None
+"""""""
+True,"""""""
+Test prefix package paths.
+
+This function tests the behavior of a package when its path is prefixed.
+It creates a temporary directory, installs a Flask app into it, and then
+purges the original module. It then imports the package again to verify that
+the instance path has been correctly updated.
+
+Parameters:
+    limit_loader (bool): Whether to limit the loader.
+    modules_tmp_path (Path): The path to the temporary modules directory.
+    modules_tmp_path_prefix (str): The prefix for the temporary modules path.
+    purge_module (str): The module to purge.
+    site_packages (Path): The path to the site-packages directory.
+
+Returns:
+    None
+"""""""
+True,"""""""
+Initialize a new instance of the class.
+
+Parameters:
+    root_path (str | os.PathLike): The root path to be used for the instance.
+    defaults (dict | None, optional): Default values for the instance. Defaults to None.
+
+Returns:
+    None
+"""""""
+False,"def from_pyfile(self, filename: str | os.PathLike, silent: bool = False) -> bool:
+    """"""
+    Loads a configuration file from a Python file.
+
+    Args:
+    - filename (str | os.PathLike): The path to the configuration file.
+    - silent (bool, optional): If True, returns False if the file does not exist or is not a directory. Defaults to False.
+
+    Returns:
+    - bool: Whether the configuration was loaded successfully.
+    """"""
+    filename = os.path.join(self.root_path, filename)
+    d = types.ModuleType(""config"")
+    d.__file__ = filename
+    try:
+        with open(filename, mode=""rb"") as config_file:
+            exec(compile(config_file.read(), filename, ""exec""), d.__dict__)
+    except OSError as e:
+        if silent and e.errno in (errno.ENOENT, errno.EISDIR, errno.ENOTDIR):
+            return False
+        e.strerror = f""Unable to load configuration file ({e.strerror})""
+        raise
+    self.from_object(d)
+    return True"
+False,"def from_file(
+    """"""
+    Loads a configuration file into the object's mapping.
+
+    Args:
+        filename (str | os.PathLike): The path to the configuration file.
+        load (t.Callable[[t.IO[t.Any]], t.Mapping]): A function that loads data from an IO object and returns a Mapping.
+        silent (bool, optional): If True, suppresses error messages. Defaults to False.
+        text (bool, optional): Specifies whether the file is loaded as text or binary data. Defaults to True.
+
+    Returns:
+        bool: Whether the loading was successful.
+    """"""
+    def load_data(file_path):
+        # Load configuration from file
+        pass
+
+    return load_data(os.path.join(self.root_path, filename))"
+False,"def get_root_path(import_name: str) -> str:
+    """"""
+    Returns the root path of the given module.
+
+    If the module has already been imported and its file attribute is available,
+    it uses that. Otherwise, it checks the loader and falls back to imports if
+    necessary. If no file path can be found, it raises a RuntimeError.
+
+    Args:
+        import_name (str): The name of the module to find the root path for.
+
+    Returns:
+        str: The root path of the given module.
+    """""""
+False,"def _find_package_path(import_name):
+    """"""
+    Finds the path to a Python module or package.
+
+    Args:
+        import_name (str): The name of the module or package to find.
+
+    Returns:
+        str: The absolute path to the module or package.
+
+    Raises:
+        ValueError: If the module or package is not found.
+    """"""
+    # ... (rest of the code remains the same)"
+True,"""""""
+Returns the root path of the given module.
+
+The function first checks if the module has already been imported and
+has a file attribute. If so, it returns the directory of that file.
+If not, it attempts to find the spec of the import using `importlib.util.find_spec`.
+If the spec is found, it uses the loader's get_filename method to get the filepath.
+If the filepath is None, it raises a RuntimeError.
+
+Args:
+    import_name (str): The name of the module to find the root path for.
+
+Returns:
+    str: The root path of the given module.
+
+Raises:
+    ValueError: If the spec is not found.
+    RuntimeError: If no file path can be found for the module.
+"""""""
+False,"""""""
+Find the path to a Python package or module.
+
+This function takes an import name as input and returns the path to the corresponding package or module.
+If the package or module is not found, it raises a ValueError. If the import fails for any reason, it falls back to the current working directory.
+
+Parameters:
+    import_name (str): The name of the package or module to find.
+
+Returns:
+    str: The path to the package or module.
+
+Raises:
+    ValueError: If the package or module is not found.
+""""""
+
+def _find_package_path(import_name):
+    # ... (rest of the code remains the same)"

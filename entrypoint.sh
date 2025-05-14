@@ -4,6 +4,7 @@
 apt-get update
 apt-get install -y git
 apt-get install -y curl
+curl -fsSL https://cli.github.com/install.sh | bash
 
 # Tell the action to trust github/workspace - to avoid "dubious ownership"
 git config --global --add safe.directory /github/workspace

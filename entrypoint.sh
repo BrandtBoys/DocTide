@@ -4,7 +4,14 @@
 apt-get update
 apt-get install -y git
 apt-get install -y curl
-curl -fsSL https://cli.github.com/install.sh | bash
+
+apt-get install -y gnupg
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+  | gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+  > /etc/apt/sources.list.d/github-cli.list
+apt-get update
+apt-get install -y gh
 
 # Tell the action to trust github/workspace - to avoid "dubious ownership"
 git config --global --add safe.directory /github/workspace
@@ -57,5 +64,6 @@ then
     git push origin HEAD
 else
     gh auth setup-git
+    echo "${GITHUB_TOKEN}" | gh auth login --with-token
     gh pr create -B main -H "$BRANCH_NAME" --fill-first
 fi

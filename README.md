@@ -37,4 +37,6 @@ jobs:
         uses: BrandtBoys/DocTide@v1
         with:
           testing: false
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```

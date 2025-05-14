@@ -4867,3 +4867,2535 @@ Returns:
     An iterator that yields the same values as the original generator or function, but with the added benefit of being able to use the current request context.
     A callable that takes an iterator and returns an iterator, if the input was not a generator or function.
 """"""",src/flask/helpers.py,cddf5e62974d95add9bbe4d96e1814e1eaf99191
+0.62732244,def load_app,"""""""Loads the Flask app (if not yet loaded) and returns it.  Calling
+        this multiple times will just result in the already loaded app to
+        be returned.
+        """"""","""""""
+Loads a Flask application instance.
+
+This method attempts to load an existing Flask application from the `self._loaded_app` attribute,
+or creates a new one if none exists. It also sets the debug flag of the loaded application
+if `self.set_debug_flag` is True.
+
+If no application can be found, it raises a `NoAppException`.
+
+Returns:
+    The loaded Flask application instance.
+""""""",src/flask/cli.py,171009b0a4f21701d6dd33516ab1e54c25e00771
+0.63537365,def name,"""""""The name of the application.  This is usually the import name
+        with the difference that it's guessed from the run file if the
+        import name is main.  This name is used as a display name when
+        Flask needs the name of the application.  It can be set and overridden
+        to change the value.
+
+        .. versionadded:: 0.8
+        """"""","""""""
+Returns the name of the current module or the main module name if running directly.
+
+If running directly, it attempts to retrieve the filename from the `__file__` attribute of the main module.
+If successful, it returns the base filename without extension. Otherwise, it returns the main module name.
+
+Args:
+    None
+
+Returns:
+    str: The name of the current module or the main module name if running directly.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5775605,def logger,"""""""A standard Python :class:`~logging.Logger` for the app, with
+        the same name as :attr:`name`.
+
+        In debug mode, the logger's :attr:`~logging.Logger.level` will
+        be set to :data:`~logging.DEBUG`.
+
+        If there are no handlers configured, a default handler will be
+        added. See :doc:`/logging` for more information.
+
+        .. versionchanged:: 1.1.0
+            The logger takes the same name as :attr:`name` rather than
+            hard-coding ``""flask.app""``.
+
+        .. versionchanged:: 1.0.0
+            Behavior was simplified. The logger is always named
+            ``""flask.app""``. The level is only set during configuration,
+            it doesn't check ``app.debug`` each time. Only one format is
+            used, not different ones depending on ``app.debug``. No
+            handlers are removed, and a handler is only added if no
+            handlers are already configured.
+
+        .. versionadded:: 0.3
+        """"""","""""""
+Returns an instance of the Logger class.
+
+This method is used to initialize and return a new logger object. The logger object is created using the `create_logger` function, which takes the current object (`self`) as an argument.
+
+Args:
+    self: The current object.
+
+Returns:
+    logging.Logger: An instance of the Logger class.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.43489042,def jinja_env,"""""""The Jinja environment used to load templates.
+
+        The environment is created the first time this property is
+        accessed. Changing :attr:`jinja_options` after that will have no
+        effect.
+        """"""","""""""
+Returns an instance of Jinja2's Environment class.
+
+This method is a wrapper around `create_jinja_environment` and provides a more Pythonic interface for creating a new Jinja environment. The returned environment can be used to compile templates, render templates with data, and perform other template-related tasks.
+
+Note: This method does not create a new environment instance; it simply delegates the creation to the underlying `create_jinja_environment` method.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.606879,def make_config,"""""""Used to create the config attribute by the Flask constructor.
+        The `instance_relative` parameter is passed in from the constructor
+        of Flask (there named `instance_relative_config`) and indicates if
+        the config should be relative to the instance path or the root path
+        of the application.
+
+        .. versionadded:: 0.8
+        """"""","""""""
+Creates a configuration object based on the provided parameters.
+
+Args:
+    instance_relative (bool): If True, uses the instance's path instead of the root path. Defaults to False.
+
+Returns:
+    Config: A configuration object with the specified settings.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.60626304,def make_aborter,"""""""Create the object to assign to :attr:`aborter`. That object
+        is called by :func:`flask.abort` to raise HTTP errors, and can
+        be called directly as well.
+
+        By default, this creates an instance of :attr:`aborter_class`,
+        which defaults to :class:`werkzeug.exceptions.Aborter`.
+
+        .. versionadded:: 2.2
+        """"""","""""""
+Creates an instance of the Aborter class.
+
+Returns:
+    Aborter: An instance of the Aborter class.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.65580153,def open_instance_resource,"""""""Opens a resource from the application's instance folder
+        (:attr:`instance_path`).  Otherwise works like
+        :meth:`open_resource`.  Instance resources can also be opened for
+        writing.
+
+        :param resource: the name of the resource.  To access resources within
+                         subfolders use forward slashes as separator.
+        :param mode: resource file opening mode, default is 'rb'.
+        """"""","""""""
+Opens an instance resource file.
+
+Args:
+    - `resource` (str): The path to the resource file.
+    - `mode` (str, optional): The mode in which to open the file. Defaults to ""rb"".
+
+Returns:
+    A file object opened at the specified location with the given mode.
+
+Raises:
+    FileNotFoundError: If the instance_path does not exist or the resource is not found.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6184866,def create_jinja_environment,"""""""Create the Jinja environment based on :attr:`jinja_options`
+        and the various Jinja-related methods of the app. Changing
+        :attr:`jinja_options` after this will have no effect. Also adds
+        Flask-related globals and filters to the environment.
+
+        .. versionchanged:: 0.11
+           ``Environment.auto_reload`` set in accordance with
+           ``TEMPLATES_AUTO_RELOAD`` configuration option.
+
+        .. versionadded:: 0.5
+        """"""","""""""
+Creates a Jinja environment with custom options and updates its globals.
+
+This method creates a new Jinja environment based on the provided options.
+It also updates the environment's globals dictionary to include necessary functions
+and variables for use in templates.
+
+Args:
+    self: The object instance that owns this method.
+
+Returns:
+    Environment: A newly created Jinja environment with custom options and updated globals.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6290112,def create_global_jinja_loader,"""""""Creates the loader for the Jinja2 environment.  Can be used to
+        override just the loader and keeping the rest unchanged.  It's
+        discouraged to override this function.  Instead one should override
+        the :meth:`jinja_loader` function instead.
+
+        The global loader dispatches between the loaders of the application
+        and the individual blueprints.
+
+        .. versionadded:: 0.7
+        """"""","""""""
+Creates and returns a global Jinja loader instance.
+
+This method is used to initialize the global Jinja loader, which is then used throughout the application.
+It takes no arguments and returns an instance of `DispatchingJinjaLoader`, which is responsible for dispatching template rendering tasks.
+
+Returns:
+    DispatchingJinjaLoader: A global Jinja loader instance.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6343586,def select_jinja_autoescape,"""""""Returns ``True`` if autoescaping should be active for the given
+        template name. If no template name is given, returns `True`.
+
+        .. versionchanged:: 2.2
+            Autoescaping is now enabled by default for ``.svg`` files.
+
+        .. versionadded:: 0.5
+        """"""","""""""
+Selects whether a Jinja autoescape should be applied to a given file.
+
+Args:
+    filename (str): The name of the file to check.
+
+Returns:
+    bool: True if the file should have autoescape applied, False otherwise.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.56037647,def update_template_context,"""""""Update the template context with some commonly used variables.
+        This injects request, session, config and g into the template
+        context as well as everything template context processors want
+        to inject.  Note that the as of Flask 0.6, the original values
+        in the context will not be overridden if a context processor
+        decides to return a value with the same key.
+
+        :param context: the context as a dictionary that is updated in place
+                        to add extra variables.
+        """"""","""""""
+Updates the template context with additional information.
+
+This function is used to extend the context passed to a template, allowing
+for dynamic rendering of templates outside of a request context. It first
+checks if a request object is available and adds any blueprint names from
+it to the list of names to process. Then it iterates over this list,
+applying any context processors that have been registered for each name.
+
+The original context is preserved and updated with the new values after all
+context processors have been applied.
+
+Args:
+    context (dict): The initial template context.
+
+Returns:
+    None
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6093663,def make_shell_context,"""""""Returns the shell context for an interactive shell for this
+        application.  This runs all the registered shell context
+        processors.
+
+        .. versionadded:: 0.11
+        """"""","""""""
+Returns a dictionary representing the shell context.
+
+This function combines the application object (`self`) with the global object (`g`), 
+and then updates it with the results of each processor function in `self.shell_context_processors`.
+
+Args:
+    None
+
+Returns:
+    dict: The constructed shell context.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5601262,def debug,"""""""Whether debug mode is enabled. When using ``flask run`` to start the
+        development server, an interactive debugger will be shown for unhandled
+        exceptions, and the server will be reloaded when code changes. This maps to the
+        :data:`DEBUG` config key. It may not behave as expected if set late.
+
+        **Do not enable debug mode when deploying in production.**
+
+        Default: ``False``
+        """"""","""""""
+Returns whether the debug mode is enabled based on the configuration.
+
+Args:
+    None
+
+Returns:
+    bool: True if debug mode is enabled, False otherwise
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.57785344,def debug,"""""""Whether debug mode is enabled. When using ``flask run`` to start the
+        development server, an interactive debugger will be shown for unhandled
+        exceptions, and the server will be reloaded when code changes. This maps to the
+        :data:`DEBUG` config key. It may not behave as expected if set late.
+
+        **Do not enable debug mode when deploying in production.**
+
+        Default: ``False``
+        """"""","""""""
+    Sets the debug mode for the application.
+
+    Args:
+        value (bool): A boolean indicating whether to enable or disable debug mode.
+    
+    Returns:
+        None
+    
+    Note:
+        This function modifies the configuration of the application. It also affects the behavior of the Jinja templating engine if TEMPLATES_AUTO_RELOAD is not set.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.57409835,def test_client,"""""""Creates a test client for this application.  For information
+        about unit testing head over to :doc:`/testing`.
+
+        Note that if you are testing for assertions or exceptions in your
+        application code, you must set ``app.testing = True`` in order for the
+        exceptions to propagate to the test client.  Otherwise, the exception
+        will be handled by the application (not visible to the test client) and
+        the only indication of an AssertionError or other exception will be a
+        500 status code response to the test client.  See the :attr:`testing`
+        attribute.  For example::
+
+            app.testing = True
+            client = app.test_client()
+
+        The test client can be used in a ``with`` block to defer the closing down
+        of the context until the end of the ``with`` block.  This is useful if
+        you want to access the context locals for testing::
+
+            with app.test_client() as c:
+                rv = c.get('/?vodka=42')
+                assert request.args['vodka'] == '42'
+
+        Additionally, you may pass optional keyword arguments that will then
+        be passed to the application's :attr:`test_client_class` constructor.
+        For example::
+
+            from flask.testing import FlaskClient
+
+            class CustomClient(FlaskClient):
+                def __init__(self, *args, **kwargs):
+                    self._authentication = kwargs.pop(""authentication"")
+                    super(CustomClient,self).__init__( *args, **kwargs)
+
+            app.test_client_class = CustomClient
+            client = app.test_client(authentication='Basic ....')
+
+        See :class:`~flask.testing.FlaskClient` for more information.
+
+        .. versionchanged:: 0.4
+           added support for ``with`` block usage for the client.
+
+        .. versionadded:: 0.7
+           The `use_cookies` parameter was added as well as the ability
+           to override the client to be used by setting the
+           :attr:`test_client_class` attribute.
+
+        .. versionchanged:: 0.11
+           Added `**kwargs` to support passing additional keyword arguments to
+           the constructor of :attr:`test_client_class`.
+        """"""","""""""
+Returns a test client instance for the application.
+
+Args:
+    use_cookies (bool): Whether to include cookies in the request. Defaults to True.
+    **kwargs: Additional keyword arguments to pass to the FlaskClient constructor.
+
+Returns:
+    FlaskClient: A test client instance for the application.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5694217,def test_cli_runner,"""""""Create a CLI runner for testing CLI commands.
+        See :ref:`testing-cli`.
+
+        Returns an instance of :attr:`test_cli_runner_class`, by default
+        :class:`~flask.testing.FlaskCliRunner`. The Flask app object is
+        passed as the first argument.
+
+        .. versionadded:: 1.0
+        """"""","""""""
+Returns an instance of `FlaskCliRunner` initialized with the provided keyword arguments.
+
+Args:
+    **kwargs (t.Any): Keyword arguments to be passed to the `FlaskCliRunner` constructor.
+
+Returns:
+    FlaskCliRunner: An instance of `FlaskCliRunner`.
+
+Raises:
+    None
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6883767,def register_blueprint,"""""""Register a :class:`~flask.Blueprint` on the application. Keyword
+        arguments passed to this method will override the defaults set on the
+        blueprint.
+
+        Calls the blueprint's :meth:`~flask.Blueprint.register` method after
+        recording the blueprint in the application's :attr:`blueprints`.
+
+        :param blueprint: The blueprint to register.
+        :param url_prefix: Blueprint routes will be prefixed with this.
+        :param subdomain: Blueprint routes will match on this subdomain.
+        :param url_defaults: Blueprint routes will use these default values for
+            view arguments.
+        :param options: Additional keyword arguments are passed to
+            :class:`~flask.blueprints.BlueprintSetupState`. They can be
+            accessed in :meth:`~flask.Blueprint.record` callbacks.
+
+        .. versionchanged:: 2.0.1
+            The ``name`` option can be used to change the (pre-dotted)
+            name the blueprint is registered with. This allows the same
+            blueprint to be registered multiple times with unique names
+            for ``url_for``.
+
+        .. versionadded:: 0.7
+        """"""","""""""
+Registers a blueprint with the current application.
+
+Args:
+    - blueprint (Blueprint): The blueprint to be registered.
+    - **options (t.Any): Optional keyword arguments to be passed to the `register` method of the blueprint.
+
+Returns:
+    None
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6524057,def iter_blueprints,"""""""Iterates over all blueprints by the order they were registered.
+
+        .. versionadded:: 0.11
+        """"""","""""""
+Returns an iterator over the blueprint values.
+
+This method provides a view of all blueprints in the system, allowing for efficient iteration and access to their attributes. The returned iterator is a `ValuesView` object, which supports various methods for filtering and manipulating the results.
+
+Args:
+    None
+
+Returns:
+    t.ValuesView[Blueprint]: An iterator over the blueprint values.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5934566,def add_template_filter,"""""""Register a custom template filter.  Works exactly like the
+        :meth:`template_filter` decorator.
+
+        :param name: the optional name of the filter, otherwise the
+                     function name will be used.
+        """"""","""""""
+Adds a template filter to the Jinja environment.
+
+Args:
+    f (ft.TemplateFilterCallable): The filter function to add.
+    name (str, optional): The name of the filter. If None, uses the function's __name__. Defaults to None.
+
+Returns:
+    None
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.66863674,def template_test,"""""""A decorator that is used to register custom template test.
+        You can specify a name for the test, otherwise the function
+        name will be used. Example::
+
+          @app.template_test()
+          def is_prime(n):
+              if n == 2:
+                  return True
+              for i in range(2, int(math.ceil(math.sqrt(n))) + 1):
+                  if n % i == 0:
+                      return False
+              return True
+
+        .. versionadded:: 0.10
+
+        :param name: the optional name of the test, otherwise the
+                     function name will be used.
+        """"""","""""""
+Template Test Decorator.
+
+This function returns a decorator that can be used to wrap a template test function.
+The wrapped function will have its `name` attribute set by the `template_test` function.
+
+Args:
+    f (Callable[[T_template_test], T_template_test]): The function to be decorated.
+    name (str | None, optional): The name of the template test. Defaults to None.
+
+Returns:
+    Callable[[T_template_test], T_template_test]: The decorated function.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.54346347,def add_template_test,"""""""Register a custom template test.  Works exactly like the
+        :meth:`template_test` decorator.
+
+        .. versionadded:: 0.10
+
+        :param name: the optional name of the test, otherwise the
+                     function name will be used.
+        """"""","""""""
+Adds a template test to the Jinja environment.
+
+Args:
+    - `f`: A callable representing the template test.
+    - `name` (optional): The name of the test. If not provided, it defaults to the function's name.
+
+Returns:
+    None
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.696076,def template_global,"""""""A decorator that is used to register a custom template global function.
+        You can specify a name for the global function, otherwise the function
+        name will be used. Example::
+
+            @app.template_global()
+            def double(n):
+                return 2 * n
+
+        .. versionadded:: 0.10
+
+        :param name: the optional name of the global function, otherwise the
+                     function name will be used.
+        """"""","""""""
+Template Global Decorator
+
+This function is used to create a template global decorator. It takes a function `f` as an argument and returns the same function wrapped with the `add_template_global` method.
+
+The `name` parameter can be provided to specify the name of the template global. If not specified, it defaults to None.
+
+Args:
+    f (T_template_global): The function to be decorated.
+    name (str | None, optional): The name of the template global. Defaults to None.
+
+Returns:
+    T_template_global: The decorated function.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.632892,def add_template_global,"""""""Register a custom template global function. Works exactly like the
+        :meth:`template_global` decorator.
+
+        .. versionadded:: 0.10
+
+        :param name: the optional name of the global function, otherwise the
+                     function name will be used.
+        """"""","""""""
+Adds a template global to the Jinja environment.
+
+This method allows you to add a callable as a global variable in the Jinja environment.
+The callable can be used in templates using the `{{ }}` syntax, and its name will be used as the key for the global variable.
+
+Args:
+    f (ft.TemplateGlobalCallable): The callable to add as a global variable.
+    name (str | None, optional): The name of the global variable. If not provided, the name of the callable will be used. Defaults to None.
+
+Returns:
+    None
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.58485067,def teardown_appcontext,"""""""Registers a function to be called when the application
+        context is popped. The application context is typically popped
+        after the request context for each request, at the end of CLI
+        commands, or after a manually pushed context ends.
+
+        .. code-block:: python
+
+            with app.app_context():
+                ...
+
+        When the ``with`` block exits (or ``ctx.pop()`` is called), the
+        teardown functions are called just before the app context is
+        made inactive. Since a request context typically also manages an
+        application context it would also be called when you pop a
+        request context.
+
+        When a teardown function was called because of an unhandled
+        exception it will be passed an error object. If an
+        :meth:`errorhandler` is registered, it will handle the exception
+        and the teardown will not receive it.
+
+        Teardown functions must avoid raising exceptions. If they
+        execute code that might fail they must surround that code with a
+        ``try``/``except`` block and log any errors.
+
+        The return values of teardown functions are ignored.
+
+        .. versionadded:: 0.9
+        """"""","""""""
+Adds a teardown function to the list of teardown functions and returns the original function.
+
+Args:
+    f (T_teardown): The teardown function to be added.
+
+Returns:
+    T_teardown: The original teardown function.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6883441,def shell_context_processor,"""""""Registers a shell context processor function.
+
+        .. versionadded:: 0.11
+        """"""","""""""
+Processors for shell context.
+
+This function is used to register a shell context processor. The processor will be executed when the shell context is processed.
+
+Args:
+    f (T_shell_context_processor): The processor to be registered.
+
+Returns:
+    T_shell_context_processor: The original processor, which has been appended to the list of shell context processors.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.7076866,def _find_error_handler,"""""""Return a registered error handler for an exception in this order:
+        blueprint handler for a specific code, app handler for a specific code,
+        blueprint handler for an exception class, app handler for an exception
+        class, or ``None`` if a suitable handler is not found.
+        """"""","""""""
+Finds the error handler for a given exception.
+
+This function iterates through the blueprint handlers and class-specific handlers to find a matching error handler.
+If no match is found, it returns `None`.
+
+Args:
+    e (Exception): The exception for which to find an error handler.
+
+Returns:
+    ft.ErrorHandlerCallable | None: The error handler for the given exception, or `None` if no match is found.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.67328006,def trap_http_exception,"""""""Checks if an HTTP exception should be trapped or not.  By default
+        this will return ``False`` for all exceptions except for a bad request
+        key error if ``TRAP_BAD_REQUEST_ERRORS`` is set to ``True``.  It
+        also returns ``True`` if ``TRAP_HTTP_EXCEPTIONS`` is set to ``True``.
+
+        This is called for all HTTP exceptions raised by a view function.
+        If it returns ``True`` for any exception the error handler for this
+        exception is not called and it shows up as regular exception in the
+        traceback.  This is helpful for debugging implicitly raised HTTP
+        exceptions.
+
+        .. versionchanged:: 1.0
+            Bad request errors are not trapped by default in debug mode.
+
+        .. versionadded:: 0.8
+        """"""","""""""
+Traps HTTP exceptions based on configuration settings.
+
+This function determines whether to trap an HTTP exception or not. It checks the `TRAP_HTTP_EXCEPTIONS` setting in the application's configuration.
+If this setting is enabled, the function returns True, indicating that the exception should be trapped.
+
+Additionally, if `TRAP_BAD_REQUEST_ERRORS` is set to None and the application is in debug mode, key errors are also trapped.
+
+Finally, if `TRAP_BAD_REQUEST_ERRORS` is enabled, only bad request exceptions are trapped. Otherwise, no exceptions are trapped.
+
+Args:
+    e (Exception): The exception to check.
+
+Returns:
+    bool: True if the exception should be trapped, False otherwise.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.62547,def handle_exception,"""""""Handle an exception that did not have an error handler
+        associated with it, or that was raised from an error handler.
+        This always causes a 500 ``InternalServerError``.
+
+        Always sends the :data:`got_request_exception` signal.
+
+        If :data:`PROPAGATE_EXCEPTIONS` is ``True``, such as in debug
+        mode, the error will be re-raised so that the debugger can
+        display it. Otherwise, the original exception is logged, and
+        an :exc:`~werkzeug.exceptions.InternalServerError` is returned.
+
+        If an error handler is registered for ``InternalServerError`` or
+        ``500``, it will be used. For consistency, the handler will
+        always receive the ``InternalServerError``. The original
+        unhandled exception is available as ``e.original_exception``.
+
+        .. versionchanged:: 1.1.0
+            Always passes the ``InternalServerError`` instance to the
+            handler, setting ``original_exception`` to the unhandled
+            error.
+
+        .. versionchanged:: 1.1.0
+            ``after_request`` functions and other finalization is done
+            even for the default 500 response when there is no handler.
+
+        .. versionadded:: 0.3
+        """"""","""""""
+Handles exceptions raised during request processing.
+
+Raises an exception if propagation is enabled and the current exception
+is different from the one passed in. Otherwise, re-raises the original
+exception. If no error handler is found, logs the exception and returns a
+server error response.
+
+Args:
+    e (Exception): The exception to be handled.
+
+Returns:
+    Response: A server error response.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.55430645,def log_exception,"""""""Logs an exception.  This is called by :meth:`handle_exception`
+        if debugging is disabled and right before the handler is called.
+        The default implementation logs the exception as error on the
+        :attr:`logger`.
+
+        .. versionadded:: 0.8
+        """"""","""""""
+Logs an exception with the provided error information.
+
+Args:
+    - `self`: The instance of the class that this method belongs to.
+    - `exc_info`: A tuple containing the type, value, and traceback of the exception. Can be a single value if only one is available (e.g., for sys.exc_info()).
+
+Returns:
+    None
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6926711,def full_dispatch_request,"""""""Dispatches the request and on top of that performs request
+        pre and postprocessing as well as HTTP exception catching and
+        error handling.
+
+        .. versionadded:: 0.7
+        """"""","""""""
+Dispatches the full request and handles any exceptions that may occur.
+
+This method initiates the request dispatching process, ensuring that all necessary steps are taken to fulfill the user's request.
+It also catches any exceptions that may be raised during this process and handles them accordingly.
+
+Returns:
+    Response: The response object after successful request dispatching or exception handling.
+
+Raises:
+    Exception: If an error occurs during request dispatching or exception handling.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6187798,def finalize_request,"""""""Given the return value from a view function this finalizes
+        the request by converting it into a response and invoking the
+        postprocessing functions.  This is invoked for both normal
+        request dispatching as well as error handlers.
+
+        Because this means that it might be called as a result of a
+        failure a special safe mode is available which can be enabled
+        with the `from_error_handler` flag.  If enabled, failures in
+        response processing will be logged and otherwise ignored.
+
+        :internal:
+        """"""","""""""
+Finalizes a request by processing the response and sending a signal to indicate that the request has finished.
+
+Args:
+    rv (ft.ResponseReturnValue | HTTPException): The response value or exception to be finalized.
+    from_error_handler (bool, optional): Whether this is being called from an error handler. Defaults to False.
+
+Returns:
+    Response: The finalized response object.
+
+Raises:
+    Exception: If the request finalizing fails and `from_error_handler` is False.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.62595445,def make_default_options_response,"""""""This method is called to create the default ``OPTIONS`` response.
+        This can be changed through subclassing to change the default
+        behavior of ``OPTIONS`` responses.
+
+        .. versionadded:: 0.7
+        """"""","""""""
+Returns a default options response for the current request.
+
+This method creates a new response object with the allowed HTTP methods from the URL adapter.
+The `allow` attribute of the response is updated to include these methods, allowing the client to specify which methods are supported by the server.
+
+Args:
+    None
+
+Returns:
+    Response: A new response object with the default options configuration.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6066511,def should_ignore_error,"""""""This is called to figure out if an error should be ignored
+        or not as far as the teardown system is concerned.  If this
+        function returns ``True`` then the teardown handlers will not be
+        passed the error.
+
+        .. versionadded:: 0.10
+        """"""","""""""
+Determines whether an exception should be ignored.
+
+Args:
+    error (BaseException | None): The exception to check. Can be None for no exception.
+Returns:
+    bool: True if the exception should be ignored, False otherwise.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.67856944,def ensure_sync,"""""""Ensure that the function is synchronous for WSGI workers.
+        Plain ``def`` functions are returned as-is. ``async def``
+        functions are wrapped to run and wait for the response.
+
+        Override this method to change how the app runs async views.
+
+        .. versionadded:: 2.0
+        """"""","""""""
+Ensures that a provided function is synchronous by converting it to a synchronous function if it's a coroutine.
+
+Args:
+    func (t.Callable): The function to be ensured as synchronous.
+
+Returns:
+    t.Callable: The synchronous version of the input function, or the original function if it's already synchronous.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5968644,def async_to_sync,"""""""Return a sync function that will run the coroutine function.
+
+        .. code-block:: python
+
+            result = app.async_to_sync(func)(*args, **kwargs)
+
+        Override this method to change how the app converts async code
+        to be synchronously callable.
+
+        .. versionadded:: 2.0
+        """"""","""""""
+Converts an asynchronous function to a synchronous one.
+
+This function takes an asynchronous callable and returns a new function that can be called synchronously.
+It uses the `asgiref.sync.async_to_sync` function from Flask, which is only available when Flask is installed with the 'async' extra.
+
+If the required import fails, it raises a RuntimeError indicating that Flask needs to be installed with the 'async' extra.
+
+Args:
+    func: The asynchronous function to convert.
+
+Returns:
+    A new synchronous function wrapping the original asynchronous one.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.64990103,def redirect,"""""""Create a redirect response object.
+
+        This is called by :func:`flask.redirect`, and can be called
+        directly as well.
+
+        :param location: The URL to redirect to.
+        :param code: The status code for the redirect.
+
+        .. versionadded:: 2.2
+            Moved from ``flask.redirect``, which calls this method.
+        """"""","""""""
+Redirects to a specified URL with an optional HTTP status code.
+
+Args:
+    location (str): The URL to redirect to.
+    code (int, optional): The HTTP status code. Defaults to 302.
+
+Returns:
+    BaseResponse: A response object containing the redirect URL and status code.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.51516145,def create_url_adapter,"""""""Creates a URL adapter for the given request. The URL adapter
+        is created at a point where the request context is not yet set
+        up so the request is passed explicitly.
+
+        .. versionadded:: 0.6
+
+        .. versionchanged:: 0.9
+           This can now also be called without a request object when the
+           URL adapter is created for the application context.
+
+        .. versionchanged:: 1.0
+            :data:`SERVER_NAME` no longer implicitly enables subdomain
+            matching. Use :attr:`subdomain_matching` instead.
+        """"""","""""""
+Creates a URL adapter for the current request.
+
+If `subdomain_matching` is disabled, uses the default subdomain in all cases.
+Otherwise, does not use a subdomain. The adapter binds to the environment,
+server name, and other configuration settings from the application's config.
+
+Returns:
+    MapAdapter | None: A bound URL map adapter or None if no adapter can be created.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6157704,def preprocess_request,"""""""Called before the request is dispatched. Calls
+        :attr:`url_value_preprocessors` registered with the app and the
+        current blueprint (if any). Then calls :attr:`before_request_funcs`
+        registered with the app and the blueprint.
+
+        If any :meth:`before_request` handler returns a non-None value, the
+        value is handled as if it was the return value from the view, and
+        further request handling is stopped.
+        """"""","""""""
+Preprocesses the request by applying URL value preprocessors and before request functions.
+
+This method iterates over the blueprint names in reverse order, applying any URL value preprocessors to each endpoint.
+It then checks for any before request functions associated with the current blueprint and executes them if present.
+
+If a before request function returns a non-None response, it is returned immediately. Otherwise, the method proceeds to check the next blueprint.
+
+Returns:
+    ft.ResponseReturnValue | None: The result of the last executed before request function, or None if no such function was found.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.55458045,def process_response,"""""""Can be overridden in order to modify the response object
+        before it's sent to the WSGI server.  By default this will
+        call all the :meth:`after_request` decorated functions.
+
+        .. versionchanged:: 0.5
+           As of Flask 0.5 the functions registered for after request
+           execution are called in reverse order of registration.
+
+        :param response: a :attr:`response_class` object.
+        :return: a new response object or the same, has to be an
+                 instance of :attr:`response_class`.
+        """"""","""""""
+Processes the given response by executing any after-request functions and saving the session.
+
+Args:
+    response (Response): The response to be processed.
+
+Returns:
+    Response: The processed response.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.55691993,def do_teardown_appcontext,"""""""Called right before the application context is popped.
+
+        When handling a request, the application context is popped
+        after the request context. See :meth:`do_teardown_request`.
+
+        This calls all functions decorated with
+        :meth:`teardown_appcontext`. Then the
+        :data:`appcontext_tearing_down` signal is sent.
+
+        This is called by
+        :meth:`AppContext.pop() <flask.ctx.AppContext.pop>`.
+
+        .. versionadded:: 0.9
+        """"""","""""""
+Tear down the application context.
+
+This function is called after the application context has been torn down. It ensures that any teardown functions are executed in a synchronous manner and sends an event to notify other parts of the application that the context is being torn down.
+
+Args:
+    exc (BaseException | None): The exception that caused the tear down, or None if no exception was raised.
+        Defaults to `_sentinel` which will be replaced with the actual exception if present.
+
+Returns:
+    None
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6651526,def app_context,"""""""Create an :class:`~flask.ctx.AppContext`. Use as a ``with``
+        block to push the context, which will make :data:`current_app`
+        point at this application.
+
+        An application context is automatically pushed by
+        :meth:`RequestContext.push() <flask.ctx.RequestContext.push>`
+        when handling a request, and when running a CLI command. Use
+        this to manually create a context outside of these situations.
+
+        ::
+
+            with app.app_context():
+                init_db()
+
+        See :doc:`/appcontext`.
+
+        .. versionadded:: 0.9
+        """"""","""""""
+Returns an instance of `AppContext` initialized with the current object.
+
+Args:
+    None
+
+Returns:
+    AppContext: An instance of `AppContext` initialized with the current object.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.60429806,def request_context,"""""""Create a :class:`~flask.ctx.RequestContext` representing a
+        WSGI environment. Use a ``with`` block to push the context,
+        which will make :data:`request` point at this request.
+
+        See :doc:`/reqcontext`.
+
+        Typically you should not call this from your own code. A request
+        context is automatically pushed by the :meth:`wsgi_app` when
+        handling a request. Use :meth:`test_request_context` to create
+        an environment and context instead of this method.
+
+        :param environ: a WSGI environment
+        """"""","""""""
+Returns a new instance of RequestContext with the given environment.
+
+Args:
+    environ (dict): The current HTTP environment.
+
+Returns:
+    RequestContext: A new instance of RequestContext.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.55241436,def test_request_context,"""""""Create a :class:`~flask.ctx.RequestContext` for a WSGI
+        environment created from the given values. This is mostly useful
+        during testing, where you may want to run a function that uses
+        request data without dispatching a full request.
+
+        See :doc:`/reqcontext`.
+
+        Use a ``with`` block to push the context, which will make
+        :data:`request` point at the request for the created
+        environment. ::
+
+            with app.test_request_context(...):
+                generate_report()
+
+        When using the shell, it may be easier to push and pop the
+        context manually to avoid indentation. ::
+
+            ctx = app.test_request_context(...)
+            ctx.push()
+            ...
+            ctx.pop()
+
+        Takes the same arguments as Werkzeug's
+        :class:`~werkzeug.test.EnvironBuilder`, with some defaults from
+        the application. See the linked Werkzeug docs for most of the
+        available arguments. Flask-specific behavior is listed here.
+
+        :param path: URL path being requested.
+        :param base_url: Base URL where the app is being served, which
+            ``path`` is relative to. If not given, built from
+            :data:`PREFERRED_URL_SCHEME`, ``subdomain``,
+            :data:`SERVER_NAME`, and :data:`APPLICATION_ROOT`.
+        :param subdomain: Subdomain name to append to
+            :data:`SERVER_NAME`.
+        :param url_scheme: Scheme to use instead of
+            :data:`PREFERRED_URL_SCHEME`.
+        :param data: The request body, either as a string or a dict of
+            form keys and values.
+        :param json: If given, this is serialized as JSON and passed as
+            ``data``. Also defaults ``content_type`` to
+            ``application/json``.
+        :param args: other positional arguments passed to
+            :class:`~werkzeug.test.EnvironBuilder`.
+        :param kwargs: other keyword arguments passed to
+            :class:`~werkzeug.test.EnvironBuilder`.
+        """"""","""""""
+Tests the creation of a request context using an `EnvironBuilder`.
+
+This function creates an instance of `EnvironBuilder` with the provided arguments,
+uses it to create an environment, and then attempts to create a request context
+using that environment. The `finally` block ensures the `EnvironBuilder` is properly
+closed after use.
+
+Args:
+    *args: Variable number of positional arguments to pass to the `EnvironBuilder`.
+    **kwargs: Keyword arguments to pass to the `EnvironBuilder`.
+
+Returns:
+    A `RequestContext` object representing the created request context.
+Raises:
+    Exception: If an error occurs while creating the request context.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5683456,def wsgi_app,"""""""The actual WSGI application. This is not implemented in
+        :meth:`__call__` so that middlewares can be applied without
+        losing a reference to the app object. Instead of doing this::
+
+            app = MyMiddleware(app)
+
+        It's a better idea to do this instead::
+
+            app.wsgi_app = MyMiddleware(app.wsgi_app)
+
+        Then you still have the original application object around and
+        can continue to call methods on it.
+
+        .. versionchanged:: 0.7
+            Teardown events for the request and app contexts are called
+            even if an unhandled error occurs. Other events may not be
+            called depending on when an error occurs during dispatch.
+            See :ref:`callbacks-and-errors`.
+
+        :param environ: A WSGI environment.
+        :param start_response: A callable accepting a status code,
+            a list of headers, and an optional exception context to
+            start the response.
+        """"""","""""""
+WSGI Application Function
+
+This function serves as the entry point for the WSGI application. It takes in an environment dictionary and a start response callable, 
+and returns any response object generated by the application.
+
+The function first creates a request context using `self.request_context(environ)`. It then attempts to execute the full dispatch of the request,
+handling any exceptions that may occur during this process. If an exception is caught, it will be handled and propagated up the call stack.
+Finally, the response object is returned to the caller.
+
+Note: This function should not be called directly by users of the application. Instead, it should be used as part of a larger WSGI server or framework.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.66198933,def __call__,"""""""The WSGI server calls the Flask application object as the
+        WSGI application. This calls :meth:`wsgi_app`, which can be
+        wrapped to apply middleware.
+        """"""","""""""
+    Calls the WSGI application with the provided environment and response callback.
+
+    Args:
+        environ (dict): The HTTP request environment.
+        start_response (t.Callable): A callable that takes a status code and headers as arguments.
+
+    Returns:
+        t.Any: The result of calling the WSGI application.
+
+    Note:
+        This method is part of the WSGI protocol and is used to call the WSGI application with the provided environment and response callback.
+""""""",src/flask/sansio/app.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5725934,def add_url_rule,"""""""A helper method to register a rule (and optionally a view function)
+        to the application.  The endpoint is automatically prefixed with the
+        blueprint's name.
+        """"""","""""""
+Adds a URL rule to the application.
+
+Parameters:
+    rule (str): The URL pattern.
+    endpoint (str | None, optional): The endpoint name. Defaults to None.
+    view_func (t.Callable | None, optional): The view function. Defaults to None.
+    **options (t.Any): Additional options for the URL rule.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.70989215,def add_url_rule,"""""""Register a URL rule with the blueprint. See :meth:`.Flask.add_url_rule` for
+        full documentation.
+
+        The URL rule is prefixed with the blueprint's URL prefix. The endpoint name,
+        used with :func:`url_for`, is prefixed with the blueprint's name.
+        """"""","""""""
+Adds a URL rule to the application.
+
+Parameters:
+    rule (str): The URL pattern.
+    endpoint (str | None, optional): The endpoint name. Defaults to None.
+    view_func (t.Callable | None, optional): The view function. Defaults to None.
+    **options (t.Any): Additional options for the URL rule.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5947135,def record_once,"""""""Works like :meth:`record` but wraps the function in another
+        function that will ensure the function is only called once.  If the
+        blueprint is registered a second time on the application, the
+        function passed is not called.
+        """"""","""""""
+Records a function to be executed once during the first registration of a blueprint.
+
+This method is used to register a function that should only be executed during the initial setup of a blueprint.
+The function will be called when the blueprint's first registration occurs.
+
+Args:
+    func (t.Callable): The function to be recorded and executed.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.52203184,def make_setup_state,"""""""Creates an instance of :meth:`~flask.blueprints.BlueprintSetupState`
+        object that is later passed to the register callback functions.
+        Subclasses can override this to return a subclass of the setup state.
+        """"""","""""""
+Creates a new setup state for the given application.
+
+Args:
+    - `app`: The Flask application instance.
+    - `options`: A dictionary of configuration options.
+    - `first_registration` (optional): Whether this is the first registration. Defaults to False.
+
+Returns:
+    A BlueprintSetupState object representing the created setup state.
+
+Raises:
+    None
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5954018,def register_blueprint,"""""""Register a :class:`~flask.Blueprint` on this blueprint. Keyword
+        arguments passed to this method will override the defaults set
+        on the blueprint.
+
+        .. versionchanged:: 2.0.1
+            The ``name`` option can be used to change the (pre-dotted)
+            name the blueprint is registered with. This allows the same
+            blueprint to be registered multiple times with unique names
+            for ``url_for``.
+
+        .. versionadded:: 2.0
+        """"""","""""""
+Registers a blueprint with the current instance.
+
+Args:
+    - blueprint (Blueprint): The blueprint to be registered.
+    - **options (t.Any): Optional keyword arguments for the blueprint registration.
+
+Raises:
+    ValueError: If the provided blueprint is the same as the current instance.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6297566,def add_url_rule,"""""""A helper method to register a rule (and optionally a view function)
+        to the application.  The endpoint is automatically prefixed with the
+        blueprint's name.
+        """"""","""""""
+Adds a URL rule to the application.
+
+This method is used to register a new route for the application. It takes in several parameters:
+
+- `rule`: The path of the URL rule.
+- `endpoint`: The name of the endpoint associated with this URL rule (optional).
+- `view_func`: The view function that will handle requests to this URL rule (optional).
+- `provide_automatic_options`: A boolean indicating whether to provide automatic options for this URL rule (optional).
+- `**options`: Any additional keyword arguments to pass to the `add_url_rule` method of the view function.
+
+If either the `endpoint` or `view_func.__name__` contains a dot ('.'), a ValueError is raised. The `record` method is then called with a closure that adds this URL rule to the application.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.63768494,def add_url_rule,"""""""Register a URL rule with the blueprint. See :meth:`.Flask.add_url_rule` for
+        full documentation.
+
+        The URL rule is prefixed with the blueprint's URL prefix. The endpoint name,
+        used with :func:`url_for`, is prefixed with the blueprint's name.
+        """"""","""""""
+Adds a URL rule to the application.
+
+This method is used to register a new route for the application. It takes in several parameters:
+
+- `rule`: The path of the URL rule.
+- `endpoint`: The name of the endpoint associated with this URL rule (optional).
+- `view_func`: The view function that will handle requests to this URL rule (optional).
+- `provide_automatic_options`: A boolean indicating whether to provide automatic options for this URL rule (optional).
+- `**options`: Any additional keyword arguments to pass to the `add_url_rule` method of the view function.
+
+If either the `endpoint` or `view_func.__name__` contains a dot ('.'), a ValueError is raised. The `record` method is then called with a closure that adds this URL rule to the application.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6378893,def add_app_template_filter,"""""""Register a template filter, available in any template rendered by the
+        application. Works like the :meth:`app_template_filter` decorator. Equivalent to
+        :meth:`.Flask.add_template_filter`.
+
+        :param name: the optional name of the filter, otherwise the
+                     function name will be used.
+        """"""","""""""
+Adds a template filter to the application's Jinja environment.
+
+This function registers a new template filter with the given name, which can be used in templates to perform custom operations. If no name is provided, the filter will be registered under its original name (i.e., the name of the `f` function).
+
+Args:
+    f: A callable that implements the template filter functionality.
+    name: The name under which the filter should be registered (optional). Defaults to None.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5712038,def app_template_test,"""""""Register a template test, available in any template rendered by the
+        application. Equivalent to :meth:`.Flask.template_test`.
+
+        .. versionadded:: 0.10
+
+        :param name: the optional name of the test, otherwise the
+                     function name will be used.
+        """"""","""""""
+Decorates a function with the `app_template_test` metadata.
+
+This decorator adds an application template test to the decorated function.
+It takes an optional `name` parameter to specify the test name.
+
+Args:
+    f (Callable): The function to be decorated.
+    name (str, optional): The name of the test. Defaults to None.
+
+Returns:
+    Callable: The decorated function with added metadata.
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.63474506,def add_app_template_test,"""""""Register a template test, available in any template rendered by the
+        application. Works like the :meth:`app_template_test` decorator. Equivalent to
+        :meth:`.Flask.add_template_test`.
+
+        .. versionadded:: 0.10
+
+        :param name: the optional name of the test, otherwise the
+                     function name will be used.
+        """"""","""""""
+Adds a template test to the application's Jinja environment.
+
+This function registers a template test with the given name (defaulting to the test function's name if not provided).
+
+Args:
+    f (ft.TemplateTestCallable): The test function to register.
+    name (str | None, optional): The name of the test. Defaults to None.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5843529,def app_template_global,"""""""Register a template global, available in any template rendered by the
+        application. Equivalent to :meth:`.Flask.template_global`.
+
+        .. versionadded:: 0.10
+
+        :param name: the optional name of the global, otherwise the
+                     function name will be used.
+        """"""","""""""
+Decorates a function to make it available as an application template global.
+
+This decorator adds the decorated function to the list of application template globals.
+It is typically used in conjunction with the `add_app_template_global` method.
+
+Args:
+    name (str | None): The name under which the decorated function should be added. If None, no name will be specified.
+
+Returns:
+    T_template_global: A decorator function that adds the decorated function to the list of application template globals.
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.60670656,def add_app_template_global,"""""""Register a template global, available in any template rendered by the
+        application. Works like the :meth:`app_template_global` decorator. Equivalent to
+        :meth:`.Flask.add_template_global`.
+
+        .. versionadded:: 0.10
+
+        :param name: the optional name of the global, otherwise the
+                     function name will be used.
+        """"""","""""""
+Adds a template global to the application.
+
+This function registers a template global with the given name. If no name is provided, it defaults to the name of the provided callable.
+
+Args:
+    f (ft.TemplateGlobalCallable): The callable to register as a template global.
+    name (str | None, optional): The name of the template global. Defaults to None.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.4982772,def before_app_request,"""""""Like :meth:`before_request`, but before every request, not only those handled
+        by the blueprint. Equivalent to :meth:`.Flask.before_request`.
+        """"""","""""""
+Records a function to be executed before the application request.
+
+Args:
+    f (T_before_request): The function to be recorded.
+
+Returns:
+    T_before_request: The input function with the record added.
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.53010297,def after_app_request,"""""""Like :meth:`after_request`, but after every request, not only those handled
+        by the blueprint. Equivalent to :meth:`.Flask.after_request`.
+        """"""","""""""
+Records a function as an 'after-app-request' hook.
+
+Args:
+    f (T_after_request): The function to be recorded.
+
+Returns:
+    T_after_request: The input function.
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.57438964,def teardown_app_request,"""""""Like :meth:`teardown_request`, but after every request, not only those
+        handled by the blueprint. Equivalent to :meth:`.Flask.teardown_request`.
+        """"""","""""""
+Records a teardown request function for the current application context.
+
+Args:
+    f (T_teardown): The teardown request function to be recorded.
+
+Returns:
+    T_teardown: The original teardown request function.
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.54141545,def app_context_processor,"""""""Like :meth:`context_processor`, but for templates rendered by every view, not
+        only by the blueprint. Equivalent to :meth:`.Flask.context_processor`.
+        """"""","""""""
+Processes the template context for an application.
+
+This function is used to add a new template context processor to the existing list.
+It ensures that the processor is added only once by using the `record_once` method.
+
+Args:
+    f (T_template_context_processor): The template context processor to be added.
+
+Returns:
+    T_template_context_processor: The original template context processor, which has been modified in-place.
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.63431734,def app_errorhandler,"""""""Like :meth:`errorhandler`, but for every request, not only those handled by
+        the blueprint. Equivalent to :meth:`.Flask.errorhandler`.
+        """"""","""""""
+App Error Handler Decorator.
+
+This function returns a decorator that can be used to handle application errors.
+The decorator takes an error handling function as input and wraps it with the provided app error handler.
+
+Args:
+    code (type[Exception] | int): The type of exception or error code to use for error handling.
+    f (T_error_handler): The error handling function to wrap.
+
+Returns:
+    T_error_handler: The wrapped error handling function.
+
+Example:
+    @app_errorhandler(404)
+    def handle_404(f):
+        # Handle 404 errors
+        pass
+
+    @app_errorhandler(Exception)
+    def handle_all_errors(f):
+        # Handle all exceptions
+        pass
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.61239684,def app_url_value_preprocessor,"""""""Like :meth:`url_value_preprocessor`, but for every request, not only those
+        handled by the blueprint. Equivalent to :meth:`.Flask.url_value_preprocessor`.
+        """"""","""""""
+Preprocesses the given URL value preprocessor and records it in the application's internal state.
+
+Args:
+    f (T_url_value_preprocessor): The URL value preprocessor to be recorded.
+
+Returns:
+    T_url_value_preprocessor: The original preprocessor, which has been marked as recorded.
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5967359,def app_url_defaults,"""""""Like :meth:`url_defaults`, but for every request, not only those handled by
+        the blueprint. Equivalent to :meth:`.Flask.url_defaults`.
+        """"""","""""""
+Returns a URL default function and records it in the `url_default_functions` set.
+
+Args:
+    f (T_url_defaults): The URL default function to be returned.
+
+Returns:
+    T_url_defaults: The provided URL default function.
+""""""",src/flask/sansio/blueprints.py,b989889728c3e5967356d041d67a15949fd3bade
+0.7617473,def static_folder,"""""""The absolute path to the configured static folder. ``None``
+        if no static folder is set.
+        """"""","""""""
+Returns the path to the static folder. If no static folder has been set, returns None.
+
+Args:
+    None
+
+Returns:
+    str | None: The path to the static folder or None if not set.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5709137,def static_folder,"""""""The absolute path to the configured static folder. ``None``
+        if no static folder is set.
+        """"""","""""""
+Sets the path to a static folder.
+
+This method takes a string or Path-like object representing the path to a static folder.
+If the provided path is absolute, it will be normalized and any trailing slash removed.
+The resulting path is then stored in the `_static_folder` attribute of the instance.
+
+Args:
+    value (str | os.PathLike | None): The path to the static folder.
+
+Returns:
+    None
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6196558,def has_static_folder,"""""""``True`` if :attr:`static_folder` is set.
+
+        .. versionadded:: 0.5
+        """"""","""""""
+Returns whether the object has a static folder.
+
+This method checks if the `static_folder` attribute of the object is not None.
+It can be used to determine if the object has a static folder available for serving files. 
+
+Args:
+    None
+
+Returns:
+    bool: True if the object has a static folder, False otherwise
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5683469,def static_url_path,"""""""The URL prefix that the static route will be accessible from.
+
+        If it was not configured during init, it is derived from
+        :attr:`static_folder`.
+        """"""","""""""
+Returns the static URL path for this object.
+
+If a precomputed URL path exists, it returns that. Otherwise, it constructs a URL path from the `static_folder` attribute by taking the basename of the folder and appending it to the root URL.
+
+Returns:
+    str | None: The static URL path or None if no valid path can be constructed.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5551689,def static_url_path,"""""""The URL prefix that the static route will be accessible from.
+
+        If it was not configured during init, it is derived from
+        :attr:`static_folder`.
+        """"""","""""""
+Returns a static URL path.
+
+This method takes a string or None as input and returns the URL path after removing any trailing slashes. If the input is None, it sets the internal `_static_url_path` attribute to None.
+
+Args:
+    value (str | None): The URL path to be processed.
+
+Returns:
+    None
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.60891414,def get_send_file_max_age,"""""""Used by :func:`send_file` to determine the ``max_age`` cache
+        value for a given file path if it wasn't passed.
+
+        By default, this returns :data:`SEND_FILE_MAX_AGE_DEFAULT` from
+        the configuration of :data:`~flask.current_app`. This defaults
+        to ``None``, which tells the browser to use conditional requests
+        instead of a timed cache, which is usually preferable.
+
+        .. versionchanged:: 2.0
+            The default configuration is ``None`` instead of 12 hours.
+
+        .. versionadded:: 0.9
+        """"""","""""""
+Returns the maximum age in seconds for sending files.
+
+If `filename` is provided, it will be used to retrieve the default send file max age from the application configuration.
+Otherwise, the default value will be returned.
+
+Args:
+    filename (str | None): The name of the file to use for retrieving the default send file max age. Defaults to None.
+
+Returns:
+    int | None: The maximum age in seconds for sending files, or None if no default is set.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5753387,def send_static_file,"""""""The view function used to serve files from
+        :attr:`static_folder`. A route is automatically registered for
+        this view at :attr:`static_url_path` if :attr:`static_folder` is
+        set.
+
+        .. versionadded:: 0.5
+        """"""","""""""
+Sends a static file from the configured static folder.
+
+This method is used to serve static files. It checks if the `static_folder` attribute has been set and raises a RuntimeError if not.
+It then calls `get_send_file_max_age` to determine the maximum age for the file, which is necessary for blueprints to work correctly.
+Finally, it uses `send_from_directory` to send the file from the static folder.
+
+Args:
+    filename (str): The name of the file to be sent.
+
+Returns:
+    Response: A response object containing the sent file.
+
+Raises:
+    RuntimeError: If 'static_folder' is not set.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.61798936,def jinja_loader,"""""""The Jinja loader for this object's templates. By default this
+        is a class :class:`jinja2.loaders.FileSystemLoader` to
+        :attr:`template_folder` if it is set.
+
+        .. versionadded:: 0.5
+        """"""","""""""
+Loads a Jinja template loader based on the presence of a template folder.
+
+Returns:
+    FileSystemLoader: A Jinja template loader instance if a template folder is found.
+    None: No template folder found, returns None.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6061287,def open_resource,"""""""Open a resource file relative to :attr:`root_path` for
+        reading.
+
+        For example, if the file ``schema.sql`` is next to the file
+        ``app.py`` where the ``Flask`` app is defined, it can be opened
+        with:
+
+        .. code-block:: python
+
+            with app.open_resource(""schema.sql"") as f:
+                conn.executescript(f.read())
+
+        :param resource: Path to the resource relative to
+            :attr:`root_path`.
+        :param mode: Open the file in this mode. Only reading is
+            supported, valid values are ""r"" (or ""rt"") and ""rb"".
+        """"""","""""""
+Opens a resource file.
+
+Args:
+    resource (str): The path to the resource file.
+    mode (str, optional): The mode in which to open the file. Defaults to ""rb"". Supported modes are ""r"", ""rt"", and ""rb"".
+
+Returns:
+    t.IO[t.AnyStr]: A file object opened in the specified mode.
+
+Raises:
+    ValueError: If an unsupported mode is provided.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5643583,def get,"""""""Shortcut for :meth:`route` with ``methods=[""GET""]``.
+
+        .. versionadded:: 2.0
+        """"""","""""""
+Returns a callable function for handling HTTP GET requests.
+
+Args:
+    rule (str): The route to be handled.
+    **options (t.Any): Additional keyword arguments to be passed to the method.
+
+Returns:
+    t.Callable[[T_route], T_route]: A callable function that handles HTTP GET requests.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.5764615,def put,"""""""Shortcut for :meth:`route` with ``methods=[""PUT""]``.
+
+        .. versionadded:: 2.0
+        """"""","""""""
+Returns a callable function for handling HTTP PUT requests.
+
+Args:
+    rule (str): The route to be handled.
+    **options (t.Any): Additional keyword arguments to be passed to the underlying method.
+
+Returns:
+    t.Callable[[T_route], T_route]: A callable function that handles HTTP PUT requests for the given rule.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.51731396,def delete,"""""""Shortcut for :meth:`route` with ``methods=[""DELETE""]``.
+
+        .. versionadded:: 2.0
+        """"""","""""""
+Deletes a route.
+
+Args:
+    rule (str): The path of the route to be deleted.
+    **options (t.Any): Additional keyword arguments for the method.
+
+Returns:
+    t.Callable[[T_route], T_route]: A callable function that deletes the specified route.
+
+Raises:
+    ValueError: If the rule is not a valid path.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.53585076,def patch,"""""""Shortcut for :meth:`route` with ``methods=[""PATCH""]``.
+
+        .. versionadded:: 2.0
+        """"""","""""""
+Patches a route with the specified rule and options.
+
+Args:
+    rule (str): The rule to patch.
+    **options (t.Any): Additional options for the route.
+
+Returns:
+    t.Callable[[T_route], T_route]: A callable that patches the route.
+
+Raises:
+    None
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.7276173,def route,"""""""Decorate a view function to register it with the given URL
+        rule and options. Calls :meth:`add_url_rule`, which has more
+        details about the implementation.
+
+        .. code-block:: python
+
+            @app.route(""/"")
+            def index():
+                return ""Hello, World!""
+
+        See :ref:`url-route-registrations`.
+
+        The endpoint name for the route defaults to the name of the view
+        function if the ``endpoint`` parameter isn't passed.
+
+        The ``methods`` parameter defaults to ``[""GET""]``. ``HEAD`` and
+        ``OPTIONS`` are added automatically.
+
+        :param rule: The URL rule string.
+        :param options: Extra options passed to the
+            :class:`~werkzeug.routing.Rule` object.
+        """"""","""""""
+Route a URL pattern to a view function.
+
+This function is used to create a route for a given URL pattern. It takes in the rule of the URL and any additional options as keyword arguments. The `endpoint` option can be provided to specify an endpoint name, which will be used when adding the URL rule.
+
+The returned decorator function can be applied to view functions to register them with this router.
+
+Args:
+    rule (str): The URL pattern to route.
+    **options: t.Any: Additional options for the URL rule. Can include 'endpoint' to specify an endpoint name.
+
+Returns:
+    T_route -> T_route: A decorator function that registers a view function with this router.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.74583316,def endpoint,"""""""Decorate a view function to register it for the given
+        endpoint. Used if a rule is added without a ``view_func`` with
+        :meth:`add_url_rule`.
+
+        .. code-block:: python
+
+            app.add_url_rule(""/ex"", endpoint=""example"")
+
+            @app.endpoint(""example"")
+            def example():
+                ...
+
+        :param endpoint: The endpoint name to associate with the view
+            function.
+        """"""","""""""
+Endpoint Decorator Function
+
+This function is a decorator that registers an endpoint with the provided endpoint string.
+It takes in a function `f` and returns a new function that wraps the original function, 
+registering it as a view function for the specified endpoint.
+
+Args:
+    endpoint (str): The endpoint to register the function under.
+    f (Callable[[F], F]): The function to be registered as a view function.
+
+Returns:
+    Callable[[F], F]: A new function that wraps the original function and registers it as a view function.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.64739656,def before_request,"""""""Register a function to run before each request.
+
+        For example, this can be used to open a database connection, or
+        to load the logged in user from the session.
+
+        .. code-block:: python
+
+            @app.before_request
+            def load_user():
+                if ""user_id"" in session:
+                    g.user = db.session.get(session[""user_id""])
+
+        The function will be called without any arguments. If it returns
+        a non-``None`` value, the value is handled as if it was the
+        return value from the view, and further request handling is
+        stopped.
+
+        This is available on both app and blueprint objects. When used on an app, this
+        executes before every request. When used on a blueprint, this executes before
+        every request that the blueprint handles. To register with a blueprint and
+        execute before every request, use :meth:`.Blueprint.before_app_request`.
+        """"""","""""""
+Adds a request handler function to the `before_request_funcs` set.
+
+Args:
+    f (T_before_request): The request handler function to be added.
+
+Returns:
+    T_before_request: The original request handler function.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.59638935,def after_request,"""""""Register a function to run after each request to this object.
+
+        The function is called with the response object, and must return
+        a response object. This allows the functions to modify or
+        replace the response before it is sent.
+
+        If a function raises an exception, any remaining
+        ``after_request`` functions will not be called. Therefore, this
+        should not be used for actions that must execute, such as to
+        close resources. Use :meth:`teardown_request` for that.
+
+        This is available on both app and blueprint objects. When used on an app, this
+        executes after every request. When used on a blueprint, this executes after
+        every request that the blueprint handles. To register with a blueprint and
+        execute after every request, use :meth:`.Blueprint.after_app_request`.
+        """"""","""""""
+Adds a request handler function to the `after_request_funcs` set.
+
+Args:
+    f (T_after_request): The request handler function to be added.
+
+Returns:
+    T_after_request: The original request handler function.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.56733346,def teardown_request,"""""""Register a function to be called when the request context is
+        popped. Typically this happens at the end of each request, but
+        contexts may be pushed manually as well during testing.
+
+        .. code-block:: python
+
+            with app.test_request_context():
+                ...
+
+        When the ``with`` block exits (or ``ctx.pop()`` is called), the
+        teardown functions are called just before the request context is
+        made inactive.
+
+        When a teardown function was called because of an unhandled
+        exception it will be passed an error object. If an
+        :meth:`errorhandler` is registered, it will handle the exception
+        and the teardown will not receive it.
+
+        Teardown functions must avoid raising exceptions. If they
+        execute code that might fail they must surround that code with a
+        ``try``/``except`` block and log any errors.
+
+        The return values of teardown functions are ignored.
+
+        This is available on both app and blueprint objects. When used on an app, this
+        executes after every request. When used on a blueprint, this executes after
+        every request that the blueprint handles. To register with a blueprint and
+        execute after every request, use :meth:`.Blueprint.teardown_app_request`.
+        """"""","""""""
+Adds a teardown request function to the internal list of teardown functions.
+
+Args:
+    f (T_teardown): The teardown request function to be added.
+
+Returns:
+    T_teardown: The original teardown request function.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6517861,def context_processor,"""""""Registers a template context processor function. These functions run before
+        rendering a template. The keys of the returned dict are added as variables
+        available in the template.
+
+        This is available on both app and blueprint objects. When used on an app, this
+        is called for every rendered template. When used on a blueprint, this is called
+        for templates rendered from the blueprint's views. To register with a blueprint
+        and affect every template, use :meth:`.Blueprint.app_context_processor`.
+        """"""","""""""
+Processes a template context processor.
+
+This function is used to register and manage template context processors.
+It takes in a `f` parameter, which is the template context processor to be added,
+and returns the same `f` after adding it to the list of registered processors.
+
+Args:
+    f (T_template_context_processor): The template context processor to be added.
+
+Returns:
+    T_template_context_processor: The original template context processor.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6158755,def url_value_preprocessor,"""""""Register a URL value preprocessor function for all view
+        functions in the application. These functions will be called before the
+        :meth:`before_request` functions.
+
+        The function can modify the values captured from the matched url before
+        they are passed to the view. For example, this can be used to pop a
+        common language code value and place it in ``g`` rather than pass it to
+        every view.
+
+        The function is passed the endpoint name and values dict. The return
+        value is ignored.
+
+        This is available on both app and blueprint objects. When used on an app, this
+        is called for every request. When used on a blueprint, this is called for
+        requests that the blueprint handles. To register with a blueprint and affect
+        every request, use :meth:`.Blueprint.app_url_value_preprocessor`.
+        """"""","""""""
+Preprocesses a URL value by appending it to the list of preprocessed values.
+
+Args:
+    f (T_url_value_preprocessor): The URL value to be preprocessed.
+
+Returns:
+    T_url_value_preprocessor: The preprocessed URL value.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6677976,def url_defaults,"""""""Callback function for URL defaults for all view functions of the
+        application.  It's called with the endpoint and values and should
+        update the values passed in place.
+
+        This is available on both app and blueprint objects. When used on an app, this
+        is called for every request. When used on a blueprint, this is called for
+        requests that the blueprint handles. To register with a blueprint and affect
+        every request, use :meth:`.Blueprint.app_url_defaults`.
+        """"""","""""""
+Adds a URL defaults function to the `url_default_functions` dictionary.
+
+Args:
+    f (T_url_defaults): The URL defaults function to be added.
+
+Returns:
+    T_url_defaults: The provided URL defaults function, which is then appended to the `url_default_functions` dictionary.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6901317,def errorhandler,"""""""Register a function to handle errors by code or exception class.
+
+        A decorator that is used to register a function given an
+        error code.  Example::
+
+            @app.errorhandler(404)
+            def page_not_found(error):
+                return 'This page does not exist', 404
+
+        You can also register handlers for arbitrary exceptions::
+
+            @app.errorhandler(DatabaseError)
+            def special_exception_handler(error):
+                return 'Database connection failed', 500
+
+        This is available on both app and blueprint objects. When used on an app, this
+        can handle errors from every request. When used on a blueprint, this can handle
+        errors from requests that the blueprint handles. To register with a blueprint
+        and affect every request, use :meth:`.Blueprint.app_errorhandler`.
+
+        .. versionadded:: 0.7
+            Use :meth:`register_error_handler` instead of modifying
+            :attr:`error_handler_spec` directly, for application wide error
+            handlers.
+
+        .. versionadded:: 0.7
+           One can now additionally also register custom exception types
+           that do not necessarily have to be a subclass of the
+           :class:`~werkzeug.exceptions.HTTPException` class.
+
+        :param code_or_exception: the code as integer for the handler, or
+                                  an arbitrary exception
+        """"""","""""""
+Decorates a function to handle specific exceptions.
+
+This function returns a decorator that registers the provided function as an error handler for the specified exception type or code. The decorated function will be called when the registered exception is raised.
+
+Args:
+    self: The instance of the class that this method belongs to.
+    code_or_exception (type[Exception] | int): The type of exception or code to register the decorator for.
+    f (T_error_handler): The function to decorate as an error handler.
+
+Returns:
+    T_error_handler: The decorated function.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.48090297,def register_error_handler,"""""""Alternative error attach function to the :meth:`errorhandler`
+        decorator that is more straightforward to use for non decorator
+        usage.
+
+        .. versionadded:: 0.7
+        """"""","""""""
+Registers an error handler for a specific exception class or code.
+
+Args:
+    - `self`: The instance of the class that this method belongs to.
+    - `code_or_exception`: A type hint indicating whether it's an exception class (type[Exception]) or an integer representing an HTTP status code. This parameter is used to determine which part of the error handler specification to update.
+    - `f`: An instance of ft.ErrorHandlerCallable, which represents a function that will be called when an error occurs.
+
+Returns:
+    None
+
+Raises:
+    None
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6772421,def _get_exc_class_and_code,"""""""Get the exception class being handled. For HTTP status codes
+        or ``HTTPException`` subclasses, return both the exception and
+        status code.
+
+        :param exc_class_or_code: Any exception class, or an HTTP status
+            code as an integer.
+        """"""","""""""
+Returns the exception class and its corresponding code (if applicable) from a given exception class or code.
+
+Args:
+    exc_class_or_code: The exception class or code to retrieve. Can be an instance of Exception or an integer representing an HTTP error code.
+
+Returns:
+    A tuple containing the exception class and its code (or None if not applicable).
+Raises:
+    ValueError: If the provided code is not a recognized HTTP error code.
+    TypeError: If the provided value is not an instance of Exception or an integer representing an HTTP error code, or if it's an instance of Exception instead of a class.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6760201,def find_package,"""""""Find the prefix that a package is installed under, and the path
+    that it would be imported from.
+
+    The prefix is the directory containing the standard directory
+    hierarchy (lib, bin, etc.). If the package is not installed to the
+    system (:attr:`sys.prefix`) or a virtualenv (``site-packages``),
+    ``None`` is returned.
+
+    The path is the entry in :attr:`sys.path` that contains the package
+    for import. If the package is not installed, it's assumed that the
+    package was imported from the current working directory.
+    """"""","""""""
+Find the path to a Python package.
+
+This function takes an import name as input and returns the prefix and full path of the corresponding package.
+If the package is installed system-wide, it returns the prefix and full path. If the package is installed in a virtual environment,
+it returns the parent directory and full path. If the package is not installed, it returns None for both values.
+
+Parameters:
+    import_name (str): The name of the Python package to find.
+
+Returns:
+    tuple: A tuple containing the prefix and full path of the package, or None if the package is not installed.
+""""""",src/flask/sansio/scaffold.py,b989889728c3e5967356d041d67a15949fd3bade
+0.6029397,def get_send_file_max_age,"""""""Used by :func:`send_file` to determine the ``max_age`` cache
+        value for a given file path if it wasn't passed.
+
+        By default, this returns :data:`SEND_FILE_MAX_AGE_DEFAULT` from
+        the configuration of :data:`~flask.current_app`. This defaults
+        to ``None``, which tells the browser to use conditional requests
+        instead of a timed cache, which is usually preferable.
+
+        Note this is a duplicate of the same method in the Flask
+        class.
+
+        .. versionchanged:: 2.0
+            The default configuration is ``None`` instead of 12 hours.
+
+        .. versionadded:: 0.9
+        """"""","""""""
+Returns the maximum age in seconds for sending files.
+
+If `filename` is provided, it will be used to retrieve the default send file max age from the application configuration.
+Otherwise, the default value will be returned.
+
+Args:
+    filename (str | None): The name of the file to use for retrieving the default send file max age. Defaults to None.
+
+Returns:
+    int | None: The maximum age in seconds for sending files, or None if no default is set.
+""""""",src/flask/app.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.5522383,def send_static_file,"""""""The view function used to serve files from
+        :attr:`static_folder`. A route is automatically registered for
+        this view at :attr:`static_url_path` if :attr:`static_folder` is
+        set.
+
+        Note this is a duplicate of the same method in the Flask
+        class.
+
+        .. versionadded:: 0.5
+
+        """"""","""""""
+Sends a static file from the configured static folder.
+
+This method is used to serve static files. It checks if the `static_folder` attribute has been set and raises a RuntimeError if not.
+It then calls `get_send_file_max_age` to determine the maximum age for the file, which is necessary for blueprints to work correctly.
+Finally, it uses `send_from_directory` to send the file from the static folder.
+
+Args:
+    filename (str): The name of the file to be sent.
+
+Returns:
+    Response: A response object containing the sent file.
+
+Raises:
+    RuntimeError: If 'static_folder' is not set.
+""""""",src/flask/app.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.6258351,def open_resource,"""""""Open a resource file relative to :attr:`root_path` for
+        reading.
+
+        For example, if the file ``schema.sql`` is next to the file
+        ``app.py`` where the ``Flask`` app is defined, it can be opened
+        with:
+
+        .. code-block:: python
+
+            with app.open_resource(""schema.sql"") as f:
+                conn.executescript(f.read())
+
+        :param resource: Path to the resource relative to
+            :attr:`root_path`.
+        :param mode: Open the file in this mode. Only reading is
+            supported, valid values are ""r"" (or ""rt"") and ""rb"".
+
+        Note this is a duplicate of the same method in the Flask
+        class.
+
+        """"""","""""""
+Opens a resource file.
+
+Args:
+    resource (str): The path to the resource file.
+    mode (str, optional): The mode in which to open the file. Defaults to ""rb"". Supported modes are ""r"", ""rt"", and ""rb"".
+
+Returns:
+    t.IO[t.AnyStr]: A file object opened in the specified mode.
+
+Raises:
+    ValueError: If an unsupported mode is provided.
+""""""",src/flask/app.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.53188497,def create_url_adapter,"""""""Creates a URL adapter for the given request. The URL adapter
+        is created at a point where the request context is not yet set
+        up so the request is passed explicitly.
+
+        .. versionadded:: 0.6
+
+        .. versionchanged:: 0.9
+           This can now also be called without a request object when the
+           URL adapter is created for the application context.
+
+        .. versionchanged:: 1.0
+            :data:`SERVER_NAME` no longer implicitly enables subdomain
+            matching. Use :attr:`subdomain_matching` instead.
+        """"""","""""""
+Creates a URL adapter for the current request.
+
+If `subdomain_matching` is disabled, it uses the default subdomain.
+Otherwise, it does not use a subdomain. The server name and subdomain are
+printed to the console for debugging purposes.
+
+Returns:
+    A bound URL map or None if the server name is not set.
+""""""",src/flask/app.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.59398866,def handle_http_exception,"""""""Handles an HTTP exception.  By default this will invoke the
+        registered error handlers and fall back to returning the
+        exception as response.
+
+        .. versionchanged:: 1.0.3
+            ``RoutingException``, used internally for actions such as
+             slash redirects during routing, is not passed to error
+             handlers.
+
+        .. versionchanged:: 1.0
+            Exceptions are looked up by code *and* by MRO, so
+            ``HTTPException`` subclasses can be handled with a catch-all
+            handler for the base ``HTTPException``.
+
+        .. versionadded:: 0.3
+        """"""","""""""
+Handles HTTP exceptions by checking their type and returning them accordingly.
+
+If the exception does not have an error code (i.e., it's a ProxyException), 
+it will be returned unchanged as an error. If it's a RoutingException, 
+it will also be returned without modification. Otherwise, it will be 
+passed to the error handler function to determine its response.
+
+Args:
+    e (HTTPException): The HTTP exception to handle.
+Returns:
+    HTTPException | ft.ResponseReturnValue: The handled exception or its response.
+""""""",src/flask/app.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.61974066,def handle_user_exception,"""""""This method is called whenever an exception occurs that
+        should be handled. A special case is :class:`~werkzeug
+        .exceptions.HTTPException` which is forwarded to the
+        :meth:`handle_http_exception` method. This function will either
+        return a response value or reraise the exception with the same
+        traceback.
+
+        .. versionchanged:: 1.0
+            Key errors raised from request data like ``form`` show the
+            bad key in debug mode rather than a generic bad request
+            message.
+
+        .. versionadded:: 0.7
+        """"""","""""""
+Handles exceptions raised by the application.
+
+This function checks for specific exception types and decides how to handle them.
+If a `BadRequestKeyError` occurs and debug mode or the trap bad request errors config flag are set, it sets the `show_exception` attribute of the error object to True.
+If an `HTTPException` occurs but is not trapped by the application, it calls the `handle_http_exception` method to handle the exception.
+Otherwise, it finds an error handler for the exception using the `_find_error_handler` method and calls it with the exception as an argument.
+
+Args:
+    e (Exception): The exception to be handled.
+Returns:
+    HTTPException | ft.ResponseReturnValue: The result of handling the exception or None if no handler is found.
+""""""",src/flask/app.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.6006823,def handle_exception,"""""""Handle an exception that did not have an error handler
+        associated with it, or that was raised from an error handler.
+        This always causes a 500 ``InternalServerError``.
+
+        Always sends the :data:`got_request_exception` signal.
+
+        If :data:`PROPAGATE_EXCEPTIONS` is ``True``, such as in debug
+        mode, the error will be re-raised so that the debugger can
+        display it. Otherwise, the original exception is logged, and
+        an :exc:`~werkzeug.exceptions.InternalServerError` is returned.
+
+        If an error handler is registered for ``InternalServerError`` or
+        ``500``, it will be used. For consistency, the handler will
+        always receive the ``InternalServerError``. The original
+        unhandled exception is available as ``e.original_exception``.
+
+        .. versionchanged:: 1.1.0
+            Always passes the ``InternalServerError`` instance to the
+            handler, setting ``original_exception`` to the unhandled
+            error.
+
+        .. versionchanged:: 1.1.0
+            ``after_request`` functions and other finalization is done
+            even for the default 500 response when there is no handler.
+
+        .. versionadded:: 0.3
+        """"""","""""""
+Handles exceptions raised during the execution of a request.
+
+If propagation is enabled, re-raises the exception. Otherwise, logs the exception and
+continues with the next error handler in the chain.
+
+Args:
+    e (Exception): The exception to be handled.
+
+Returns:
+    Response: A response object containing the server error.
+""""""",src/flask/app.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.6029397,def get_send_file_max_age,"""""""Used by :func:`send_file` to determine the ``max_age`` cache
+        value for a given file path if it wasn't passed.
+
+        By default, this returns :data:`SEND_FILE_MAX_AGE_DEFAULT` from
+        the configuration of :data:`~flask.current_app`. This defaults
+        to ``None``, which tells the browser to use conditional requests
+        instead of a timed cache, which is usually preferable.
+
+        Note this is a duplicate of the same method in the Flask
+        class.
+
+        .. versionchanged:: 2.0
+            The default configuration is ``None`` instead of 12 hours.
+
+        .. versionadded:: 0.9
+        """"""","""""""
+Returns the maximum age in seconds for sending files.
+
+If `filename` is provided, it will be used to retrieve the default send file max age from the application configuration.
+Otherwise, the default value will be returned.
+
+Args:
+    filename (str | None): The name of the file to use for retrieving the default send file max age. Defaults to None.
+
+Returns:
+    int | None: The maximum age in seconds for sending files, or None if no default is set.
+""""""",src/flask/blueprints.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.5522383,def send_static_file,"""""""The view function used to serve files from
+        :attr:`static_folder`. A route is automatically registered for
+        this view at :attr:`static_url_path` if :attr:`static_folder` is
+        set.
+
+        Note this is a duplicate of the same method in the Flask
+        class.
+
+        .. versionadded:: 0.5
+
+        """"""","""""""
+Sends a static file from the configured static folder.
+
+This method is used to serve static files. It checks if the `static_folder` attribute has been set and raises a RuntimeError if not.
+It then calls `get_send_file_max_age` to determine the maximum age for the file, which is necessary for blueprints to work correctly.
+Finally, it uses `send_from_directory` to send the file from the static folder.
+
+Args:
+    filename (str): The name of the file to be sent.
+
+Returns:
+    Response: A response object containing the sent file.
+
+Raises:
+    RuntimeError: If 'static_folder' is not set.
+""""""",src/flask/blueprints.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.6258351,def open_resource,"""""""Open a resource file relative to :attr:`root_path` for
+        reading.
+
+        For example, if the file ``schema.sql`` is next to the file
+        ``app.py`` where the ``Flask`` app is defined, it can be opened
+        with:
+
+        .. code-block:: python
+
+            with app.open_resource(""schema.sql"") as f:
+                conn.executescript(f.read())
+
+        :param resource: Path to the resource relative to
+            :attr:`root_path`.
+        :param mode: Open the file in this mode. Only reading is
+            supported, valid values are ""r"" (or ""rt"") and ""rb"".
+
+        Note this is a duplicate of the same method in the Flask
+        class.
+
+        """"""","""""""
+Opens a resource file.
+
+Args:
+    resource (str): The path to the resource file.
+    mode (str, optional): The mode in which to open the file. Defaults to ""rb"". Supported modes are ""r"", ""rt"", and ""rb"".
+
+Returns:
+    t.IO[t.AnyStr]: A file object opened in the specified mode.
+
+Raises:
+    ValueError: If an unsupported mode is provided.
+""""""",src/flask/blueprints.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.5603821,def create_logger,"""""""Get the Flask app's logger and configure it if needed.
+
+    The logger name will be the same as
+    :attr:`app.import_name <flask.Flask.name>`.
+
+    When :attr:`~flask.Flask.debug` is enabled, set the logger level to
+    :data:`logging.DEBUG` if it is not set.
+
+    If there is no handler for the logger's effective level, add a
+    :class:`~logging.StreamHandler` for
+    :func:`~flask.logging.wsgi_errors_stream` with a basic format.
+    """"""","""""""
+Creates a logger instance for the given application.
+
+Args:
+    app (App): The application object containing the name of the logger.
+
+Returns:
+    logging.Logger: A configured logger instance.
+""""""",src/flask/logging.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.66863674,def template_test,"""""""A decorator that is used to register custom template test.
+        You can specify a name for the test, otherwise the function
+        name will be used. Example::
+
+          @app.template_test()
+          def is_prime(n):
+              if n == 2:
+                  return True
+              for i in range(2, int(math.ceil(math.sqrt(n))) + 1):
+                  if n % i == 0:
+                      return False
+              return True
+
+        .. versionadded:: 0.10
+
+        :param name: the optional name of the test, otherwise the
+                     function name will be used.
+        """"""","""""""
+Template Test Decorator.
+
+This function returns a decorator that can be used to wrap a template test function.
+The wrapped function will have its `name` attribute set by the `template_test` function.
+
+Args:
+    f (Callable[[T_template_test], T_template_test]): The function to be decorated.
+    name (str | None, optional): The name of the template test. Defaults to None.
+
+Returns:
+    Callable[[T_template_test], T_template_test]: The decorated function.
+""""""",src/flask/sansio/app.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.696076,def template_global,"""""""A decorator that is used to register a custom template global function.
+        You can specify a name for the global function, otherwise the function
+        name will be used. Example::
+
+            @app.template_global()
+            def double(n):
+                return 2 * n
+
+        .. versionadded:: 0.10
+
+        :param name: the optional name of the global function, otherwise the
+                     function name will be used.
+        """"""","""""""
+Template Global Decorator
+
+This function is used to create a template global decorator. It takes a function `f` as an argument and returns the same function wrapped with the `add_template_global` method.
+
+The `name` parameter can be provided to specify the name of the template global. If not specified, it defaults to None.
+
+Args:
+    f (T_template_global): The function to be decorated.
+    name (str | None, optional): The name of the template global. Defaults to None.
+
+Returns:
+    T_template_global: The decorated function.
+""""""",src/flask/sansio/app.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.6066511,def should_ignore_error,"""""""This is called to figure out if an error should be ignored
+        or not as far as the teardown system is concerned.  If this
+        function returns ``True`` then the teardown handlers will not be
+        passed the error.
+
+        .. versionadded:: 0.10
+        """"""","""""""
+Determines whether an exception should be ignored.
+
+Args:
+    error (BaseException | None): The exception to check. Can be None for no exception.
+Returns:
+    bool: True if the exception should be ignored, False otherwise.
+""""""",src/flask/sansio/app.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.5947135,def record_once,"""""""Works like :meth:`record` but wraps the function in another
+        function that will ensure the function is only called once.  If the
+        blueprint is registered a second time on the application, the
+        function passed is not called.
+        """"""","""""""
+Records a function to be executed once during the first registration of a blueprint.
+
+This method is used to register a function that should only be executed during the initial setup of a blueprint.
+The function will be called when the blueprint's first registration occurs.
+
+Args:
+    func (t.Callable): The function to be recorded and executed.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.6378893,def add_app_template_filter,"""""""Register a template filter, available in any template rendered by the
+        application. Works like the :meth:`app_template_filter` decorator. Equivalent to
+        :meth:`.Flask.add_template_filter`.
+
+        :param name: the optional name of the filter, otherwise the
+                     function name will be used.
+        """"""","""""""
+Adds a template filter to the application's Jinja environment.
+
+This function registers a new template filter with the given name, which can be used in templates to perform custom operations. If no name is provided, the filter will be registered under its original name (i.e., the name of the `f` function).
+
+Args:
+    f: A callable that implements the template filter functionality.
+    name: The name under which the filter should be registered (optional). Defaults to None.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.63474506,def add_app_template_test,"""""""Register a template test, available in any template rendered by the
+        application. Works like the :meth:`app_template_test` decorator. Equivalent to
+        :meth:`.Flask.add_template_test`.
+
+        .. versionadded:: 0.10
+
+        :param name: the optional name of the test, otherwise the
+                     function name will be used.
+        """"""","""""""
+Adds a template test to the application's Jinja environment.
+
+This function registers a template test with the given name (defaulting to the test function's name if not provided).
+
+Args:
+    f (ft.TemplateTestCallable): The test function to register.
+    name (str | None, optional): The name of the test. Defaults to None.
+
+Returns:
+    None
+""""""",src/flask/sansio/blueprints.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.5843529,def app_template_global,"""""""Register a template global, available in any template rendered by the
+        application. Equivalent to :meth:`.Flask.template_global`.
+
+        .. versionadded:: 0.10
+
+        :param name: the optional name of the global, otherwise the
+                     function name will be used.
+        """"""","""""""
+Decorates a function to make it available as an application template global.
+
+This decorator adds the decorated function to the list of application template globals.
+It is typically used in conjunction with the `add_app_template_global` method.
+
+Args:
+    name (str | None): The name under which the decorated function should be added. If None, no name will be specified.
+
+Returns:
+    T_template_global: A decorator function that adds the decorated function to the list of application template globals.
+""""""",src/flask/sansio/blueprints.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.63431734,def app_errorhandler,"""""""Like :meth:`errorhandler`, but for every request, not only those handled by
+        the blueprint. Equivalent to :meth:`.Flask.errorhandler`.
+        """"""","""""""
+App Error Handler Decorator.
+
+This function returns a decorator that can be used to handle application errors.
+The decorator takes an error handling function as input and wraps it with the provided app error handler.
+
+Args:
+    code (type[Exception] | int): The type of exception or error code to use for error handling.
+    f (T_error_handler): The error handling function to wrap.
+
+Returns:
+    T_error_handler: The wrapped error handling function.
+
+Example:
+    @app_errorhandler(404)
+    def handle_404(f):
+        # Handle 404 errors
+        pass
+
+    @app_errorhandler(Exception)
+    def handle_all_errors(f):
+        # Handle all exceptions
+        pass
+""""""",src/flask/sansio/blueprints.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.74583316,def endpoint,"""""""Decorate a view function to register it for the given
+        endpoint. Used if a rule is added without a ``view_func`` with
+        :meth:`add_url_rule`.
+
+        .. code-block:: python
+
+            app.add_url_rule(""/ex"", endpoint=""example"")
+
+            @app.endpoint(""example"")
+            def example():
+                ...
+
+        :param endpoint: The endpoint name to associate with the view
+            function.
+        """"""","""""""
+Endpoint Decorator Function
+
+This function is a decorator that registers an endpoint with the provided endpoint string.
+It takes in a function `f` and returns a new function that wraps the original function, 
+registering it as a view function for the specified endpoint.
+
+Args:
+    endpoint (str): The endpoint to register the function under.
+    f (Callable[[F], F]): The function to be registered as a view function.
+
+Returns:
+    Callable[[F], F]: A new function that wraps the original function and registers it as a view function.
+""""""",src/flask/sansio/scaffold.py,3d2e1480774a331d776db25f5ec617329be02cc7
+0.63589305,def update_template_context,"""""""Update the template context with some commonly used variables.
+        This injects request, session, config and g into the template
+        context as well as everything template context processors want
+        to inject.  Note that the as of Flask 0.6, the original values
+        in the context will not be overridden if a context processor
+        decides to return a value with the same key.
+
+        :param context: the context as a dictionary that is updated in place
+                        to add extra variables.
+        """"""","""""""
+Updates the template context with additional information.
+
+This function is used to extend the context passed to a template, allowing it
+to be rendered outside of a request context. It iterates over the list of
+template context processors and applies their functions to the current
+context, updating it accordingly.
+
+Args:
+    context (dict): The initial context to update.
+
+Returns:
+    None
+""""""",src/flask/app.py,69b3be8d37f51d0dd779776d36b478cdb47376af
+0.68586737,def create_app,"""""""Create and configure an instance of the Flask application.""""""","""""""
+Creates a new Flask application instance.
+
+This function initializes a new Flask application with default settings,
+and allows for optional configuration from a test environment or an instance
+configuration file. The application is then configured to use the database and
+registered with blueprints.
+
+Args:
+    test_config (dict): Optional test configuration dictionary.
+        If provided, this will override any instance configuration.
+
+Returns:
+    Flask application instance.
+""""""",examples/tutorial/flaskr/__init__.py,19b8021d07e38f183ed0a59f29eae48851114a6d
+0.51051044,def do_teardown_appcontext,"""""""Called right before the application context is popped.
+
+        When handling a request, the application context is popped
+        after the request context. See :meth:`do_teardown_request`.
+
+        This calls all functions decorated with
+        :meth:`teardown_appcontext`. Then the
+        :data:`appcontext_tearing_down` signal is sent.
+
+        This is called by
+        :meth:`AppContext.pop() <flask.ctx.AppContext.pop>`.
+
+        .. versionadded:: 0.9
+        """"""","""""""
+Tear down the application context.
+
+This function is responsible for cleaning up resources and releasing locks when an exception occurs or when the application context is being torn down.
+
+Args:
+    - self: The object instance that owns the teardown functions.
+    - exc (BaseException | None): The exception to be handled. If None, no action will be taken. Defaults to _sentinel.
+        - _sentinel: A sentinel value used to indicate that no exception is present.
+
+Returns:
+    None
+
+Raises:
+    None
+""""""",src/flask/app.py,19b8021d07e38f183ed0a59f29eae48851114a6d
+0.5902456,def stream_with_context,"""""""Request contexts disappear when the response is started on the server.
+    This is done for efficiency reasons and to make it less likely to encounter
+    memory leaks with badly written WSGI middlewares.  The downside is that if
+    you are using streamed responses, the generator cannot access request bound
+    information any more.
+
+    This function however can help you keep the context around for longer::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            @stream_with_context
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(generate())
+
+    Alternatively it can also be used around a specific generator::
+
+        from flask import stream_with_context, request, Response
+
+        @app.route('/stream')
+        def streamed_response():
+            def generate():
+                yield 'Hello '
+                yield request.args['name']
+                yield '!'
+            return Response(stream_with_context(generate()))
+
+    .. versionadded:: 0.9
+    """"""","""""""
+Stream a generator or function with context.
+
+This function takes an iterator or callable that returns an iterator, and wraps it in a context manager. The context manager pushes the current request context onto the stack when the generator is started, and pops it off when the iteration completes.
+
+If the input is not an iterator, but rather a callable that returns an iterator, this function will wrap the callable in a decorator to create a new function that takes any arguments and returns an iterator. This allows the original function to be used as if it were an iterator.
+
+The context manager uses the `_cv_request` object to get the current request context, and pushes it onto the stack when the generator is started. When the iteration completes, the context is popped off the stack.
+
+This function can only be used when a request context is active, such as in a view function.
+
+Args:
+    generator_or_function: An iterator or callable that returns an iterator.
+
+Returns:
+    An iterator over the results of the input generator or function.
+""""""",src/flask/helpers.py,19b8021d07e38f183ed0a59f29eae48851114a6d
+0.64990103,def redirect,"""""""Create a redirect response object.
+
+        This is called by :func:`flask.redirect`, and can be called
+        directly as well.
+
+        :param location: The URL to redirect to.
+        :param code: The status code for the redirect.
+
+        .. versionadded:: 2.2
+            Moved from ``flask.redirect``, which calls this method.
+        """"""","""""""
+Redirects to a specified URL with an optional HTTP status code.
+
+Args:
+    location (str): The URL to redirect to.
+    code (int, optional): The HTTP status code. Defaults to 302.
+
+Returns:
+    BaseResponse: A response object containing the redirect URL and status code.
+""""""",src/flask/sansio/app.py,19b8021d07e38f183ed0a59f29eae48851114a6d

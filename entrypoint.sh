@@ -63,6 +63,5 @@ then
     git fetch origin "${GITHUB_REF#refs/heads/}"
     git push origin HEAD
 else
-    export GH_TOKEN="${GITHUB_TOKEN}"
     gh pr create -B main -H "$BRANCH_NAME" --fill-first
 fi

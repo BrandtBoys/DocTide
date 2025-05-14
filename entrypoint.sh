@@ -63,7 +63,7 @@ then
     git fetch origin "${GITHUB_REF#refs/heads/}"
     git push origin HEAD
 else
-    gh auth setup-git
-    echo "${GITHUB_TOKEN}" | gh auth login --with-token
-    gh pr create -B main -H "$BRANCH_NAME" --fill-first
+echo "${GITHUB_TOKEN}" | gh auth login --with-token --hostname github.com
+gh auth setup-git
+gh pr create -B main -H "$BRANCH_NAME" --fill-first
 fi

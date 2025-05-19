@@ -77,6 +77,7 @@ def main(testing):
 
     # For testing purpose
     if testing:
+        print(testing)
         success_rate_file = os.path.join("success_rate.csv")
         success_rate_file_exists = os.path.exists(success_rate_file)
         with open(success_rate_file, mode="a", newline="", encoding="utf-8") as f:
@@ -85,7 +86,7 @@ def main(testing):
                 writer.writerow(["Success", "Comment"])
             writer.writerows([generation_attempts])
 
-    repo.index.add(success_rate_file)
+        repo.index.add(success_rate_file)
 
     # Commit changes
     repo.index.commit(f"Updated function-level documentation for commit: ${head_commit.hexsha}")
@@ -204,5 +205,6 @@ def generate_comments(file_language: str, prev_content: str, source_code: str, g
 if __name__ == "__main__":
     testing = False
     testing = sys.argv[1]
+    print(sys.argv[1])
     main(testing)
 

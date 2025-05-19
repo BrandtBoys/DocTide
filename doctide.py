@@ -77,7 +77,6 @@ def main(testing):
 
     # For testing purpose
     if testing:
-        print(testing)
         success_rate_file = os.path.join("success_rate.csv")
         success_rate_file_exists = os.path.exists(success_rate_file)
         with open(success_rate_file, mode="a", newline="", encoding="utf-8") as f:
@@ -205,6 +204,6 @@ def generate_comments(file_language: str, prev_content: str, source_code: str, g
 if __name__ == "__main__":
     testing = False
     testing = sys.argv[1]
-    print(sys.argv[1])
+    testing = testing.lower() == "true"
     main(testing)
 

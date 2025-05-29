@@ -1,16 +1,31 @@
 @startuml
 !include small_logo_sprite.puml
 skinparam actorStyle awesome
+
+left to right direction
+
+actor Developer
+
+rectangle GitHub #FFF7E6{
+
+    rectangle Repository as repo {
+
+    }
+    
+    (Creates Pull Request) as PR 
+    (Merges or deletes PR) as APR
+    (Invokes CI workflow) as CI
+}
+
 rectangle "<$DocTide_logo>" as DocTide
 
-rectangle GitHub{
-    (invokes CI workflow) as CI
-    (creates Pull Request) as PR
-    (Modifies or accepts PR) as APR
-}
-:Developer: --> CI : Commits changes to code 
-CI --> DocTide : using DocTide Action
-DocTide --> PR : commits generated function-level documentation
-:Developer: --> APR 
+Developer -[#0F766E]-> repo : <color:#0F766E>Commits changes to code</color>
+CI -[#4F46E5]down-> DocTide : <color:#4F46E5>Using DocTide Action</color>
+DocTide -[#D97706]up-> PR : <color:#D97706>Commits generated documentation</color>
+Developer -[#BE123C]-> APR: <color:#BE123C>Modifies, accepts or denies PR</color>
+DocTide <--> repo: Fetches the changes
+repo .left.> CI
+CI .left.> PR
+PR .left.> APR
 
 @enduml
